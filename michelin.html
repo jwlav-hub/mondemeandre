@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Michelin Finder – Double Happiness</title>
+  <meta name="description" content="Find budget-friendly Michelin-recognized restaurants in any city. Bib Gourmand picks and affordable Michelin-starred dining — filtered by your budget.">
+  <link rel="canonical" href="https://doublehappiness.life/michelin.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=4">
+</head>
+<body>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <a href="index.html" class="logo">
+      <img src="images/dh-logo.png" alt="Double Happiness logo" class="logo-img" width="48" height="48">
+      <span class="logo-text">
+        <span class="logo-name">Double Happiness</span>
+        <span class="logo-tagline">Asia Travel & Dining Platform</span>
+      </span>
+    </a>
+
+    <nav class="page-nav" aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+      <a href="journal.html">Journal</a>
+      <a href="guides.html">Guides</a>
+      <a href="plan.html">Plan My Trip</a>
+      <a href="michelin.html" class="active">Budget Michelin</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <div></div>
+  </header>
+
+  <main>
+    <div class="tool-page">
+
+      <!-- ── Side-by-side tool columns ── -->
+      <div class="tool-columns" id="oso-social">
+
+        <!-- Left: Budget Michelin Finder -->
+        <div class="tool-column">
+          <div class="page-intro">
+            <span class="section-label">AI-Powered Dining Tool</span>
+            <h2>Budget Michelin Finder</h2>
+            <p class="page-intro-tagline">Michelin-recognized restaurants — without the Michelin prices</p>
+            <p><strong>精致穷 — The Art of Pure Indulgence with Next to Nothing</strong></p>
+            <p>The Chinese have a phrase for it: 精致穷 (<em>jīng zhì qióng</em>). Exquisitely poor. The refined art of living beautifully without the budget to match.</p>
+            <p>It's a Gen Z concept — the person who saves all week to sit at the right café, who knows exactly which experiences are worth the splurge and which ones aren't. Not poverty. Curation.</p>
+            <p>Michelin figured this out long before the algorithm did. Hidden inside their guide — past the tasting menus and the expense accounts — is a category built entirely around this idea. Restaurants where the kitchen is serious, the ingredients are exceptional, and lunch costs less than a cocktail at the hotel bar.</p>
+            <p>You don't need to be wealthy to eat extraordinarily well. You need to know where to look. Enter a city below — the AI will return Michelin-recognized restaurants at budget price points: Bib Gourmand picks and affordable starred restaurants.</p>
+          </div>
+
+          <div class="tool-form-wrap">
+            <form class="tool-form" id="michelinForm" onsubmit="searchMichelin(event)">
+
+              <div class="form-row-group">
+                <div class="form-row form-row--main">
+                  <label class="form-label" for="city">City</label>
+                  <input
+                    class="form-input"
+                    type="text"
+                    id="city"
+                    name="city"
+                    placeholder="e.g. Bangkok, Osaka, Singapore…"
+                    autocomplete="off"
+                    required
+                  >
+                </div>
+                <div class="form-row form-row--main">
+                  <label class="form-label" for="district">District</label>
+                  <input
+                    class="form-input"
+                    type="text"
+                    id="district"
+                    name="district"
+                    list="district-options"
+                    placeholder="All"
+                    autocomplete="off"
+                  >
+                  <datalist id="district-options">
+                    <option value="All">
+                  </datalist>
+                </div>
+              </div>
+
+              <div class="form-row-group">
+                <div class="form-row">
+                  <label class="form-label" for="budget">Budget per person</label>
+                  <select class="form-select" id="budget" name="budget">
+                    <option value="$20">Street</option>
+                    <option value="$28" selected>Under $28</option>
+                    <option value="$50">Under $50</option>
+                    <option value="any budget">Any budget</option>
+                  </select>
+                </div>
+                <div class="form-row">
+                  <label class="form-label" for="mealType">Meal</label>
+                  <select class="form-select" id="mealType" name="mealType">
+                    <option value="either" selected>Lunch or dinner</option>
+                    <option value="lunch">Lunch only</option>
+                    <option value="dinner">Dinner only</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="tool-submit" id="submitBtn">
+                Find Restaurants
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Right: OSo Social Trendy Finder -->
+        <div class="tool-column">
+          <div class="page-intro">
+            <span class="section-label">AI-Powered Social Discovery</span>
+            <h2>OSo Social Trendy Finder</h2>
+            <p class="page-intro-tagline">The spots the in-crowd already knows about. Now you do too.</p>
+            <p><strong>人声鼎沸 — The Sound of a Room That's Alive</strong></p>
+            <p>The Chinese have a phrase for it: 人声鼎沸 (<em>rén shēng dǐng fèi</em>). Human voices boiling in a cauldron. Not background music, not kitchen clatter — the particular roar that fills a room when every table is taken and no one wants to be anywhere else.</p>
+            <p>You know the sound. You've walked past a place, heard it through the glass, and turned around.</p>
+            <p>That noise is a signal. The in-crowd found this place. The locals came back. The room filled up before the reviews caught up. 人声鼎沸 doesn't happen by accident — it happens when the energy is right, the menu earns it, and the city has quietly decided.</p>
+            <p>This tool finds those rooms. Enter a city below — the AI will surface the places worth knowing, filtered by what you're seeking.</p>
+          </div>
+
+          <div class="tool-form-wrap">
+            <form class="tool-form" id="trendyForm" onsubmit="searchTrendy(event)">
+
+              <div class="form-row-group">
+                <div class="form-row form-row--main">
+                  <label class="form-label" for="trendyCity">City</label>
+                  <input
+                    class="form-input"
+                    type="text"
+                    id="trendyCity"
+                    placeholder="e.g. Bangkok, Tokyo, Singapore…"
+                    autocomplete="off"
+                    required
+                  >
+                </div>
+                <div class="form-row form-row--main">
+                  <label class="form-label" for="trendyDistrict">District</label>
+                  <input
+                    class="form-input"
+                    type="text"
+                    id="trendyDistrict"
+                    list="trendy-district-options"
+                    placeholder="All"
+                    autocomplete="off"
+                  >
+                  <datalist id="trendy-district-options">
+                    <option value="All">
+                  </datalist>
+                </div>
+              </div>
+
+              <div class="form-row-group">
+                <div class="form-row">
+                  <label class="form-label" for="trendyBudget">Budget per person</label>
+                  <select class="form-select" id="trendyBudget">
+                    <option value="$20">Street</option>
+                    <option value="$28" selected>Under $28</option>
+                    <option value="$50">Under $50</option>
+                    <option value="any budget">Any budget</option>
+                  </select>
+                </div>
+                <div class="form-row">
+                  <label class="form-label" for="trendyMealType">Meal</label>
+                  <select class="form-select" id="trendyMealType">
+                    <option value="either" selected>Lunch or dinner</option>
+                    <option value="lunch">Lunch only</option>
+                    <option value="dinner">Dinner only</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <label class="form-label">Seeking <span class="form-label-note">(select all that apply)</span></label>
+                <div class="interest-grid" id="seekingGrid">
+                  <button type="button" class="interest-btn" data-seeking="Eats">Eats</button>
+                  <button type="button" class="interest-btn" data-seeking="Cocktails">Cocktails</button>
+                  <button type="button" class="interest-btn" data-seeking="Microbrews">Microbrews</button>
+                  <button type="button" class="interest-btn" data-seeking="Natural Wine">Natural Wine</button>
+                  <button type="button" class="interest-btn" data-seeking="Rooftop">Rooftop</button>
+                  <button type="button" class="interest-btn" data-seeking="Specialty Coffee">Specialty Coffee</button>
+                  <button type="button" class="interest-btn" data-seeking="Omakase">Omakase</button>
+                  <button type="button" class="interest-btn" data-seeking="Night Market">Night Market</button>
+                </div>
+              </div>
+
+              <button type="submit" class="tool-submit" id="trendySubmitBtn">
+                Find Trendy Spots
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div><!-- /.tool-columns -->
+
+      <!-- ── Michelin results (full width) ── -->
+      <div class="tool-loading" id="loadingState" aria-live="polite">
+        <div class="loading-spinner" aria-hidden="true"></div>
+        <p>Searching Michelin recommendations…</p>
+      </div>
+      <div class="tool-error" id="errorState" role="alert">
+        <p id="errorMessage"></p>
+      </div>
+      <div class="tool-results" id="resultsSection">
+        <div class="results-header">
+          <span class="section-label" id="resultsLabel"></span>
+          <h2 id="resultsHeading"></h2>
+        </div>
+        <div class="results-grid" id="resultsGrid"></div>
+        <div class="tool-affiliates">
+          <div class="affiliate-card">
+            <p class="affiliate-label">Book your table</p>
+            <p>Reserve ahead at Michelin restaurants — spots fill fast.</p>
+            <a href="https://www.thefork.com/" target="_blank" rel="noopener" class="btn-outline">Book via TheFork</a>
+          </div>
+          <div class="affiliate-card">
+            <p class="affiliate-label">Travel insurance</p>
+            <p>Protect your trip before you go. SafetyWing covers medical, delays, and more.</p>
+            <a href="https://safetywing.com/" target="_blank" rel="noopener" class="btn-outline">Get SafetyWing</a>
+          </div>
+          <div class="affiliate-card">
+            <p class="affiliate-label">Stay connected</p>
+            <p>eSIM for this destination — no SIM-swapping, works on arrival.</p>
+            <a href="https://www.airalo.com/" target="_blank" rel="noopener" class="btn-outline">Get Airalo eSIM</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── OSo Social results (full width) ── -->
+      <div class="tool-loading" id="trendyLoading" aria-live="polite">
+        <div class="loading-spinner" aria-hidden="true"></div>
+        <p>Finding what's hot right now…</p>
+      </div>
+      <div class="tool-error" id="trendyError" role="alert">
+        <p id="trendyErrorMsg"></p>
+      </div>
+      <div class="tool-results" id="trendyResults">
+        <div class="results-header">
+          <span class="section-label" id="trendyResultsLabel"></span>
+          <h2 id="trendyResultsHeading"></h2>
+        </div>
+        <div class="results-grid" id="trendyResultsGrid"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <a href="index.html" class="footer-logo logo">
+      <img src="images/dh-logo.png" alt="Double Happiness logo" class="logo-img" width="48" height="48">
+      <span class="logo-text">
+        <span class="logo-name">Double Happiness</span>
+        <span class="logo-tagline">Asia Travel & Dining Platform</span>
+      </span>
+    </a>
+
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="index.html">Home</a>
+      <a href="journal.html">Journal</a>
+      <a href="guides.html">Guides</a>
+      <a href="plan.html">Plan My Trip</a>
+      <a href="michelin.html">Budget Michelin</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <div class="footer-social">
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://twitter.com/" target="_blank" rel="noopener">Twitter / X</a>
+    </div>
+
+    <p class="footer-copy">&copy; 2025 Joseph Laviolette · Double Happiness</p>
+  </footer>
+
+  <script>
+    const loadingState   = document.getElementById('loadingState');
+    const errorState     = document.getElementById('errorState');
+    const errorMessage   = document.getElementById('errorMessage');
+    const resultsSection = document.getElementById('resultsSection');
+    const resultsGrid    = document.getElementById('resultsGrid');
+    const resultsLabel   = document.getElementById('resultsLabel');
+    const resultsHeading = document.getElementById('resultsHeading');
+    const submitBtn      = document.getElementById('submitBtn');
+
+    function hideAll() {
+      loadingState.classList.remove('visible');
+      errorState.classList.remove('visible');
+      resultsSection.classList.remove('visible');
+    }
+
+    const BADGE_MAP = {
+      'bib gourmand': { label: 'Bib Gourmand', cls: 'badge--bib' },
+      '1 star':       { label: '★ 1 Star',      cls: 'badge--star' },
+      '2 stars':      { label: '★★ 2 Stars',    cls: 'badge--star' },
+      '3 stars':      { label: '★★★ 3 Stars',   cls: 'badge--star' },
+      'selected':     { label: 'Michelin Selected', cls: 'badge--selected' },
+    };
+
+    function getBadge(raw) {
+      const key = (raw || '').toLowerCase().trim();
+      for (const [k, v] of Object.entries(BADGE_MAP)) {
+        if (key.includes(k)) return v;
+      }
+      return { label: raw || 'Michelin', cls: 'badge--selected' };
+    }
+
+    function renderResults(restaurants, city, budget) {
+      resultsLabel.textContent   = city;
+      resultsHeading.textContent = `Budget Michelin Picks`;
+      resultsGrid.innerHTML = '';
+
+      restaurants.forEach(r => {
+        const badge = getBadge(r.michelin_distinction);
+        const card  = document.createElement('article');
+        card.className = 'result-card';
+        card.innerHTML = `
+          <div class="result-card-header">
+            <h3 class="result-name">${r.name}</h3>
+            <span class="michelin-badge ${badge.cls}">${badge.label}</span>
+          </div>
+          <div class="result-meta">
+            <span class="result-cuisine">${r.cuisine}</span>
+            <span class="result-price">${r.price_range}</span>
+          </div>
+          <p class="result-desc">${r.description}</p>
+          ${r.tip ? `<p class="result-tip"><strong>Tip:</strong> ${r.tip}</p>` : ''}
+        `;
+        resultsGrid.appendChild(card);
+      });
+
+      resultsSection.classList.add('visible');
+    }
+
+    async function searchMichelin(e) {
+      e.preventDefault();
+      const city     = document.getElementById('city').value.trim();
+      const districtRaw = document.getElementById('district').value.trim();
+      const district = (districtRaw.toLowerCase() === 'all' || districtRaw === '') ? '' : districtRaw;
+      const budget   = document.getElementById('budget').value;
+      const mealType = document.getElementById('mealType').value;
+
+      if (!city) return;
+
+      hideAll();
+      loadingState.classList.add('visible');
+      submitBtn.disabled = true;
+
+      const mealText    = mealType === 'either' ? 'lunch or dinner' : mealType;
+      const budgetText  = budget === 'any budget' ? 'any budget' : `under ${budget} per person`;
+      const location    = district ? `${city} (${district} district)` : city;
+
+      const prompt = `List Michelin-recognized restaurants in ${location} suitable for ${mealText} at ${budgetText}.${district ? ` Prioritize restaurants in or near the ${district} area of ${city}.` : ''}
+Focus on Bib Gourmand and affordable Michelin-starred options. Include 6–8 restaurants.
+Return ONLY a raw JSON array (no markdown, no code blocks, no preamble) where each object has these fields:
+name, michelin_distinction, cuisine, price_range, description, tip.`;
+
+      try {
+        const res = await fetch('/api/claude', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 1500,
+            messages: [{ role: 'user', content: prompt }],
+          }),
+        });
+
+        if (!res.ok) throw new Error(`API error ${res.status}`);
+
+        const data    = await res.json();
+        const rawText = data.content[0].text.trim();
+
+        // Strip optional markdown code fences
+        const jsonText = rawText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+        const restaurants = JSON.parse(jsonText);
+
+        hideAll();
+        renderResults(restaurants, location, budget);
+      } catch (err) {
+        hideAll();
+        errorMessage.textContent = `Something went wrong: ${err.message}. Please try again.`;
+        errorState.classList.add('visible');
+      } finally {
+        submitBtn.disabled = false;
+      }
+    }
+
+    // ══════════════════════════════
+    // OSo Social Trendy Finder
+    // ══════════════════════════════
+
+    // Seeking toggle
+    document.getElementById('seekingGrid').addEventListener('click', e => {
+      const btn = e.target.closest('.interest-btn');
+      if (btn) btn.classList.toggle('active');
+    });
+
+    const trendyLoading      = document.getElementById('trendyLoading');
+    const trendyError        = document.getElementById('trendyError');
+    const trendyErrorMsg     = document.getElementById('trendyErrorMsg');
+    const trendyResults      = document.getElementById('trendyResults');
+    const trendyResultsGrid  = document.getElementById('trendyResultsGrid');
+    const trendyResultsLabel = document.getElementById('trendyResultsLabel');
+    const trendyResultsHead  = document.getElementById('trendyResultsHeading');
+    const trendySubmitBtn    = document.getElementById('trendySubmitBtn');
+
+    function hideTrendyAll() {
+      trendyLoading.classList.remove('visible');
+      trendyError.classList.remove('visible');
+      trendyResults.classList.remove('visible');
+    }
+
+    async function searchTrendy(e) {
+      e.preventDefault();
+
+      const city        = document.getElementById('trendyCity').value.trim();
+      const districtRaw = document.getElementById('trendyDistrict').value.trim();
+      const district    = (districtRaw.toLowerCase() === 'all' || districtRaw === '') ? '' : districtRaw;
+      const budget      = document.getElementById('trendyBudget').value;
+      const mealType    = document.getElementById('trendyMealType').value;
+      const seeking     = [...document.querySelectorAll('#seekingGrid .interest-btn.active')]
+                            .map(b => b.dataset.seeking);
+
+      if (!city) return;
+
+      hideTrendyAll();
+      trendyLoading.classList.add('visible');
+      trendySubmitBtn.disabled = true;
+
+      const location    = district ? `${city} (${district} district)` : city;
+      const mealText    = mealType === 'either' ? 'lunch or dinner' : mealType;
+      const budgetText  = budget === 'any budget' ? 'any budget' : `under ${budget} per person`;
+      const seekingText = seeking.length > 0 ? seeking.join(', ') : 'all types of venues';
+
+      const prompt = `You are a local insider and city magazine editor who knows exactly what is trending in ${location} right now.
+
+Find currently buzzing, in-crowd spots for ${mealText} at ${budgetText}.
+Seeking: ${seekingText}${district ? `\nFocus on the ${district} area of ${city}.` : ''}
+
+These should be places featured in recent city guides, local press, and social scenes — not legacy restaurant institutions. Think Monocle, Time Out, Condé Nast, local Instagram tastemakers.
+
+Return ONLY a raw JSON array with 6–8 venues (no markdown, no code blocks, no preamble). Each object must have exactly these fields:
+name, category, vibe, price_range, description, tip`;
+
+      try {
+        const res = await fetch('/api/claude', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 1500,
+            messages: [{ role: 'user', content: prompt }],
+          }),
+        });
+
+        if (!res.ok) throw new Error(`API error ${res.status}`);
+
+        const data    = await res.json();
+        const rawText = data.content[0].text.trim();
+        const jsonText = rawText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+        const venues  = JSON.parse(jsonText);
+
+        hideTrendyAll();
+        renderTrendyResults(venues, location, seeking);
+      } catch (err) {
+        hideTrendyAll();
+        trendyErrorMsg.textContent = `Something went wrong: ${err.message}. Please try again.`;
+        trendyError.classList.add('visible');
+      } finally {
+        trendySubmitBtn.disabled = false;
+      }
+    }
+
+    function renderTrendyResults(venues, location, seeking) {
+      trendyResultsLabel.textContent = location;
+      trendyResultsHead.textContent  = seeking.length > 0
+        ? `Trending: ${seeking.join(' · ')}`
+        : 'Trending Now';
+
+      trendyResultsGrid.innerHTML = '';
+      venues.forEach(v => {
+        const card = document.createElement('article');
+        card.className = 'result-card';
+        card.innerHTML = `
+          <div class="result-card-header">
+            <h3 class="result-name">${v.name}</h3>
+            <span class="michelin-badge badge--selected">${v.category || 'Trending'}</span>
+          </div>
+          <div class="result-meta">
+            <span class="result-cuisine">${v.vibe || ''}</span>
+            <span class="result-price">${v.price_range}</span>
+          </div>
+          <p class="result-desc">${v.description}</p>
+          ${v.tip ? `<p class="result-tip"><strong>Tip:</strong> ${v.tip}</p>` : ''}
+        `;
+        trendyResultsGrid.appendChild(card);
+      });
+
+      trendyResults.classList.add('visible');
+    }
+  </script>
+
+</body>
+</html>
