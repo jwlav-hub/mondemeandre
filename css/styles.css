@@ -1,5 +1,5 @@
 /* ===========================
-   Double Happiness – styles.css
+   Monde Méandre – styles.css
    =========================== */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -8,20 +8,33 @@ html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
   font-family: 'Lato', sans-serif;
-  color: #2c2c2c;
-  background: #fff;
+  color: var(--text);
+  background: var(--white);
   -webkit-font-smoothing: antialiased;
 }
 
 :root {
-  --gold: #8b7d65;
-  --gold-light: #b0976e;
-  --dark: #3D3C38;
-  --text: #2c2c2c;
-  --text-light: #6b6560;
-  --bg-light: #EFEEEB;
-  --border: #e8e4dd;
-  --white: #fff;
+  /* Monde Méandre palette */
+  --mm-indigo: #1F2E46;
+  --mm-enamel-blue: #24395F;
+  --mm-french-blue: #AAB8C8;
+  --mm-expedition-gold: #8E846F;
+  --mm-champagne-gold: #D8C078;
+  --mm-pale-yellow: #FFF4B8;
+  --mm-gallery-mist: #EEEEEB;
+  --mm-aged-map: #CDBB96;
+  --mm-charcoal-ink: #2B2A25;
+  --mm-ivory-cloud: #F8F3E8;
+
+  /* Semantic aliases */
+  --gold: #8E846F;
+  --gold-light: #D8C078;
+  --dark: #1F2E46;
+  --text: #2B2A25;
+  --text-light: #7A7268;
+  --bg-light: #EEEEEB;
+  --border: #D0C4AE;
+  --white: #F8F3E8;
 }
 
 img { display: block; max-width: 100%; }
@@ -200,7 +213,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(20,18,16,0.96);
+  background: rgba(31,46,70,0.96);
   backdrop-filter: blur(8px);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -269,7 +282,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
 ══════════════════════════════ */
 .blog-section {
   padding: 5rem 3rem;
-  background: #fff;
+  background: var(--white);
 }
 
 .section-header {
@@ -292,7 +305,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
   overflow: hidden;
   box-shadow: 0 2px 14px rgba(0,0,0,0.07);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
-  background: #fff;
+  background: var(--white);
   display: flex;
   flex-direction: column;
 }
