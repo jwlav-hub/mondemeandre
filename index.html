@@ -34,10 +34,9 @@
   </nav>
 
   <!-- HERO -->
-  <header class="hero">
+  <header class="hero hero--home">
 
     <div class="hero-header">
-      <!-- Logo – left column -->
       <a href="index.html" class="logo">
         <img src="images/mm-logo2.png" alt="Monde Méandre logo" class="logo-img" width="48" height="48">
         <span class="logo-text">
@@ -46,7 +45,6 @@
         </span>
       </a>
 
-      <!-- Nav – center column -->
       <nav class="hero-nav" aria-label="Primary navigation">
         <a href="index.html" class="active">Home</a>
         <a href="journal.html">Journal</a>
@@ -56,20 +54,25 @@
         <a href="about.html">About</a>
       </nav>
 
-      <!-- Right column (empty, balances grid) -->
       <div></div>
     </div>
 
-    <!-- Hero text -->
-    <div class="hero-body">
-      <div>
-        <p class="hero-label">World Wandering — Travel & Dining</p>
-        <h1 class="hero-title">Find the Asia Most Travelers Never See</h1>
-        <p class="hero-desc">Cultural stories, practical travel guides, and AI-powered tools for budget Michelin dining and custom itineraries.</p>
+    <!-- Globe + text split -->
+    <div class="hero-split">
+
+      <div class="hero-globe-col">
+        <div id="globe-hero"></div>
       </div>
+
+      <div class="hero-content-col">
+        <p class="hero-label">World Wandering — Travel & Dining</p>
+        <h1 class="hero-title">The Art of Planning Spontaneous Travel</h1>
+        <p class="hero-desc">AI-powered tools for unplanned adventures. Define your pathway and create your bespoke itinerary, find dirt cheap Michelin dining and end up in the trendiest dive bars.</p>
+        <p class="hero-desc"><em>Wuwei</em> (无为) — the idea that your best pathway isn't forced, from the Taoist concept of &ldquo;effortless action&rdquo;.</p>
+      </div>
+
     </div>
 
-    <!-- Scroll indicator -->
     <div class="scroll-cue" aria-hidden="true">Scroll</div>
 
   </header>
@@ -231,13 +234,140 @@
     <p class="footer-copy">&copy; 2026 Joseph Laviolette · Monde Méandre</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson@3/dist/topojson.min.js"></script>
   <script>
+    // ── Sticky nav ────────────────────────────────────────────────
     const stickyNav = document.getElementById('stickyNav');
     const heroEl = document.querySelector('.hero');
     window.addEventListener('scroll', () => {
       const threshold = heroEl.offsetHeight * 0.65;
       stickyNav.classList.toggle('visible', window.scrollY > threshold);
     }, { passive: true });
+
+    // ── Hero globe ────────────────────────────────────────────────
+    const container = document.getElementById('globe-hero');
+    const size      = Math.min(480, container.offsetWidth || 480);
+    const cx = size / 2, cy = size / 2, radius = size / 2 - 6;
+
+    const C_ARC  = 'rgba(255,255,255,0.72)';
+    const C_CITY = '#D8C078';
+
+    const stops = [
+      { name: 'Los Angeles',      coords: [-118.24,  34.05] },
+      { name: 'Tokyo',            coords: [ 139.69,  35.69] },
+      { name: 'Bangkok',          coords: [ 100.50,  13.76] },
+      { name: 'Siem Reap',        coords: [ 103.86,  13.36] },
+      { name: 'Ho Chi Minh City', coords: [ 106.63,  10.82] },
+      { name: 'Singapore',        coords: [ 103.82,   1.35] },
+      { name: 'Bali',             coords: [ 115.21,  -8.41] },
+      { name: 'Hong Kong',        coords: [ 114.17,  22.32] },
+      { name: 'Los Angeles',      coords: [-118.24,  34.05] },
+    ];
+
+    const segments = stops.slice(0, -1).map((s, i) => ({
+      from: s, to: stops[i + 1],
+      interpolate: d3.geoInterpolate(s.coords, stops[i + 1].coords),
+    }));
+
+    const svg = d3.select('#globe-hero').append('svg')
+      .attr('width', size).attr('height', size);
+
+    const defs = svg.append('defs');
+
+    const oceanGrad = defs.append('radialGradient').attr('id', 'hOcean')
+      .attr('cx', '38%').attr('cy', '33%').attr('r', '65%');
+    oceanGrad.append('stop').attr('offset', '0%')  .attr('stop-color', '#6BB8E8');
+    oceanGrad.append('stop').attr('offset', '45%') .attr('stop-color', '#3A7ABD');
+    oceanGrad.append('stop').attr('offset', '100%').attr('stop-color', '#112952');
+
+    const landGrad = defs.append('radialGradient').attr('id', 'hLand')
+      .attr('cx', '38%').attr('cy', '33%').attr('r', '65%');
+    landGrad.append('stop').attr('offset', '0%')  .attr('stop-color', '#6BAF5A');
+    landGrad.append('stop').attr('offset', '100%').attr('stop-color', '#2C5C22');
+
+    const hlGrad = defs.append('radialGradient').attr('id', 'hHL')
+      .attr('cx', '35%').attr('cy', '28%').attr('r', '45%');
+    hlGrad.append('stop').attr('offset', '0%')  .attr('stop-color', 'rgba(255,255,255,0.22)');
+    hlGrad.append('stop').attr('offset', '100%').attr('stop-color', 'rgba(255,255,255,0)');
+
+    defs.append('clipPath').attr('id', 'hClip')
+      .append('circle').attr('cx', cx).attr('cy', cy).attr('r', radius);
+
+    const projection = d3.geoOrthographic()
+      .scale(radius).translate([cx, cy]).clipAngle(90).rotate([-30, -18]);
+    const path = d3.geoPath().projection(projection);
+
+    svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', radius)
+      .attr('fill', 'url(#hOcean)').attr('stroke', '#1A2B40').attr('stroke-width', 2);
+
+    const gGrat = svg.append('path').datum(d3.geoGraticule()())
+      .attr('fill', 'none').attr('stroke', 'rgba(255,255,255,0.09)').attr('stroke-width', 0.6)
+      .attr('clip-path', 'url(#hClip)');
+
+    const gLand = svg.append('path')
+      .attr('fill', 'url(#hLand)').attr('stroke', '#1A2B40').attr('stroke-width', 0.6)
+      .attr('clip-path', 'url(#hClip)');
+
+    const gArcs   = svg.append('g').attr('clip-path', 'url(#hClip)');
+    const gCities = svg.append('g').attr('clip-path', 'url(#hClip)');
+
+    svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', radius)
+      .attr('fill', 'url(#hHL)').attr('pointer-events', 'none');
+
+    const planeDot = svg.append('circle').attr('r', 5)
+      .attr('fill', '#fff').attr('stroke', C_CITY).attr('stroke-width', 2);
+
+    let rotLon = -30, segIdx = 0, planeFrame = 0;
+    const FRAMES = 260;
+
+    function isVisible(coords) {
+      const [rLon, rLat] = projection.rotate();
+      return d3.geoDistance(coords, [-rLon, -rLat]) < Math.PI / 2;
+    }
+
+    function draw(land) {
+      rotLon += 0.12;
+      projection.rotate([rotLon, -18]);
+      gGrat.attr('d', path);
+      gLand.datum(land).attr('d', path);
+
+      gArcs.selectAll('path').remove();
+      segments.forEach(seg => {
+        const pts = d3.range(0, 1.01, 0.015).map(t => seg.interpolate(t));
+        gArcs.append('path')
+          .datum({ type: 'LineString', coordinates: pts })
+          .attr('d', path).attr('fill', 'none')
+          .attr('stroke', C_ARC).attr('stroke-width', 1.5)
+          .attr('stroke-dasharray', '5 5').attr('stroke-linecap', 'round');
+      });
+
+      gCities.selectAll('*').remove();
+      stops.slice(0, -1).forEach(city => {
+        if (!isVisible(city.coords)) return;
+        const [px, py] = projection(city.coords);
+        gCities.append('circle').attr('cx', px).attr('cy', py).attr('r', 4)
+          .attr('fill', C_CITY).attr('stroke', '#fff').attr('stroke-width', 1.5);
+        gCities.append('text').attr('x', px + 7).attr('y', py + 4)
+          .attr('font-family', 'Lato, sans-serif').attr('font-size', '10px')
+          .attr('font-weight', '700').attr('fill', '#fff')
+          .style('text-shadow', '0 1px 4px rgba(0,0,0,0.9)').text(city.name);
+      });
+
+      const pos = segments[segIdx].interpolate(planeFrame / FRAMES);
+      if (isVisible(pos)) {
+        const [px, py] = projection(pos);
+        planeDot.attr('cx', px).attr('cy', py).attr('visibility', 'visible');
+      } else {
+        planeDot.attr('visibility', 'hidden');
+      }
+
+      if (++planeFrame >= FRAMES) { planeFrame = 0; segIdx = (segIdx + 1) % segments.length; }
+      requestAnimationFrame(() => draw(land));
+    }
+
+    d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(world => draw(topojson.feature(world, world.objects.land)));
   </script>
 
 </body>

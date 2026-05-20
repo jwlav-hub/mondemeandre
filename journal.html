@@ -13,8 +13,8 @@
 </head>
 <body>
 
-  <!-- Page Header -->
-  <header class="page-header">
+  <!-- Sticky nav (appears on scroll) -->
+  <nav class="sticky-nav" id="stickyNav" aria-label="Primary navigation">
     <a href="index.html" class="logo">
       <img src="images/mm-logo2.png" alt="Monde Méandre logo" class="logo-img" width="48" height="48">
       <span class="logo-text">
@@ -22,29 +22,56 @@
         <span class="logo-tagline">Asia Travel & Dining Platform</span>
       </span>
     </a>
-
-    <nav class="page-nav" aria-label="Primary navigation">
+    <div class="hero-nav">
       <a href="index.html">Home</a>
       <a href="journal.html" class="active">Journal</a>
       <a href="guides.html">Guides</a>
       <a href="plan.html">Plan My Trip</a>
       <a href="michelin.html">Budget Michelin</a>
       <a href="about.html">About</a>
-    </nav>
-
+    </div>
     <div></div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero hero--journal">
+
+    <div class="hero-header">
+      <a href="index.html" class="logo">
+        <img src="images/mm-logo2.png" alt="Monde Méandre logo" class="logo-img" width="48" height="48">
+        <span class="logo-text">
+          <span class="logo-name">Monde Méandre</span>
+          <span class="logo-tagline">Asia Travel & Dining Platform</span>
+        </span>
+      </a>
+
+      <nav class="hero-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="journal.html" class="active">Journal</a>
+        <a href="guides.html">Guides</a>
+        <a href="plan.html">Plan My Trip</a>
+        <a href="michelin.html">Budget Michelin</a>
+        <a href="about.html">About</a>
+      </nav>
+
+      <div></div>
+    </div>
+
+    <div class="hero-body">
+      <div>
+        <p class="hero-label">Stories & Photography</p>
+        <h1 class="hero-title">Your Gateway to Cultural Encounters</h1>
+        <p class="hero-desc">Explore others enlightening journeys before customizing your immersive travel experience.</p>
+      </div>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true">Scroll</div>
+
   </header>
 
-  <!-- Journal Listing -->
+  <!-- JOURNAL GRID -->
   <main>
-    <div class="blog-listing">
-
-      <div class="page-intro">
-        <span class="section-label">Stories & Photography</span>
-        <h1>Journal</h1>
-        <p>Cultural encounters from Cambodia, China, and across Asia</p>
-      </div>
-
+    <section class="blog-section">
       <div class="posts-grid">
 
         <!-- Post 1: Banteay Kdei -->
@@ -146,7 +173,7 @@
         </article>
 
       </div>
-    </div>
+    </section>
   </main>
 
   <!-- Footer -->
@@ -176,6 +203,15 @@
 
     <p class="footer-copy">© 2026 Joseph Laviolette · Monde Méandre</p>
   </footer>
+
+  <script>
+    const stickyNav = document.getElementById('stickyNav');
+    const heroEl = document.querySelector('.hero');
+    window.addEventListener('scroll', () => {
+      const threshold = heroEl.offsetHeight * 0.65;
+      stickyNav.classList.toggle('visible', window.scrollY > threshold);
+    }, { passive: true });
+  </script>
 
 </body>
 </html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Globe – Monde Méandre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=4">
+  <style>
+    body {
+      background: #0e1a2b;
+      margin: 0;
+    }
+
+    .globe-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 80px);
+      padding: 3rem 1rem 4rem;
+    }
+
+    .globe-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: #FFF4B8;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.4rem;
+      text-align: center;
+    }
+
+    .globe-subtitle {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    #globe-container {
+      position: relative;
+      filter: drop-shadow(0 20px 60px rgba(0,0,0,0.7));
+    }
+
+    #globe-container svg {
+      display: block;
+    }
+
+    .route-legend {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #D8C078;
+      border: 1.5px solid #fff;
+    }
+
+    .legend-line {
+      width: 20px;
+      height: 2px;
+      background: repeating-linear-gradient(
+        to right,
+        rgba(255,255,255,0.7) 0px,
+        rgba(255,255,255,0.7) 4px,
+        transparent 4px,
+        transparent 8px
+      );
+    }
+
+    /* Override page-header for dark bg */
+    .page-header {
+      background: rgba(14, 26, 43, 0.95);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <a href="index.html" class="logo">
+      <img src="images/mm-logo2.png" alt="Monde Méandre logo" class="logo-img" width="48" height="48">
+      <span class="logo-text">
+        <span class="logo-name">Monde Méandre</span>
+        <span class="logo-tagline">Asia Travel & Dining Platform</span>
+      </span>
+    </a>
+
+    <nav class="page-nav" aria-label="Primary navigation">
+      <a href="index.html" class="active">Home</a>
+      <a href="journal.html">Journal</a>
+      <a href="guides.html">Guides</a>
+      <a href="plan.html">Plan My Trip</a>
+      <a href="michelin.html">Budget Michelin</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <div></div>
+  </header>
+
+  <main>
+    <div class="globe-page">
+      <h1 class="globe-title">World Wandering</h1>
+      <p class="globe-subtitle">LA · Tokyo · Bangkok · Siem Reap · Ho Chi Minh City · Singapore · Bali · Hong Kong</p>
+
+      <div id="globe-container"></div>
+
+      <div class="route-legend">
+        <div class="legend-item"><span class="legend-dot"></span> City stop</div>
+        <div class="legend-item"><span class="legend-line"></span> Flight route</div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson@3/dist/topojson.min.js"></script>
+  <script>
+    const size     = Math.min(620, window.innerWidth - 32);
+    const cx       = size / 2;
+    const cy       = size / 2;
+    const radius   = size / 2 - 6;
+
+    // ── Colors matching the logo ──────────────────────────────────
+    const C_OCEAN_A  = '#5A9FD8';   // lighter pole highlight
+    const C_OCEAN_B  = '#1C3A6E';   // deep ocean shadow
+    const C_LAND     = '#4E8C42';   // logo green
+    const C_LAND_S   = '#2D5C28';   // land border / shadow side
+    const C_OUTLINE  = '#1A2B40';   // dark navy stroke
+    const C_GRID     = 'rgba(255,255,255,0.09)';
+    const C_ARC      = 'rgba(255,255,255,0.72)';
+    const C_CITY     = '#D8C078';   // champagne gold
+    const C_PLANE    = '#FFFFFF';
+
+    // ── Route ─────────────────────────────────────────────────────
+    const stops = [
+      { name: 'Los Angeles',      coords: [-118.24,  34.05] },
+      { name: 'Tokyo',            coords: [ 139.69,  35.69] },
+      { name: 'Bangkok',          coords: [ 100.50,  13.76] },
+      { name: 'Siem Reap',        coords: [ 103.86,  13.36] },
+      { name: 'Ho Chi Minh City', coords: [ 106.63,  10.82] },
+      { name: 'Singapore',        coords: [ 103.82,   1.35] },
+      { name: 'Bali',             coords: [ 115.21,  -8.41] },
+      { name: 'Hong Kong',        coords: [ 114.17,  22.32] },
+      { name: 'Los Angeles',      coords: [-118.24,  34.05] },  // return leg
+    ];
+
+    const segments = stops.slice(0, -1).map((s, i) => ({
+      from:        s,
+      to:          stops[i + 1],
+      interpolate: d3.geoInterpolate(s.coords, stops[i + 1].coords),
+    }));
+
+    // ── SVG setup ─────────────────────────────────────────────────
+    const svg = d3.select('#globe-container')
+      .append('svg')
+      .attr('width', size)
+      .attr('height', size);
+
+    const defs = svg.append('defs');
+
+    // Radial gradient — ocean (offset center for 3-D illusion)
+    const oceanGrad = defs.append('radialGradient')
+      .attr('id', 'oceanGrad')
+      .attr('cx', '38%').attr('cy', '33%').attr('r', '65%');
+    oceanGrad.append('stop').attr('offset', '0%')  .attr('stop-color', '#6BB8E8');
+    oceanGrad.append('stop').attr('offset', '45%') .attr('stop-color', '#3A7ABD');
+    oceanGrad.append('stop').attr('offset', '100%').attr('stop-color', '#112952');
+
+    // Radial gradient — land shading
+    const landGrad = defs.append('radialGradient')
+      .attr('id', 'landGrad')
+      .attr('cx', '38%').attr('cy', '33%').attr('r', '65%');
+    landGrad.append('stop').attr('offset', '0%')  .attr('stop-color', '#6BAF5A');
+    landGrad.append('stop').attr('offset', '100%').attr('stop-color', '#2C5C22');
+
+    // Specular highlight (upper-left glow)
+    const hlGrad = defs.append('radialGradient')
+      .attr('id', 'hlGrad')
+      .attr('cx', '35%').attr('cy', '28%').attr('r', '45%');
+    hlGrad.append('stop').attr('offset', '0%')  .attr('stop-color', 'rgba(255,255,255,0.22)');
+    hlGrad.append('stop').attr('offset', '100%').attr('stop-color', 'rgba(255,255,255,0)');
+
+    // Clip to sphere
+    defs.append('clipPath').attr('id', 'sphereClip')
+      .append('circle')
+      .attr('cx', cx).attr('cy', cy).attr('r', radius);
+
+    // ── Projection ────────────────────────────────────────────────
+    const projection = d3.geoOrthographic()
+      .scale(radius)
+      .translate([cx, cy])
+      .clipAngle(90)
+      .rotate([-30, -18]);   // start: Pacific view
+
+    const path = d3.geoPath().projection(projection);
+
+    // ── Layers (order matters for painter's algorithm) ────────────
+    // 1. Ocean sphere
+    svg.append('circle')
+      .attr('cx', cx).attr('cy', cy).attr('r', radius)
+      .attr('fill', 'url(#oceanGrad)')
+      .attr('stroke', C_OUTLINE).attr('stroke-width', 2);
+
+    // 2. Graticule
+    const gGraticule = svg.append('path')
+      .datum(d3.geoGraticule()())
+      .attr('fill', 'none')
+      .attr('stroke', C_GRID)
+      .attr('stroke-width', 0.6)
+      .attr('clip-path', 'url(#sphereClip)');
+
+    // 3. Countries (rendered into canvas texture via D3 path each frame)
+    const gLand = svg.append('path')
+      .attr('fill', 'url(#landGrad)')
+      .attr('stroke', C_OUTLINE)
+      .attr('stroke-width', 0.6)
+      .attr('clip-path', 'url(#sphereClip)');
+
+    // 4. Flight arcs
+    const gArcs = svg.append('g').attr('clip-path', 'url(#sphereClip)');
+
+    // 5. City dots + labels
+    const gCities = svg.append('g').attr('clip-path', 'url(#sphereClip)');
+
+    // 6. Specular highlight overlay (always on top of land/ocean)
+    svg.append('circle')
+      .attr('cx', cx).attr('cy', cy).attr('r', radius)
+      .attr('fill', 'url(#hlGrad)')
+      .attr('pointer-events', 'none')
+      .attr('clip-path', 'url(#sphereClip)');
+
+    // 7. Plane dot (above highlight)
+    const planeDot = svg.append('g');
+    const planeCircle = planeDot.append('circle')
+      .attr('r', 5)
+      .attr('fill', C_PLANE)
+      .attr('stroke', C_CITY)
+      .attr('stroke-width', 2);
+    const planePulse = planeDot.append('circle')
+      .attr('r', 9)
+      .attr('fill', 'none')
+      .attr('stroke', 'rgba(255,255,255,0.35)')
+      .attr('stroke-width', 1.5);
+
+    // ── Animation state ───────────────────────────────────────────
+    let rotLon    = -30;          // current longitude rotation
+    const ROT_SPD = 0.12;         // degrees / frame
+
+    const FRAMES_PER_SEG = 260;   // frames each flight leg takes
+    let   planeFrame      = 0;
+    let   segIdx          = 0;
+
+    // ── Helper: is a coordinate on the visible hemisphere? ────────
+    function isVisible(coords) {
+      const [rLon, rLat] = projection.rotate();
+      return d3.geoDistance(coords, [-rLon, -rLat]) < Math.PI / 2;
+    }
+
+    // ── Draw loop ─────────────────────────────────────────────────
+    function draw(land) {
+      // 1. Rotation
+      rotLon += ROT_SPD;
+      projection.rotate([rotLon, -18]);
+
+      // 2. Graticule
+      gGraticule.attr('d', path);
+
+      // 3. Land
+      gLand.datum(land).attr('d', path);
+
+      // 4. Arcs — rebuild each frame (projection changed)
+      gArcs.selectAll('path').remove();
+      segments.forEach(seg => {
+        const pts = d3.range(0, 1.01, 0.015).map(t => seg.interpolate(t));
+        gArcs.append('path')
+          .datum({ type: 'LineString', coordinates: pts })
+          .attr('d', path)
+          .attr('fill', 'none')
+          .attr('stroke', C_ARC)
+          .attr('stroke-width', 1.6)
+          .attr('stroke-dasharray', '5 5')
+          .attr('stroke-linecap', 'round');
+      });
+
+      // 5. City dots + labels
+      gCities.selectAll('*').remove();
+      const unique = stops.slice(0, -1);
+      unique.forEach(city => {
+        if (!isVisible(city.coords)) return;
+        const [px, py] = projection(city.coords);
+
+        gCities.append('circle')
+          .attr('cx', px).attr('cy', py).attr('r', 5)
+          .attr('fill', C_CITY)
+          .attr('stroke', '#fff').attr('stroke-width', 1.5);
+
+        // Nudge labels so they don't overlap the dot
+        const labelX = px + 8;
+        const labelY = py + 4;
+
+        gCities.append('text')
+          .attr('x', labelX).attr('y', labelY)
+          .attr('font-family', 'Lato, sans-serif')
+          .attr('font-size', size < 480 ? '9px' : '11px')
+          .attr('font-weight', '700')
+          .attr('fill', '#fff')
+          .attr('text-shadow', '0 1px 3px rgba(0,0,0,0.8)')
+          .style('text-shadow', '0 1px 4px rgba(0,0,0,0.9)')
+          .text(city.name);
+      });
+
+      // 6. Plane position
+      const seg      = segments[segIdx];
+      const t        = planeFrame / FRAMES_PER_SEG;
+      const planePos = seg.interpolate(t);
+
+      if (isVisible(planePos)) {
+        const [px, py] = projection(planePos);
+        planeCircle.attr('cx', px).attr('cy', py).attr('visibility', 'visible');
+        planePulse .attr('cx', px).attr('cy', py).attr('visibility', 'visible');
+      } else {
+        planeCircle.attr('visibility', 'hidden');
+        planePulse .attr('visibility', 'hidden');
+      }
+
+      // 7. Advance plane
+      planeFrame++;
+      if (planeFrame >= FRAMES_PER_SEG) {
+        planeFrame = 0;
+        segIdx     = (segIdx + 1) % segments.length;
+      }
+
+      requestAnimationFrame(() => draw(land));
+    }
+
+    // ── Load world topology and start ─────────────────────────────
+    d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(world => {
+        const land = topojson.feature(world, world.objects.land);
+        draw(land);
+      });
+  </script>
+
+</body>
+</html>

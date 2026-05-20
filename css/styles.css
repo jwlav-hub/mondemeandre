@@ -89,15 +89,23 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
 ══════════════════════════════ */
 .hero {
   position: relative;
-  min-height: 88vh;
-  background-image: url('../images/phnom-penh-9-of-10-scaled.jpg');
-  background-size: cover;
-  background-position: center 45%;
   display: flex;
   flex-direction: column;
 }
 
-.hero::before {
+.hero--home {
+  background: #0e1a2b;
+  min-height: 100vh;
+}
+
+.hero--journal {
+  min-height: 88vh;
+  background-image: url('../images/Angkor-Thom-1-of-1.jpg');
+  background-size: cover;
+  background-position: center 35%;
+}
+
+.hero--journal::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -119,6 +127,31 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
   align-items: center;
   padding: 1.75rem 3rem;
   gap: 1rem;
+}
+
+/* Home hero: globe left / text right */
+.hero-split {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 4rem 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-globe-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(0 20px 60px rgba(0,0,0,0.6));
+}
+
+.hero-content-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .hero-nav {
@@ -282,7 +315,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
 ══════════════════════════════ */
 .blog-section {
   padding: 5rem 3rem;
-  background: var(--white);
+  background: #ffffff;
 }
 
 .section-header {
@@ -350,6 +383,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
   flex: 1;
   display: flex;
   flex-direction: column;
+  background: #EFEEEB;
 }
 
 .post-meta {
@@ -451,7 +485,7 @@ footer {
   text-decoration: none;
 }
 
-.footer-logo .logo-name { color: var(--gold-light); }
+.footer-logo .logo-name { color: var(--mm-pale-yellow); }
 .footer-logo .logo-tagline { color: rgba(255,255,255,0.45); }
 .footer-logo .logo-img { opacity: 0.85; }
 
@@ -510,7 +544,7 @@ footer {
   gap: 1rem;
 }
 
-.page-header .logo-name { color: var(--gold-light); }
+.page-header .logo-name { color: var(--mm-pale-yellow); }
 .page-header .logo-tagline { color: rgba(255,255,255,0.45); }
 
 .page-nav {
@@ -606,9 +640,29 @@ footer {
    ABOUT PAGE
 ══════════════════════════════ */
 .about-content {
-  max-width: 860px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 5rem 2rem 6rem;
+}
+
+.about-stories-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin-bottom: 3.5rem;
+}
+
+.about-stories-grid .about-story {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .about-stories-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .about-story {
@@ -982,7 +1036,7 @@ img.contributor-photo {
    TOOLS SECTION (homepage)
 ══════════════════════════════ */
 .tools-section {
-  background: var(--bg-light);
+  background: #EFEEEB;
   padding: 5rem 3rem;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
@@ -997,7 +1051,7 @@ img.contributor-photo {
 }
 
 .tool-feature-card {
-  background: var(--white);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 2.5rem 2rem;
@@ -1088,6 +1142,42 @@ img.contributor-photo {
   max-width: 1100px;
   margin: 0 auto;
   padding: 4rem 2rem 6rem;
+}
+
+.page-white,
+.page-michelin {
+  background: #ffffff;
+}
+
+.page-plan {
+  background: #ffffff;
+}
+
+.page-plan .form-input,
+.page-plan .form-select {
+  background: #ffffff;
+  border-color: var(--gold);
+}
+
+.page-plan .interest-btn {
+  background: #ffffff;
+}
+
+.page-plan .persona-card {
+  background: #ffffff;
+}
+
+.page-michelin .tool-columns {
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.page-michelin .tool-column {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2.5rem 2.25rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
 }
 
 .tool-intro {
