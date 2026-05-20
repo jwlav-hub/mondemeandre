@@ -30,7 +30,9 @@
       <a href="michelin.html">Budget Michelin</a>
       <a href="about.html">About</a>
     </div>
-    <div></div>
+    <div class="nav-login">
+      <button class="btn-login" onclick="openModal()">Log In</button>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -54,7 +56,9 @@
         <a href="about.html">About</a>
       </nav>
 
-      <div></div>
+      <div class="nav-login">
+        <button class="btn-login" onclick="openModal()">Log In</button>
+      </div>
     </div>
 
     <div class="hero-body">
@@ -193,6 +197,8 @@
       <a href="plan.html">Plan My Trip</a>
       <a href="michelin.html">Budget Michelin</a>
       <a href="about.html">About</a>
+      <a href="personas.html">Personas</a>
+      <a href="contributors.html">Contributors</a>
     </nav>
 
     <div class="footer-social">
@@ -204,7 +210,42 @@
     <p class="footer-copy">© 2026 Joseph Laviolette · Monde Méandre</p>
   </footer>
 
+  <!-- Login Modal -->
+  <div class="login-modal" id="loginModal">
+    <div class="modal-overlay" onclick="closeModal()"></div>
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <p class="modal-heading">Welcome Back</p>
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="login" onclick="switchTab('login')">Log In</button>
+        <button class="modal-tab" data-tab="signup" onclick="switchTab('signup')">Sign Up</button>
+      </div>
+      <form class="modal-form" id="modal-login" onsubmit="return false">
+        <input class="modal-input" type="email" placeholder="Email address" autocomplete="email">
+        <input class="modal-input" type="password" placeholder="Password" autocomplete="current-password">
+        <button class="modal-submit">Log In</button>
+        <p class="modal-note">Forgot your password? <a href="#">Reset it</a></p>
+      </form>
+      <form class="modal-form" id="modal-signup" style="display:none" onsubmit="return false">
+        <input class="modal-input" type="text" placeholder="Full name" autocomplete="name">
+        <input class="modal-input" type="email" placeholder="Email address" autocomplete="email">
+        <input class="modal-input" type="password" placeholder="Choose a password" autocomplete="new-password">
+        <button class="modal-submit">Create Account</button>
+        <p class="modal-note">Already have an account? <a href="#" onclick="switchTab('login');return false">Log in</a></p>
+      </form>
+    </div>
+  </div>
+
   <script>
+    function openModal()  { document.getElementById('loginModal').classList.add('open'); }
+    function closeModal() { document.getElementById('loginModal').classList.remove('open'); }
+    function switchTab(tab) {
+      document.querySelectorAll('.modal-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+      document.getElementById('modal-login').style.display  = tab === 'login'  ? 'flex' : 'none';
+      document.getElementById('modal-signup').style.display = tab === 'signup' ? 'flex' : 'none';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
     const stickyNav = document.getElementById('stickyNav');
     const heroEl = document.querySelector('.hero');
     window.addEventListener('scroll', () => {

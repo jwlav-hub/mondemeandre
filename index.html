@@ -30,7 +30,9 @@
       <a href="michelin.html">Budget Michelin</a>
       <a href="about.html">About</a>
     </div>
-    <div></div>
+    <div class="nav-login">
+      <button class="btn-login" onclick="openModal()">Log In</button>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -54,7 +56,9 @@
         <a href="about.html">About</a>
       </nav>
 
-      <div></div>
+      <div class="nav-login">
+        <button class="btn-login" onclick="openModal()">Log In</button>
+      </div>
     </div>
 
     <!-- Globe + text split -->
@@ -66,9 +70,13 @@
 
       <div class="hero-content-col">
         <p class="hero-label">World Wandering — Travel & Dining</p>
-        <h1 class="hero-title">The Art of Planning Spontaneous Travel</h1>
+        <h1 class="hero-title">Don't be a Tourist —<br>The Art of Planning<br>Cultural Driven Travel</h1>
         <p class="hero-desc">AI-powered tools for unplanned adventures. Define your pathway and create your bespoke itinerary, find dirt cheap Michelin dining and end up in the trendiest dive bars.</p>
         <p class="hero-desc"><em>Wuwei</em> (无为) — the idea that your best pathway isn't forced, from the Taoist concept of &ldquo;effortless action&rdquo;.</p>
+        <div class="hero-cta">
+          <p class="hero-lets-go">Let's Go!</p>
+          <a href="plan.html" class="btn-hero">Plan My Trip</a>
+        </div>
       </div>
 
     </div>
@@ -98,7 +106,7 @@
       </article>
 
       <article class="tool-feature-card">
-        <h3>OSo Social Trendy Finder</h3>
+        <h3>Oso Social Trend Finder</h3>
         <p>人声鼎沸 (rén shēng dǐng fèi) — the roar of a room that's alive. Find the restaurants, bars, and venues the in-crowd already knows about, filtered by what you're seeking and where you want to be.</p>
         <a href="michelin.html#oso-social" class="btn-outline">Find Trendy Spots</a>
       </article>
@@ -223,6 +231,8 @@
       <a href="plan.html">Plan My Trip</a>
       <a href="michelin.html">Budget Michelin</a>
       <a href="about.html">About</a>
+      <a href="personas.html">Personas</a>
+      <a href="contributors.html">Contributors</a>
     </nav>
 
     <div class="footer-social">
@@ -234,9 +244,44 @@
     <p class="footer-copy">&copy; 2026 Joseph Laviolette · Monde Méandre</p>
   </footer>
 
+  <!-- Login Modal -->
+  <div class="login-modal" id="loginModal">
+    <div class="modal-overlay" onclick="closeModal()"></div>
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <p class="modal-heading">Welcome Back</p>
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="login" onclick="switchTab('login')">Log In</button>
+        <button class="modal-tab" data-tab="signup" onclick="switchTab('signup')">Sign Up</button>
+      </div>
+      <form class="modal-form" id="modal-login" onsubmit="return false">
+        <input class="modal-input" type="email" placeholder="Email address" autocomplete="email">
+        <input class="modal-input" type="password" placeholder="Password" autocomplete="current-password">
+        <button class="modal-submit">Log In</button>
+        <p class="modal-note">Forgot your password? <a href="#">Reset it</a></p>
+      </form>
+      <form class="modal-form" id="modal-signup" style="display:none" onsubmit="return false">
+        <input class="modal-input" type="text" placeholder="Full name" autocomplete="name">
+        <input class="modal-input" type="email" placeholder="Email address" autocomplete="email">
+        <input class="modal-input" type="password" placeholder="Choose a password" autocomplete="new-password">
+        <button class="modal-submit">Create Account</button>
+        <p class="modal-note">Already have an account? <a href="#" onclick="switchTab('login');return false">Log in</a></p>
+      </form>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson@3/dist/topojson.min.js"></script>
   <script>
+    function openModal()  { document.getElementById('loginModal').classList.add('open'); }
+    function closeModal() { document.getElementById('loginModal').classList.remove('open'); }
+    function switchTab(tab) {
+      document.querySelectorAll('.modal-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+      document.getElementById('modal-login').style.display  = tab === 'login'  ? 'flex' : 'none';
+      document.getElementById('modal-signup').style.display = tab === 'signup' ? 'flex' : 'none';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
     // ── Sticky nav ────────────────────────────────────────────────
     const stickyNav = document.getElementById('stickyNav');
     const heroEl = document.querySelector('.hero');
@@ -295,7 +340,7 @@
       .append('circle').attr('cx', cx).attr('cy', cy).attr('r', radius);
 
     const projection = d3.geoOrthographic()
-      .scale(radius).translate([cx, cy]).clipAngle(90).rotate([-30, -18]);
+      .scale(radius).translate([cx, cy]).clipAngle(90).rotate([118.24, -25]);
     const path = d3.geoPath().projection(projection);
 
     svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', radius)
@@ -318,8 +363,11 @@
     const planeDot = svg.append('circle').attr('r', 5)
       .attr('fill', '#fff').attr('stroke', C_CITY).attr('stroke-width', 2);
 
-    let rotLon = -30, segIdx = 0, planeFrame = 0;
-    const FRAMES = 260;
+    // Globe follows the route — rotLon/rotLat ease toward the plane's position
+    let rotLon = 118.24;  // centered on LA at start (-(-118.24))
+    let rotLat = -25;
+    let segIdx = 0, planeFrame = 0;
+    const FRAMES = 280;
 
     function isVisible(coords) {
       const [rLon, rLat] = projection.rotate();
@@ -327,8 +375,22 @@
     }
 
     function draw(land) {
-      rotLon += 0.12;
-      projection.rotate([rotLon, -18]);
+      // Plane's current geographic position
+      const t = planeFrame / FRAMES;
+      const planePos = segments[segIdx].interpolate(t);
+
+      // Ease globe rotation to center on the plane's longitude
+      const targetLon = -planePos[0];
+      let diff = targetLon - rotLon;
+      if (diff > 180) diff -= 360;
+      if (diff < -180) diff += 360;
+      rotLon += diff * 0.014;
+
+      // Gently ease latitude to follow (clamped so we don't flip upside down)
+      const targetLat = Math.max(-45, Math.min(-5, -planePos[1] * 0.6));
+      rotLat += (targetLat - rotLat) * 0.008;
+
+      projection.rotate([rotLon, rotLat]);
       gGrat.attr('d', path);
       gLand.datum(land).attr('d', path);
 
@@ -354,9 +416,8 @@
           .style('text-shadow', '0 1px 4px rgba(0,0,0,0.9)').text(city.name);
       });
 
-      const pos = segments[segIdx].interpolate(planeFrame / FRAMES);
-      if (isVisible(pos)) {
-        const [px, py] = projection(pos);
+      if (isVisible(planePos)) {
+        const [px, py] = projection(planePos);
         planeDot.attr('cx', px).attr('cy', py).attr('visibility', 'visible');
       } else {
         planeDot.attr('visibility', 'hidden');
