@@ -193,7 +193,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
 
 .hero-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-size: clamp(1.55rem, 3.2vw, 3rem);
   color: #fff;
   line-height: 1.2;
   max-width: 540px;
@@ -505,7 +505,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
    FOOTER
 ══════════════════════════════ */
 footer {
-  background: var(--dark);
+  background: #0e1a2b;
   padding: 3.5rem 3rem;
   text-align: center;
 }
@@ -2106,4 +2106,96 @@ img.contributor-photo {
   .what-grid { grid-template-columns: 1fr; }
   .contributors-hero-band { padding: 2rem 1.5rem; }
   .contrib-apply-wrap { padding: 1.75rem; }
+}
+
+
+/* ══════════════════════════════
+   CONTRIBUTORS CALLOUT (homepage)
+══════════════════════════════ */
+.contrib-callout-section {
+  background: var(--mm-indigo);
+  padding: 5rem 3rem;
+}
+
+.contrib-callout-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.contrib-callout-text .section-label {
+  color: var(--mm-champagne-gold);
+  opacity: 0.85;
+}
+
+.contrib-callout-text h2 {
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  color: var(--mm-pale-yellow);
+  margin: 0.5rem 0 1.25rem;
+}
+
+.contrib-callout-text p {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.75;
+  max-width: 460px;
+  margin-bottom: 1rem;
+}
+
+.contrib-callout-text .btn-outline {
+  margin-top: 0.75rem;
+  border-color: var(--mm-champagne-gold);
+  color: var(--mm-champagne-gold);
+}
+
+.contrib-callout-text .btn-outline:hover {
+  background: var(--mm-champagne-gold);
+  color: var(--mm-indigo);
+}
+
+.contrib-callout-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.contrib-pillar {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  column-gap: 1rem;
+  row-gap: 0.2rem;
+  align-items: start;
+}
+
+.contrib-pillar-icon {
+  font-size: 1.2rem;
+  padding-top: 0.1rem;
+}
+
+.contrib-pillar h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: var(--mm-pale-yellow);
+  font-weight: 600;
+  grid-column: 2;
+}
+
+.contrib-pillar p {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+  grid-column: 2;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .contrib-callout-inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .contrib-callout-section { padding: 3.5rem 1.5rem; }
 }
