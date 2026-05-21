@@ -32,6 +32,9 @@
     </div>
     <div class="nav-login">
       <button class="btn-login" onclick="openModal()">Log In</button>
+      <button class="hamburger" id="hamburgerSticky" aria-label="Open menu" onclick="toggleMobileNav()">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
 
@@ -58,6 +61,9 @@
 
       <div class="nav-login">
         <button class="btn-login" onclick="openModal()">Log In</button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
 
@@ -84,6 +90,20 @@
     <div class="scroll-cue" aria-hidden="true">Scroll</div>
 
   </header>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
+    <a href="index.html" class="active" onclick="toggleMobileNav()">Home</a>
+    <a href="journal.html" onclick="toggleMobileNav()">Journal</a>
+    <a href="guides.html" onclick="toggleMobileNav()">Guides</a>
+    <a href="plan.html" onclick="toggleMobileNav()">Plan My Trip</a>
+    <a href="michelin.html" onclick="toggleMobileNav()">Budget Michelin</a>
+    <a href="about.html" onclick="toggleMobileNav()">About</a>
+    <a href="personas.html" onclick="toggleMobileNav()">Personas</a>
+    <a href="contributors.html" onclick="toggleMobileNav()">Contributors</a>
+    <button class="mobile-nav-login" onclick="toggleMobileNav();openModal()">Log In</button>
+  </div>
 
   <!-- TOOLS SECTION -->
   <section class="tools-section">
@@ -303,6 +323,19 @@
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson@3/dist/topojson.min.js"></script>
   <script>
+    function toggleMobileNav() {
+      const nav = document.getElementById('mobileNav');
+      const burger = document.getElementById('hamburger');
+      const burgerSticky = document.getElementById('hamburgerSticky');
+      nav.classList.toggle('open');
+      if (burger) burger.classList.toggle('open');
+      if (burgerSticky) burgerSticky.classList.toggle('open');
+      document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && document.getElementById('mobileNav').classList.contains('open')) toggleMobileNav();
+    });
+
     function openModal()  { document.getElementById('loginModal').classList.add('open'); }
     function closeModal() { document.getElementById('loginModal').classList.remove('open'); }
     function switchTab(tab) {
