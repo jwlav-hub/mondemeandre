@@ -26,8 +26,14 @@
       <a href="index.html">Home</a>
       <a href="journal.html" class="active">Journal</a>
       <a href="guides.html">Guides</a>
-      <a href="plan.html">Plan My Trip</a>
-      <a href="michelin.html">Budget Michelin</a>
+      <div class="nav-has-dropdown">
+        <a href="index.html#ai-engines" class="nav-dropdown-toggle">AI Engines</a>
+        <div class="nav-dropdown-menu">
+          <a href="plan.html">Unplanned Itinerary</a>
+          <a href="michelin.html">Budget Michelin</a>
+          <a href="trend-finder.html">Trend Finder</a>
+        </div>
+      </div>
       <a href="about.html">About</a>
     </div>
     <div class="nav-login">
@@ -54,8 +60,14 @@
         <a href="index.html">Home</a>
         <a href="journal.html" class="active">Journal</a>
         <a href="guides.html">Guides</a>
-        <a href="plan.html">Plan My Trip</a>
-        <a href="michelin.html">Budget Michelin</a>
+        <div class="nav-has-dropdown">
+          <a href="index.html#ai-engines" class="nav-dropdown-toggle">AI Engines</a>
+          <div class="nav-dropdown-menu">
+            <a href="plan.html">Unplanned Itinerary</a>
+            <a href="michelin.html">Budget Michelin</a>
+            <a href="trend-finder.html">Trend Finder</a>
+          </div>
+        </div>
         <a href="about.html">About</a>
       </nav>
 
@@ -85,8 +97,9 @@
     <a href="index.html" onclick="toggleMobileNav()">Home</a>
     <a href="journal.html" class="active" onclick="toggleMobileNav()">Journal</a>
     <a href="guides.html" onclick="toggleMobileNav()">Guides</a>
-    <a href="plan.html" onclick="toggleMobileNav()">Plan My Trip</a>
+    <a href="plan.html" onclick="toggleMobileNav()">Unplanned Itinerary</a>
     <a href="michelin.html" onclick="toggleMobileNav()">Budget Michelin</a>
+    <a href="trend-finder.html" onclick="toggleMobileNav()">Trend Finder</a>
     <a href="about.html" onclick="toggleMobileNav()">About</a>
     <a href="personas.html" onclick="toggleMobileNav()">Personas</a>
     <a href="contributors.html" onclick="toggleMobileNav()">Contributors</a>
@@ -214,8 +227,9 @@
       <a href="index.html">Home</a>
       <a href="journal.html">Journal</a>
       <a href="guides.html">Guides</a>
-      <a href="plan.html">Plan My Trip</a>
+      <a href="plan.html">Unplanned Itinerary</a>
       <a href="michelin.html">Budget Michelin</a>
+      <a href="trend-finder.html">Trend Finder</a>
       <a href="about.html">About</a>
       <a href="personas.html">Personas</a>
       <a href="contributors.html">Contributors</a>
@@ -278,6 +292,22 @@
       document.getElementById('modal-signup').style.display = tab === 'signup' ? 'flex' : 'none';
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ── AI Engines dropdown click-toggle ─────────────────────────
+    document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', e => {
+        e.preventDefault();
+        const parent = toggle.closest('.nav-has-dropdown');
+        const isOpen = parent.classList.contains('open');
+        document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));
+        if (!isOpen) parent.classList.add('open');
+      });
+    });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.nav-has-dropdown')) {
+        document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));
+      }
+    });
 
     const stickyNav = document.getElementById('stickyNav');
     const heroEl = document.querySelector('.hero');

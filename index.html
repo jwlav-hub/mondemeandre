@@ -26,8 +26,14 @@
       <a href="index.html" class="active">Home</a>
       <a href="journal.html">Journal</a>
       <a href="guides.html">Guides</a>
-      <a href="plan.html">Plan My Trip</a>
-      <a href="michelin.html">Budget Michelin</a>
+      <div class="nav-has-dropdown">
+        <a href="index.html#ai-engines" class="nav-dropdown-toggle">AI Engines</a>
+        <div class="nav-dropdown-menu">
+          <a href="plan.html">Unplanned Itinerary</a>
+          <a href="michelin.html">Budget Michelin</a>
+          <a href="trend-finder.html">Trend Finder</a>
+        </div>
+      </div>
       <a href="about.html">About</a>
     </div>
     <div class="nav-login">
@@ -54,8 +60,14 @@
         <a href="index.html" class="active">Home</a>
         <a href="journal.html">Journal</a>
         <a href="guides.html">Guides</a>
-        <a href="plan.html">Plan My Trip</a>
-        <a href="michelin.html">Budget Michelin</a>
+        <div class="nav-has-dropdown">
+          <a href="index.html#ai-engines" class="nav-dropdown-toggle">AI Engines</a>
+          <div class="nav-dropdown-menu">
+            <a href="plan.html">Unplanned Itinerary</a>
+            <a href="michelin.html">Budget Michelin</a>
+            <a href="trend-finder.html">Trend Finder</a>
+          </div>
+        </div>
         <a href="about.html">About</a>
       </nav>
 
@@ -97,8 +109,9 @@
     <a href="index.html" class="active" onclick="toggleMobileNav()">Home</a>
     <a href="journal.html" onclick="toggleMobileNav()">Journal</a>
     <a href="guides.html" onclick="toggleMobileNav()">Guides</a>
-    <a href="plan.html" onclick="toggleMobileNav()">Plan My Trip</a>
+    <a href="plan.html" onclick="toggleMobileNav()">Unplanned Itinerary</a>
     <a href="michelin.html" onclick="toggleMobileNav()">Budget Michelin</a>
+    <a href="trend-finder.html" onclick="toggleMobileNav()">Trend Finder</a>
     <a href="about.html" onclick="toggleMobileNav()">About</a>
     <a href="personas.html" onclick="toggleMobileNav()">Personas</a>
     <a href="contributors.html" onclick="toggleMobileNav()">Contributors</a>
@@ -106,7 +119,7 @@
   </div>
 
   <!-- TOOLS SECTION -->
-  <section class="tools-section">
+  <section class="tools-section" id="ai-engines">
     <div class="section-header">
       <span class="section-label">AI-Powered Tools</span>
       <h2>Plan Your Trip Smarter</h2>
@@ -128,7 +141,7 @@
       <article class="tool-feature-card">
         <h3>Oso Social Trend Finder</h3>
         <p>人声鼎沸 (rén shēng dǐng fèi) — the roar of a room that's alive. Find the restaurants, bars, and venues the in-crowd already knows about, filtered by what you're seeking and where you want to be.</p>
-        <a href="michelin.html#oso-social" class="btn-outline">Find Trendy Spots</a>
+        <a href="trend-finder.html" class="btn-outline">Find Trendy Spots</a>
       </article>
 
     </div>
@@ -240,24 +253,21 @@
       <div class="contrib-callout-text">
         <span class="section-label">Write for Monde Méandre</span>
         <h2>Enlightened Travelers Belong Here</h2>
-        <p>We're building a platform for travelers who go somewhere to understand it — not to photograph it for an algorithm. If you've spent real time in a place and have something genuine to say about it, we'd like to hear from you.</p>
-        <p>Cultural depth, original photography, honest perspective. No listicles, no sponsored roundups — just travel writing worth reading.</p>
+        <p>We're building a platform for travelers who go somewhere, embrace it and appreciate different perspectives — not to get a selfie for an algorithm to gain followers and travel brag. If you've spent real time traveling and have enlightening moments, we'd like to hear from you.</p>
+        <p>Cultural depth, original photography, authentic experience. No listicles, no sponsored roundups — just travel writing worth reading.</p>
         <a href="contributors.html" class="btn-outline">Become a Contributor</a>
       </div>
       <div class="contrib-callout-pillars">
         <div class="contrib-pillar">
-          <span class="contrib-pillar-icon">✍️</span>
           <h4>Cultural Depth</h4>
           <p>The story behind the place, not just the logistics of getting there.</p>
         </div>
         <div class="contrib-pillar">
-          <span class="contrib-pillar-icon">📷</span>
           <h4>Original Photography</h4>
           <p>Your own images from your own trips — honest over polished.</p>
         </div>
         <div class="contrib-pillar">
-          <span class="contrib-pillar-icon">🧭</span>
-          <h4>Honest Perspective</h4>
+          <h4>Authentic Experience</h4>
           <p>A real point of view. Uncertainty is not a weakness in travel writing.</p>
         </div>
       </div>
@@ -278,8 +288,9 @@
       <a href="index.html">Home</a>
       <a href="journal.html">Journal</a>
       <a href="guides.html">Guides</a>
-      <a href="plan.html">Plan My Trip</a>
+      <a href="plan.html">Unplanned Itinerary</a>
       <a href="michelin.html">Budget Michelin</a>
+      <a href="trend-finder.html">Trend Finder</a>
       <a href="about.html">About</a>
       <a href="personas.html">Personas</a>
       <a href="contributors.html">Contributors</a>
@@ -344,6 +355,22 @@
       document.getElementById('modal-signup').style.display = tab === 'signup' ? 'flex' : 'none';
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ── AI Engines dropdown click-toggle ─────────────────────────
+    document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', e => {
+        e.preventDefault();
+        const parent = toggle.closest('.nav-has-dropdown');
+        const isOpen = parent.classList.contains('open');
+        document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));
+        if (!isOpen) parent.classList.add('open');
+      });
+    });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.nav-has-dropdown')) {
+        document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));
+      }
+    });
 
     // ── Sticky nav ────────────────────────────────────────────────
     const stickyNav = document.getElementById('stickyNav');
