@@ -8,7 +8,7 @@
   <link rel="canonical" href="https://mondemeandre.com/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css?v=5">
 </head>
 <body>
@@ -79,24 +79,25 @@
       </div>
     </div>
 
-    <!-- Globe + text split -->
-    <div class="hero-split">
+    <!-- Stars background -->
+    <canvas id="stars-canvas"></canvas>
 
-      <div class="hero-globe-col">
-        <div id="globe-hero"></div>
+    <!-- Globe dome (bottom half below fold) -->
+    <div class="hero-globe-dome">
+      <canvas id="globe-canvas"></canvas>
+    </div>
+
+    <!-- Floating figures -->
+    <img src="images/mm-traveler.png" alt="Traveler" class="hero-figure hero-figure--left">
+    <img src="images/mm-explorer.png" alt="Explorer" class="hero-figure hero-figure--right">
+
+    <!-- Centered text overlay -->
+    <div class="hero-overlay">
+      <p class="hero-label">World Wandering — Travel &amp; Dining</p>
+      <h1 class="hero-title">Don't be a Tourist —<br>Curate Your Immersive<br>Travel Experience</h1>
+      <div class="hero-cta">
+        <a href="plan.html" class="btn-hero-new">Let's Go!</a>
       </div>
-
-      <div class="hero-content-col">
-        <p class="hero-label">World Wandering — Travel & Dining</p>
-        <h1 class="hero-title">Don't be a Tourist —<br>Curate Your Immersive<br>Travel Experience</h1>
-        <p class="hero-desc">AI-powered tools for unplanned adventures. Define your pathway and create your bespoke itinerary, find dirt cheap Michelin dining and end up in the trendiest dive bars.</p>
-        <p class="hero-desc"><em>Wuwei</em> (无为) — the idea that your best pathway isn't forced, from the Taoist concept of &ldquo;effortless action&rdquo;.</p>
-        <div class="hero-cta">
-          <p class="hero-lets-go">Let's Go!</p>
-          <a href="plan.html" class="btn-hero">Plan My Trip</a>
-        </div>
-      </div>
-
     </div>
 
     <div class="scroll-cue" aria-hidden="true">Scroll</div>
@@ -134,13 +135,13 @@
 
       <article class="tool-feature-card">
         <h3>Budget Michelin Finder</h3>
-        <p>精致穷 (jīng zhì qióng) — the refined art of living beautifully without the budget to match. Find Bib Gourmand picks and affordable Michelin-starred restaurants in any city, filtered by budget and district.</p>
+        <p>Find Bib Gourmand picks and affordable Michelin-starred restaurants in any city, filtered by budget and district.</p>
         <a href="michelin.html" class="btn-outline">Find Budget Michelin</a>
       </article>
 
       <article class="tool-feature-card">
         <h3>Oso Social Trend Finder</h3>
-        <p>人声鼎沸 (rén shēng dǐng fèi) — the roar of a room that's alive. Find the restaurants, bars, and venues the in-crowd already knows about, filtered by what you're seeking and where you want to be.</p>
+        <p>Find the restaurants, bars, and venues the in-crowd already knows about, filtered by what you're seeking and where you want to be.</p>
         <a href="trend-finder.html" class="btn-outline">Find Trendy Spots</a>
       </article>
 
@@ -380,145 +381,149 @@
       stickyNav.classList.toggle('visible', window.scrollY > threshold);
     }, { passive: true });
 
-    // ── Hero globe ────────────────────────────────────────────────
-    const container = document.getElementById('globe-hero');
-    const size      = Math.min(480, container.offsetWidth || 480);
-    const cx = size / 2, cy = size / 2, radius = size / 2 - 6;
+    // ── Globe Hero (Canvas) ──────────────────────────────────────
+    (function() {
+      let lambda = -90, last = null;
+      const SPEED = 6;
 
-    const C_ARC  = 'rgba(255,255,255,0.72)';
-    const C_CITY = '#D8C078';
+      let seed = 1337;
+      const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
+      const stars = Array.from({length: 150}, () => ({
+        x: rnd(), y: rnd() * 0.62, r: 0.4 + rnd() * 1.5,
+        a: 0.25 + rnd() * 0.7, tw: rnd() * Math.PI * 2,
+      }));
 
-    const stops = [
-      { name: 'Los Angeles',      coords: [-118.24,  34.05] },
-      { name: 'Tokyo',            coords: [ 139.69,  35.69] },
-      { name: 'Bangkok',          coords: [ 100.50,  13.76] },
-      { name: 'Siem Reap',        coords: [ 103.86,  13.36] },
-      { name: 'Ho Chi Minh City', coords: [ 106.63,  10.82] },
-      { name: 'Singapore',        coords: [ 103.82,   1.35] },
-      { name: 'Bali',             coords: [ 115.21,  -8.41] },
-      { name: 'Hong Kong',        coords: [ 114.17,  22.32] },
-      { name: 'Los Angeles',      coords: [-118.24,  34.05] },
-    ];
+      const cities = [
+        {name:'Hong Kong',   coord:[114.17, 22.28]},
+        {name:'Tokyo',       coord:[139.69, 35.69]},
+        {name:'Bangkok',     coord:[100.50, 13.75]},
+        {name:'Los Angeles', coord:[-118.24, 34.05]},
+        {name:'London',      coord:[-0.13,  51.51]},
+        {name:'Madrid',      coord:[-3.70,  40.42]},
+        {name:'Rome',        coord:[12.50,  41.90]},
+        {name:'Honolulu',    coord:[-157.86,21.31]},
+        {name:'Miami',       coord:[-80.19, 25.76]},
+        {name:'Dubai',       coord:[55.27,  25.20]},
+        {name:'Mumbai',      coord:[72.88,  19.08]},
+        {name:'Qingdao',     coord:[120.38, 36.07]},
+        {name:'Cairo',       coord:[31.24,  30.04]},
+      ].map((c,i) => ({...c, phase: i * 0.83}));
 
-    const segments = stops.slice(0, -1).map((s, i) => ({
-      from: s, to: stops[i + 1],
-      interpolate: d3.geoInterpolate(s.coords, stops[i + 1].coords),
-    }));
+      const gc = document.getElementById('globe-canvas');
+      const sc = document.getElementById('stars-canvas');
+      let ctx, sctx, proj, land, grat, css, scss;
 
-    const svg = d3.select('#globe-hero').append('svg')
-      .attr('width', size).attr('height', size);
-
-    const defs = svg.append('defs');
-
-    const oceanGrad = defs.append('radialGradient').attr('id', 'hOcean')
-      .attr('cx', '38%').attr('cy', '33%').attr('r', '65%');
-    oceanGrad.append('stop').attr('offset', '0%')  .attr('stop-color', '#6BB8E8');
-    oceanGrad.append('stop').attr('offset', '45%') .attr('stop-color', '#3A7ABD');
-    oceanGrad.append('stop').attr('offset', '100%').attr('stop-color', '#112952');
-
-    const landGrad = defs.append('radialGradient').attr('id', 'hLand')
-      .attr('cx', '38%').attr('cy', '33%').attr('r', '65%');
-    landGrad.append('stop').attr('offset', '0%')  .attr('stop-color', '#6BAF5A');
-    landGrad.append('stop').attr('offset', '100%').attr('stop-color', '#2C5C22');
-
-    const hlGrad = defs.append('radialGradient').attr('id', 'hHL')
-      .attr('cx', '35%').attr('cy', '28%').attr('r', '45%');
-    hlGrad.append('stop').attr('offset', '0%')  .attr('stop-color', 'rgba(255,255,255,0.22)');
-    hlGrad.append('stop').attr('offset', '100%').attr('stop-color', 'rgba(255,255,255,0)');
-
-    defs.append('clipPath').attr('id', 'hClip')
-      .append('circle').attr('cx', cx).attr('cy', cy).attr('r', radius);
-
-    const projection = d3.geoOrthographic()
-      .scale(radius).translate([cx, cy]).clipAngle(90).rotate([118.24, -25]);
-    const path = d3.geoPath().projection(projection);
-
-    svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', radius)
-      .attr('fill', 'url(#hOcean)').attr('stroke', '#1A2B40').attr('stroke-width', 2);
-
-    const gGrat = svg.append('path').datum(d3.geoGraticule()())
-      .attr('fill', 'none').attr('stroke', 'rgba(255,255,255,0.09)').attr('stroke-width', 0.6)
-      .attr('clip-path', 'url(#hClip)');
-
-    const gLand = svg.append('path')
-      .attr('fill', 'url(#hLand)').attr('stroke', '#1A2B40').attr('stroke-width', 0.6)
-      .attr('clip-path', 'url(#hClip)');
-
-    const gArcs   = svg.append('g').attr('clip-path', 'url(#hClip)');
-    const gCities = svg.append('g').attr('clip-path', 'url(#hClip)');
-
-    svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', radius)
-      .attr('fill', 'url(#hHL)').attr('pointer-events', 'none');
-
-    const planeDot = svg.append('circle').attr('r', 5)
-      .attr('fill', '#fff').attr('stroke', C_CITY).attr('stroke-width', 2);
-
-    // Globe follows the route — rotLon/rotLat ease toward the plane's position
-    let rotLon = 118.24;  // centered on LA at start (-(-118.24))
-    let rotLat = -25;
-    let segIdx = 0, planeFrame = 0;
-    const FRAMES = 280;
-
-    function isVisible(coords) {
-      const [rLon, rLat] = projection.rotate();
-      return d3.geoDistance(coords, [-rLon, -rLat]) < Math.PI / 2;
-    }
-
-    function draw(land) {
-      // Plane's current geographic position
-      const t = planeFrame / FRAMES;
-      const planePos = segments[segIdx].interpolate(t);
-
-      // Ease globe rotation to center on the plane's longitude
-      const targetLon = -planePos[0];
-      let diff = targetLon - rotLon;
-      if (diff > 180) diff -= 360;
-      if (diff < -180) diff += 360;
-      rotLon += diff * 0.014;
-
-      // Gently ease latitude to follow (clamped so we don't flip upside down)
-      const targetLat = Math.max(-45, Math.min(-5, -planePos[1] * 0.6));
-      rotLat += (targetLat - rotLat) * 0.008;
-
-      projection.rotate([rotLon, rotLat]);
-      gGrat.attr('d', path);
-      gLand.datum(land).attr('d', path);
-
-      gArcs.selectAll('path').remove();
-      segments.forEach(seg => {
-        const pts = d3.range(0, 1.01, 0.015).map(t => seg.interpolate(t));
-        gArcs.append('path')
-          .datum({ type: 'LineString', coordinates: pts })
-          .attr('d', path).attr('fill', 'none')
-          .attr('stroke', C_ARC).attr('stroke-width', 1.5)
-          .attr('stroke-dasharray', '5 5').attr('stroke-linecap', 'round');
-      });
-
-      gCities.selectAll('*').remove();
-      stops.slice(0, -1).forEach(city => {
-        if (!isVisible(city.coords)) return;
-        const [px, py] = projection(city.coords);
-        gCities.append('circle').attr('cx', px).attr('cy', py).attr('r', 4)
-          .attr('fill', C_CITY).attr('stroke', '#fff').attr('stroke-width', 1.5);
-        gCities.append('text').attr('x', px + 7).attr('y', py + 4)
-          .attr('font-family', 'Lato, sans-serif').attr('font-size', '10px')
-          .attr('font-weight', '700').attr('fill', '#fff')
-          .style('text-shadow', '0 1px 4px rgba(0,0,0,0.9)').text(city.name);
-      });
-
-      if (isVisible(planePos)) {
-        const [px, py] = projection(planePos);
-        planeDot.attr('cx', px).attr('cy', py).attr('visibility', 'visible');
-      } else {
-        planeDot.attr('visibility', 'hidden');
+      function resize() {
+        if (!gc) return;
+        const dpr = window.devicePixelRatio || 1;
+        const w = gc.clientWidth, h = gc.clientHeight;
+        gc.width = Math.round(w * dpr); gc.height = Math.round(h * dpr);
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+        proj.translate([w/2,h/2]).scale(Math.min(w,h)/2 - 8);
+        css = {w,h};
+        if (!sc) return;
+        sc.width = Math.round(sc.clientWidth*dpr); sc.height = Math.round(sc.clientHeight*dpr);
+        sctx.setTransform(dpr,0,0,dpr,0,0);
+        scss = {w: sc.clientWidth, h: sc.clientHeight};
       }
 
-      if (++planeFrame >= FRAMES) { planeFrame = 0; segIdx = (segIdx + 1) % segments.length; }
-      requestAnimationFrame(() => draw(land));
-    }
+      function drawStars(now) {
+        if (!sc || !scss) return;
+        const {w,h} = scss;
+        sctx.clearRect(0,0,w,h);
+        for (const s of stars) {
+          sctx.globalAlpha = s.a * (0.65 + 0.35 * Math.sin(now * 0.0016 + s.tw));
+          sctx.fillStyle = '#fff';
+          sctx.beginPath(); sctx.arc(s.x*w, s.y*h, s.r, 0, Math.PI*2); sctx.fill();
+        }
+        sctx.globalAlpha = 1;
+      }
 
-    d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
-      .then(world => draw(topojson.feature(world, world.objects.land)));
+      function drawGloss() {
+        const [cx,cy] = proj.translate(); const r = proj.scale();
+        ctx.save();
+        ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.clip();
+        const vol = ctx.createRadialGradient(cx-r*.38,cy-r*.42,r*.05,cx-r*.10,cy-r*.05,r*1.18);
+        vol.addColorStop(0,'rgba(255,255,255,0.26)'); vol.addColorStop(0.45,'rgba(255,255,255,0.06)');
+        vol.addColorStop(0.74,'rgba(120,140,165,0)'); vol.addColorStop(1,'rgba(70,90,120,0.22)');
+        ctx.fillStyle=vol; ctx.fillRect(cx-r,cy-r,r*2,r*2);
+        ctx.save(); ctx.translate(cx-r*.40,cy-r*.46); ctx.scale(1,0.72);
+        const sp = ctx.createRadialGradient(0,0,0,0,0,r*.42);
+        sp.addColorStop(0,'rgba(255,255,255,0.40)'); sp.addColorStop(0.5,'rgba(255,255,255,0.10)');
+        sp.addColorStop(1,'rgba(255,255,255,0)');
+        ctx.fillStyle=sp; ctx.beginPath(); ctx.arc(0,0,r*.42,0,Math.PI*2); ctx.fill(); ctx.restore();
+        ctx.beginPath(); ctx.arc(cx,cy,r-.6,Math.PI*.85,Math.PI*1.75);
+        ctx.lineWidth=1.4; ctx.strokeStyle='rgba(255,255,255,0.28)'; ctx.stroke();
+        ctx.restore();
+      }
+
+      function drawCities() {
+        const now = performance.now()/1000;
+        const rot = proj.rotate(); const center = [-rot[0],-rot[1]];
+        const gold = '#c79a3e';
+        for (const c of cities) {
+          if (d3.geoDistance(c.coord,center) > 1.45) continue;
+          const pt = proj(c.coord); if (!pt) continue;
+          let dlon = ((c.coord[0]-center[0]+540)%360)-180;
+          let vis = 1-(Math.abs(dlon)-8)/30;
+          vis = Math.max(0,Math.min(1,vis)); vis = vis*vis*(3-2*vis);
+          if (vis<=0.02) continue;
+          const [x,y] = pt;
+          const cyc = (((now*.9+c.phase)%1)+1)%1;
+          ctx.beginPath(); ctx.arc(x,y,4+cyc*17,0,Math.PI*2);
+          ctx.lineWidth=1.5; ctx.strokeStyle=gold;
+          ctx.globalAlpha=(1-cyc)*.5*vis; ctx.stroke();
+          const pulse = .5+.5*Math.sin(now*4+c.phase);
+          ctx.beginPath(); ctx.arc(x,y,3+pulse*1.3,0,Math.PI*2);
+          ctx.fillStyle=gold; ctx.globalAlpha=vis; ctx.fill();
+          ctx.beginPath(); ctx.arc(x,y,1.3,0,Math.PI*2);
+          ctx.fillStyle='#fff'; ctx.globalAlpha=vis*.9; ctx.fill();
+          ctx.font='600 14px "Helvetica Neue",Helvetica,Arial,sans-serif';
+          ctx.globalAlpha=vis; ctx.fillStyle='#fff';
+          ctx.shadowColor='rgba(0,0,0,0.45)'; ctx.shadowBlur=4; ctx.shadowOffsetY=.5;
+          ctx.textBaseline='middle'; ctx.textAlign='left';
+          ctx.fillText(c.name,x+11,y-11+(1-vis)*7);
+          ctx.shadowColor='transparent'; ctx.shadowBlur=0; ctx.shadowOffsetY=0;
+          ctx.textBaseline='alphabetic';
+        }
+        ctx.globalAlpha=1;
+      }
+
+      function draw() {
+        const {w,h} = css;
+        const path = d3.geoPath(proj,ctx);
+        ctx.clearRect(0,0,w,h);
+        ctx.beginPath(); path({type:'Sphere'}); ctx.fillStyle='#6282A3'; ctx.fill();
+        ctx.beginPath(); path(land); ctx.fillStyle='#8AC879'; ctx.fill();
+        ctx.beginPath(); path(grat);
+        ctx.lineWidth=.7; ctx.strokeStyle='#d8e2ec'; ctx.globalAlpha=.8; ctx.stroke(); ctx.globalAlpha=1;
+        ctx.beginPath(); path({type:'Sphere'});
+        ctx.lineWidth=1; ctx.strokeStyle='#cdd8e2'; ctx.globalAlpha=.7; ctx.stroke(); ctx.globalAlpha=1;
+        drawGloss(); drawCities();
+      }
+
+      function tick(now) {
+        const dt = last ? Math.min(now-last,64) : 0; last = now;
+        lambda -= SPEED*dt/1000;
+        proj.rotate([lambda,-12,0]);
+        draw(); drawStars(now);
+        requestAnimationFrame(tick);
+      }
+
+      async function init() {
+        while (!window.d3 || !window.topojson) await new Promise(r=>setTimeout(r,60));
+        const topo = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json').then(r=>r.json());
+        land = topojson.feature(topo,topo.objects.land);
+        grat = d3.geoGraticule().step([20,20])();
+        proj = d3.geoOrthographic().clipAngle(90).precision(.4);
+        if (!gc) return;
+        ctx = gc.getContext('2d'); sctx = sc.getContext('2d');
+        resize();
+        new ResizeObserver(resize).observe(gc);
+        requestAnimationFrame(tick);
+      }
+      init();
+    })();
   </script>
 
 </body>
