@@ -66,65 +66,12 @@
 
       <div class="page-intro">
         <span class="section-label">Travel Personas</span>
-        <h1>Whose Lens Do You Travel Through?</h1>
-        <p>Each persona shapes how your itinerary is written — the places it prioritizes, the voice it uses, and what it considers worth seeking out. Select one below to read their full profile, then use them in the <a href="plan.html" style="color:var(--gold)">Itinerary Engine</a>.</p>
+        <h1>Which Traveler Are You?</h1>
+        <p>Eight original archetypes — each one a different way of being in the world. In the <a href="plan.html" style="color:var(--gold)">Itinerary Engine</a>, you select one as your <strong>primary</strong> voice and up to two as <strong>influences</strong>. The AI writes your itinerary in that primary voice, with traces of the others woven in. Tap any card to read the full profile.</p>
       </div>
 
-      <!-- 8-tile grid -->
-      <div class="persona-tiles" id="personaTiles">
-
-        <div class="persona-tile" data-id="bourdain" onclick="showProfile('bourdain', this)">
-          <div class="persona-tile-avatar">AB</div>
-          <div class="persona-tile-name">Anthony Bourdain</div>
-          <div class="persona-tile-role">Chef · Author · Host</div>
-        </div>
-
-        <div class="persona-tile" data-id="zimmern" onclick="showProfile('zimmern', this)">
-          <div class="persona-tile-avatar">AZ</div>
-          <div class="persona-tile-name">Andrew Zimmern</div>
-          <div class="persona-tile-role">Chef · TV Host · Humanitarian</div>
-        </div>
-
-        <div class="persona-tile" data-id="theroux" onclick="showProfile('theroux', this)">
-          <div class="persona-tile-avatar">PT</div>
-          <div class="persona-tile-name">Paul Theroux</div>
-          <div class="persona-tile-role">Travel Writer · Novelist</div>
-        </div>
-
-        <div class="persona-tile" data-id="potts" onclick="showProfile('potts', this)">
-          <div class="persona-tile-avatar">RP</div>
-          <div class="persona-tile-name">Rolf Potts</div>
-          <div class="persona-tile-role">Travel Writer · Vagabonder</div>
-        </div>
-
-        <div class="persona-tile" data-id="iyer" onclick="showProfile('iyer', this)">
-          <div class="persona-tile-avatar">PI</div>
-          <div class="persona-tile-name">Pico Iyer</div>
-          <div class="persona-tile-role">Essayist · Novelist</div>
-        </div>
-
-        <div class="persona-tile" data-id="yamashita" onclick="showProfile('yamashita', this)">
-          <div class="persona-tile-avatar">MY</div>
-          <div class="persona-tile-name">Michael Yamashita</div>
-          <div class="persona-tile-role">Photojournalist · National Geographic</div>
-        </div>
-
-        <div class="persona-tile" data-id="rosenthal" onclick="showProfile('rosenthal', this)">
-          <div class="persona-tile-avatar">PR</div>
-          <div class="persona-tile-name">Phil Rosenthal</div>
-          <div class="persona-tile-role">TV Creator · Food Traveler</div>
-        </div>
-
-        <div class="persona-tile" data-id="condenast" onclick="showProfile('condenast', this)">
-          <div class="persona-tile-avatar">CN</div>
-          <div class="persona-tile-name">Condé Nast</div>
-          <div class="persona-tile-role">Luxury Travel · Editorial</div>
-        </div>
-
-      </div>
-
-      <!-- Profile panel — populated by JS -->
-      <div class="persona-profile-panel" id="profilePanel"></div>
+      <!-- Archetype card grid — rendered by JS -->
+      <div class="persona-arcs" id="personaArcs"></div>
 
     </div>
   </main>
@@ -200,7 +147,6 @@
       if (e.key === 'Escape' && document.getElementById('mobileNav').classList.contains('open')) toggleMobileNav();
     });
 
-    // ── Modal ─────────────────────────────────────────────────────
     function openModal()  { document.getElementById('loginModal').classList.add('open'); }
     function closeModal() { document.getElementById('loginModal').classList.remove('open'); }
     function switchTab(tab) {
@@ -210,7 +156,6 @@
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    // ── AI Engines dropdown click-toggle ─────────────────────────
     document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
       toggle.addEventListener('click', e => {
         e.preventDefault();
@@ -221,172 +166,116 @@
       });
     });
     document.addEventListener('click', e => {
-      if (!e.target.closest('.nav-has-dropdown')) {
+      if (!e.target.closest('.nav-has-dropdown'))
         document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));
-      }
     });
 
-    // ── Persona data ──────────────────────────────────────────────
-    const personas = {
-      bourdain: {
-        initials: 'AB',
-        name: 'Anthony Bourdain',
-        years: '1956 – 2018',
-        type: 'Chef · Author · Television Host',
-        quote: '"Travel changes you. As you move through this life and this world you change things slightly, you leave marks behind, however small."',
-        bio: 'Anthony Bourdain spent two decades dismantling the romanticized version of travel in favor of something far more honest — and far more interesting. Starting in the restaurant kitchens of New York and culminating in a decade of globetrotting television, he made the case that the best meal in any city is rarely the one with the most stars, and the real story of a place is found not in its monuments but in its street corners, its markets, and the people who feed strangers for a living. His writing was sharp, unsentimental, and frequently funny — never condescending, never performatively humble. He made you want to go places you\'d never considered, and to arrive with your eyes properly open.',
-        worksLabel: 'Books · Shows · Links',
-        works: [
-          { label: 'Kitchen Confidential', href: 'https://www.amazon.com/Kitchen-Confidential-Adventures-Culinary-Underbelly/dp/0060934913' },
-          { label: 'Medium Raw', href: 'https://www.amazon.com/Medium-Raw-Bloody-Valentine-People/dp/0061718947' },
-          { label: 'A Cook\'s Tour', href: 'https://www.amazon.com/Cooks-Tour-Search-Perfect-Meal/dp/0060011866' },
-          { label: 'Parts Unknown (Max)', href: 'https://www.max.com/shows/anthony-bourdain-parts-unknown' },
-        ],
+    // ── Archetype data ────────────────────────────────────────────
+    const PERSONAS = [
+      {
+        id: 'street-food-wanderer',
+        name: 'Street-Food Wanderer',
+        descriptor: ['Local', 'Unfiltered', 'Street-Level'],
+        tagline: 'The best table in town rarely has a tablecloth.',
+        body: `You travel on the assumption that the real city never makes it into the guidebook. While everyone else queues for the famous view, you're following the smell of charcoal down an alley to a stall with no name and a line of locals out the door — because that line is the only review you trust. You'd rather eat brilliantly for three dollars at a plastic table than adequately for fifty under chandeliers. Comfort doesn't move you; the genuine article does. You come home not with souvenirs but with the address of a noodle cart you'd fly back for, and the quiet satisfaction of having seen a place the way the people who live there actually do.`,
+        image: 'images/personas/street-food-wanderer.png',
       },
-      zimmern: {
-        initials: 'AZ',
-        name: 'Andrew Zimmern',
-        years: '',
-        type: 'Chef · Author · Television Host · Humanitarian',
-        quote: '"If it looks good, eat it. The world\'s cultures reveal themselves most honestly through what they put on the table."',
-        bio: 'Andrew Zimmern built a career around the premise that the foods most travelers walk past are often the most culturally revealing. As the creator and host of Bizarre Foods, he spent years seeking out unusual ingredients, forgotten culinary traditions, and the people who keep them alive — not for shock value, but out of genuine curiosity and deep respect. His approach is that of a culinary anthropologist: every meal is a document of history, geography, and identity. Off-camera, Zimmern has been an outspoken advocate for food security and social equity, lending his platform to causes well beyond the table. Travel with his lens means eating outside your comfort zone and finding that the discomfort was the point.',
-        worksLabel: 'Shows · Links',
-        works: [
-          { label: 'Bizarre Foods (Discovery+)', href: 'https://www.discoveryplus.com' },
-          { label: 'What\'s Eating America (Hulu)', href: 'https://www.hulu.com' },
-          { label: 'andrewzimmern.com', href: 'https://www.andrewzimmern.com' },
-        ],
+      {
+        id: 'fearless-eater',
+        name: 'Fearless Eater',
+        descriptor: ['Adventurous', 'Curious', 'All-In'],
+        tagline: `If I can't name it, I'm ordering it.`,
+        body: `The unfamiliar isn't something you tolerate — it's the whole reason you came. Where others scan a menu for something safe, you point at the dish nobody can translate and the fruit that looks faintly dangerous, because you've learned the strangest plate on the table is usually the one with the best story behind it. This isn't about shock value; it's about respect — you believe the fastest way to understand a culture is to eat what it loves, the way it loves it, without flinching. You ask questions, you say yes, and you let people show you their world one improbable bite at a time. You leave braver than you arrived.`,
+        image: 'images/personas/fearless-eater.png',
       },
-      theroux: {
-        initials: 'PT',
-        name: 'Paul Theroux',
-        years: 'b. 1941',
-        type: 'Travel Writer · Novelist',
-        quote: '"Travel is glamorous only in retrospect."',
-        bio: 'Paul Theroux is one of the great uncompromising voices in travel literature — suspicious of comfort, allergic to the packaged experience, and drawn with almost perverse consistency to trains, slow boats, and the long way around. His books follow him across continents with a journalist\'s eye and a novelist\'s ear, recording the texture of places and conversations in prose that is often bracingly unsentimental. He has little patience for the travel industry\'s mythology and prefers the places between destinations — the overnight train carriage, the border town, the unmarked guesthouse — where a place reveals something unguarded. Reading Theroux before a trip rewires your expectations in useful ways.',
-        worksLabel: 'Essential Reading',
-        works: [
-          { label: 'The Great Railway Bazaar', href: 'https://www.amazon.com/Great-Railway-Bazaar-Train-Asia/dp/0618658947' },
-          { label: 'The Happy Isles of Oceania', href: 'https://www.amazon.com/Happy-Isles-Oceania-Paddling-Pacific/dp/039931066X' },
-          { label: 'Ghost Train to the Eastern Star', href: 'https://www.amazon.com/Ghost-Train-Eastern-Star-Rails/dp/0618418873' },
-          { label: 'The Tao of Travel', href: 'https://www.amazon.com/Tao-Travel-Enlightenments-Greatest-Writers/dp/0547737378' },
-        ],
+      {
+        id: 'literary-observer',
+        name: 'Literary Observer',
+        descriptor: ['Literary', 'Unsentimental', 'Watchful'],
+        tagline: 'I take the slow train on purpose.',
+        body: `You travel the way a good writer reads a room — quietly, attentively, missing nothing. The express holds no appeal; you want the local that stops everywhere, the long way around, the unglamorous places between the postcards where a country actually reveals itself. You're not collecting experiences so much as gathering moments to understand, and you'll happily spend an afternoon on a single café bench watching a neighborhood go about its day. Your notebook fills with overheard conversations and small precise details most travelers walk straight past. You're unsentimental but never cold — you simply prefer the truth of a place to the brochure version, and you always arrive with your eyes open.`,
+        image: 'images/personas/literary-observer.png',
       },
-      potts: {
-        initials: 'RP',
-        name: 'Rolf Potts',
-        years: '',
-        type: 'Travel Writer · Vagabonding Philosopher',
-        quote: '"Vagabonding is not a lifestyle choice but a deliberate practice — the act of taking time to discover the world on your own terms."',
-        bio: 'Rolf Potts wrote the book on long-term travel — literally. Vagabonding, published in 2002 and still in print, made the philosophical case that extended, unhurried travel is available to almost anyone willing to rethink their assumptions about time, money, and what a trip is for. His travel writing is meditative, often self-critical, and deeply suspicious of the checklist mentality that turns travel into a performance. He is interested in absorption over accumulation, in what a place does to you over time rather than the highlights you can photograph in an afternoon. His lens is one of slowness, openness, and the deliberate embrace of uncertainty.',
-        worksLabel: 'Books · Links',
-        works: [
-          { label: 'Vagabonding', href: 'https://www.amazon.com/Vagabonding-Uncommon-Guide-Long-Term-Travel/dp/0812992180' },
-          { label: 'Marco Polo Didn\'t Go There', href: 'https://www.amazon.com/Marco-Polo-Didnt-Go-There/dp/1932361561' },
-          { label: 'rolfpotts.com', href: 'https://rolfpotts.com' },
-        ],
+      {
+        id: 'philosophical-drifter',
+        name: 'Philosophical Drifter',
+        descriptor: ['Unhurried', 'Open', 'Free'],
+        tagline: 'The point was never the destination.',
+        body: `You don't travel to escape your life — you travel to deepen it. Fixed itineraries make you restless; you'd rather leave the schedule loose and let the road decide, trusting that the best days are the ones you couldn't have planned. A missed bus becomes a village you'd never have found, a casual conversation becomes a three-day detour, and somehow it always works out richer than the plan would have. You measure a trip less by what you saw than by who you became while seeing it. For you, the long, winding, slightly aimless route isn't wasted time — it's the entire point, and you come back a little different every time.`,
+        image: 'images/personas/philosophical-drifter.png',
       },
-      iyer: {
-        initials: 'PI',
-        name: 'Pico Iyer',
-        years: 'b. 1957',
-        type: 'Essayist · Novelist · TED Speaker',
-        quote: '"We travel, initially, to lose ourselves; and we travel, next, to find ourselves."',
-        bio: 'Pico Iyer is the philosopher of displacement. Born in Oxford to Indian parents, raised partly in California and partly in England, educated at Eton and Harvard, and long resident in rural Japan — his life has unfolded between cultures in a way that makes him uniquely qualified to write about what travel actually does to identity. His essays explore not just the destinations but the mental state that movement produces: the sharpened attention, the productive disorientation, the self that emerges when you strip away the familiar. He finds meaning in airports, transit zones, and the edges of places where cultures rub against each other. His TED Talk on the art of stillness has been viewed by millions. Travel with his lens is always also an interior journey.',
-        worksLabel: 'Books · Talks',
-        works: [
-          { label: 'Video Night in Kathmandu', href: 'https://www.amazon.com/Video-Night-Kathmandu-Other-Reports/dp/0679722793' },
-          { label: 'The Art of Stillness', href: 'https://www.amazon.com/Art-Stillness-Adventures-Going-Nowhere/dp/1476784728' },
-          { label: 'The Open Road', href: 'https://www.amazon.com/Open-Road-Global-Journey-Dalai/dp/0307278727' },
-          { label: 'TED: The Art of Stillness', href: 'https://www.ted.com/talks/pico_iyer_the_art_of_stillness' },
-        ],
+      {
+        id: 'self-discoverer',
+        name: 'Self Discoverer',
+        descriptor: ['Contemplative', 'Still', 'Inward'],
+        tagline: 'The most important miles are the ones traveled inward.',
+        body: `For you, a journey outward is always also a journey inward. While others rush to tick off sights, you're drawn to stillness — the quiet temple courtyard, the early street before the crowds, the long pause by the water where your own thoughts finally catch up with you. Travel, in your hands, becomes a kind of meditation: a way to step far enough outside your routine to actually see your own life clearly. You don't need a packed schedule to feel a trip was worthwhile; a single afternoon of real reflection outweighs a dozen monuments. You come home not just rested but changed — quieter, clearer, and a little more yourself.`,
+        image: 'images/personas/self-discoverer.png',
       },
-      yamashita: {
-        initials: 'MY',
-        name: 'Michael Yamashita',
-        years: '',
-        type: 'Photojournalist · National Geographic',
-        quote: '"Every destination has a soul. You find it in the people, in the light, in the moment just before or just after the obvious shot."',
-        bio: 'Michael Yamashita spent more than three decades making photographs for National Geographic, specializing in Asia and the ancient trade routes that connected its civilizations. He is best known for following the routes of Marco Polo and Zheng He across the continent — shooting not the tourist landmarks but the living continuities between past and present: a craftsman using a thousand-year-old technique, a landscape unchanged since it was first described by a medieval traveler. His lens is patient, humanist, and deeply attentive to light. Travel with Yamashita\'s perspective means looking for the visual soul of a place — the quality of morning light on a temple, the face of the person who has lived their whole life in one unremarkable town, the connection between what a place was and what it has become.',
-        worksLabel: 'Books · Links',
-        works: [
-          { label: 'Marco Polo: A Photographer\'s Journey', href: 'https://www.amazon.com/Marco-Polo-Photographers-Journey/dp/0794601227' },
-          { label: 'Zheng He: Tracing the Epic Voyages', href: 'https://www.amazon.com/Zheng-Tracing-Epic-Voyages-Admiral/dp/0794602037' },
-          { label: 'michaelyamashita.com', href: 'https://www.michaelyamashita.com' },
-        ],
+      {
+        id: 'frame-reader',
+        name: 'Frame Reader',
+        descriptor: ['Visual', 'Humanist', 'Observant'],
+        tagline: `You don't just see a place. You frame it.`,
+        body: `You experience the world through composition — light, gesture, the way a face catches the afternoon sun. Where others see a busy market, you see a hundred photographs waiting to happen, and you'll set an alarm for the blue hour without a second thought, because the light most people sleep through is the light that tells the truth. But this was never really about the camera. You're after the soul of a place, and you find it in its people: the vendor's weathered hands, the kid mid-laugh, the small human moment that says more about a city than any landmark. You don't just visit somewhere — you read it, frame by frame, and bring its real face home.`,
+        image: 'images/personas/frame-reader.png',
       },
-      rosenthal: {
-        initials: 'PR',
-        name: 'Phil Rosenthal',
-        years: '',
-        type: 'TV Creator · Author · Food Traveler',
-        quote: '"Everything is interesting if you pay attention. Every meal is a gift. Every city has a table worth sitting at."',
-        bio: 'Phil Rosenthal — creator of Everybody Loves Raymond and host of Somebody Feed Phil on Netflix — is perhaps the most openly joyful traveler in the genre. Where others bring skepticism or irony, Rosenthal brings uncomplicated enthusiasm, warmth, and a genuine belief that a great meal shared with interesting people is one of life\'s most reliable pleasures. His show is notable for the quality of his guests — scientists, artists, locals, and always the people who run the restaurants — and for the absence of any performative cool. He finds something to love in every city, and his delight is contagious without being naïve. Travel with his lens means going to the restaurant with the line, talking to strangers, and not being embarrassed about how happy the soup makes you.',
-        worksLabel: 'Shows · Books · Links',
-        works: [
-          { label: 'Somebody Feed Phil (Netflix)', href: 'https://www.netflix.com/title/80146601' },
-          { label: 'I\'ll Have What Phil\'s Having (PBS)', href: 'https://www.pbs.org/show/ill-have-what-phils-having/' },
-          { label: 'Somebody Feed Phil: The Book', href: 'https://www.amazon.com/Somebody-Feed-Phil-Book-Extraordinary/dp/1250270162' },
-        ],
+      {
+        id: 'convivialist',
+        name: 'Convivialist',
+        descriptor: ['Warm', 'Open', 'Magnetic'],
+        tagline: 'I always leave with more friends than photos.',
+        body: `For you, the meal is just the excuse — the people around the table are the real reason you came. You can't sit next to a stranger for long before they're a friend, and your best travel stories almost never feature a landmark; they feature a name, a shared bottle, an invitation you said yes to. You believe the fastest way into the heart of a place is through its kitchens and its dinner tables, and you treat every shared plate as the opening line of a conversation. You give a destination your full, warm, open attention, and it gives you people in return. You come home with a phone full of new contacts and a standing invitation in three new cities.`,
+        image: 'images/personas/convivialist.png',
       },
-      condenast: {
-        initials: 'CN',
-        name: 'Condé Nast Traveler',
-        years: 'Est. 1987',
-        type: 'Luxury Travel · Editorial',
-        quote: '"The world\'s most discerning travelers deserve the world\'s most considered recommendations."',
-        bio: 'Condé Nast Traveler has set the standard for aspirational travel journalism since 1987. Its annual Gold List, Hot List, and Readers\' Choice Awards function as the luxury travel industry\'s most cited benchmarks — and its long-form features have dispatched writers to every corner of the world with a consistent brief: find the best of it. The Condé Nast lens is one of considered experience: the right hotel at the right moment, the table that requires planning, the destination that rewards the effort of getting there properly. It is polished but not sterile — the magazine understands that genuine luxury is about quality of experience, not just price point. Travel with this lens means planning further ahead, accepting fewer compromises, and returning with the version of a trip that is most worth having.',
-        worksLabel: 'Links',
-        works: [
-          { label: 'Condé Nast Traveler', href: 'https://www.cntraveler.com' },
-          { label: 'Gold List', href: 'https://www.cntraveler.com/gold-list' },
-          { label: 'Readers\' Choice Awards', href: 'https://www.cntraveler.com/readers-choice-awards' },
-        ],
+      {
+        id: 'luxury-curator',
+        name: 'Luxury Curator',
+        descriptor: ['Refined', 'Considered', 'Discerning'],
+        tagline: 'Not flashy. Considered. Every detail earns its place.',
+        body: `You travel with a connoisseur's eye and zero interest in excess for its own sake. What you want is the considered version of everything — the table that took some knowing to book, the room with a view that's actually worth it, the experience that unfolds so seamlessly it feels effortless even though you know exactly how much craft sits behind it. This isn't about status; it's about discernment. You'd rather have one perfect, beautifully judged day than a week of forgettable ones, and you have a quiet gift for finding the detail that turns a good trip into an exceptional one. You move through the world with taste, calm, and the confidence of someone who knows the difference — and settles only for the version truly worth it.`,
+        image: 'images/personas/luxury-curator.png',
       },
-    };
+    ];
 
-    function showProfile(id, tile) {
-      // Update tile selection
-      document.querySelectorAll('.persona-tile').forEach(t => t.classList.remove('selected'));
-      tile.classList.add('selected');
-
-      const p = personas[id];
-      const panel = document.getElementById('profilePanel');
-
-      panel.innerHTML = `
-        <div class="profile-card">
-          <div class="profile-card-left">
-            <div class="profile-avatar">${p.initials}</div>
-            <div class="profile-type">${p.type}</div>
-            ${p.years ? `<p style="font-size:0.75rem;color:var(--text-light);margin-top:0.4rem">${p.years}</p>` : ''}
-          </div>
-          <div class="profile-card-right">
-            <h2>${p.name}</h2>
-            <blockquote class="profile-quote">${p.quote}</blockquote>
-            <p class="profile-bio">${p.bio}</p>
-            <p class="profile-works-label">${p.worksLabel}</p>
-            <ul class="profile-works">
-              ${p.works.map(w => `<li><a href="${w.href}" target="_blank" rel="noopener">${w.label}</a></li>`).join('')}
-            </ul>
-            <p style="margin-top:1.5rem">
-              <a href="plan.html" class="btn-outline" style="font-size:0.68rem">Use This Persona →</a>
-            </p>
+    // ── Render cards ──────────────────────────────────────────────
+    const grid = document.getElementById('personaArcs');
+    PERSONAS.forEach(p => {
+      const el = document.createElement('div');
+      el.className = 'persona-arc';
+      el.dataset.id = p.id;
+      el.innerHTML = `
+        <img class="persona-arc-img" src="${p.image}" alt="${p.name}" loading="lazy">
+        <div class="persona-arc-body">
+          <p class="persona-arc-descriptor">${p.descriptor.join(' · ')}</p>
+          <h3 class="persona-arc-name">${p.name}</h3>
+          <p class="persona-arc-tagline">${p.tagline}</p>
+          <div class="persona-arc-expand" hidden>
+            <p class="persona-arc-text">${p.body}</p>
+            <a href="plan.html" class="btn-outline persona-arc-cta">Use This Persona →</a>
           </div>
         </div>`;
+      grid.appendChild(el);
+    });
 
-      panel.classList.add('visible');
-      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    // ── Modal ─────────────────────────────────────────────────────
-    function openModal()  { document.getElementById('loginModal').classList.add('open'); }
-    function closeModal() { document.getElementById('loginModal').classList.remove('open'); }
-    function switchTab(tab) {
-      document.querySelectorAll('.modal-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
-      document.getElementById('modal-login').style.display  = tab === 'login'  ? 'flex' : 'none';
-      document.getElementById('modal-signup').style.display = tab === 'signup' ? 'flex' : 'none';
-    }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    // ── Expand / collapse on click ────────────────────────────────
+    grid.addEventListener('click', e => {
+      const arc = e.target.closest('.persona-arc');
+      if (!arc) return;
+      if (e.target.closest('a')) return; // let links through
+      const expand = arc.querySelector('.persona-arc-expand');
+      const isOpen = arc.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.persona-arc.open').forEach(a => {
+        a.classList.remove('open');
+        a.querySelector('.persona-arc-expand').hidden = true;
+      });
+      if (!isOpen) {
+        arc.classList.add('open');
+        expand.hidden = false;
+        arc.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
   </script>
 
 </body>

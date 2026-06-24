@@ -68,7 +68,7 @@
         <span class="section-label">AI-Powered Itinerary Engine</span>
         <h1>Plan My Trip</h1>
         <p>Your destination. Your budget. Your voice. A real itinerary.</p>
-        <p>Fill in your trip details below and choose a travel persona — from Bourdain's raw street-food lens to Condé Nast's polished luxury. The AI writes your itinerary in that voice, day by day, morning through evening.</p>
+        <p>Fill in your trip details below and choose a travel persona. Select one as your <strong>primary</strong> voice — the AI writes your itinerary in that style, day by day. Add up to two more as <strong>influences</strong> to weave in subtly.</p>
       </div>
 
       <!-- Plan form -->
@@ -158,47 +158,71 @@
 
           <!-- Persona selector -->
           <div class="form-row">
-            <label class="form-label">Travel Persona <span class="form-label-note">(select up to 3 · prioritized by order of selection)</span></label>
+            <label class="form-label">Travel Persona <span class="form-label-note">(1st pick = primary voice · 2nd &amp; 3rd = influences)</span></label>
             <div class="persona-grid" id="personaGrid">
 
-              <div class="persona-card" data-persona="Anthony Bourdain">
-                <span class="persona-name">Anthony Bourdain</span>
-                <span class="persona-desc">Raw, local, off the tourist trail. Street food over white tablecloths.</span>
+              <div class="persona-card" data-persona="Street-Food Wanderer">
+                <img class="persona-card-img" src="images/personas/street-food-wanderer.png" alt="Street-Food Wanderer">
+                <div class="persona-card-info">
+                  <span class="persona-name">Street-Food Wanderer</span>
+                  <span class="persona-desc">Local · Unfiltered · Street-Level</span>
+                </div>
               </div>
 
-              <div class="persona-card" data-persona="Andrew Zimmern">
-                <span class="persona-name">Andrew Zimmern</span>
-                <span class="persona-desc">Adventurous, fearless. Seeks the unfamiliar with deep cultural respect.</span>
+              <div class="persona-card" data-persona="Fearless Eater">
+                <img class="persona-card-img" src="images/personas/fearless-eater.png" alt="Fearless Eater">
+                <div class="persona-card-info">
+                  <span class="persona-name">Fearless Eater</span>
+                  <span class="persona-desc">Adventurous · Curious · All-In</span>
+                </div>
               </div>
 
-              <div class="persona-card" data-persona="Paul Theroux">
-                <span class="persona-name">Paul Theroux</span>
-                <span class="persona-desc">Literary, uncompromising. Slow trains, the places between, unsentimental observation.</span>
+              <div class="persona-card" data-persona="Literary Observer">
+                <img class="persona-card-img" src="images/personas/literary-observer.png" alt="Literary Observer">
+                <div class="persona-card-info">
+                  <span class="persona-name">Literary Observer</span>
+                  <span class="persona-desc">Literary · Unsentimental · Watchful</span>
+                </div>
               </div>
 
-              <div class="persona-card" data-persona="Rolf Potts">
-                <span class="persona-name">Rolf Potts</span>
-                <span class="persona-desc">Philosophical, unhurried. Travel as a deepening of life, not an escape from it.</span>
+              <div class="persona-card" data-persona="Philosophical Drifter">
+                <img class="persona-card-img" src="images/personas/philosophical-drifter.png" alt="Philosophical Drifter">
+                <div class="persona-card-info">
+                  <span class="persona-name">Philosophical Drifter</span>
+                  <span class="persona-desc">Unhurried · Open · Free</span>
+                </div>
               </div>
 
-              <div class="persona-card" data-persona="Pico Iyer">
-                <span class="persona-name">Pico Iyer</span>
-                <span class="persona-desc">Contemplative, interior. The journey as self-examination and cultural meditation.</span>
+              <div class="persona-card" data-persona="Self Discoverer">
+                <img class="persona-card-img" src="images/personas/self-discoverer.png" alt="Self Discoverer">
+                <div class="persona-card-info">
+                  <span class="persona-name">Self Discoverer</span>
+                  <span class="persona-desc">Contemplative · Still · Inward</span>
+                </div>
               </div>
 
-              <div class="persona-card" data-persona="Michael Yamashita">
-                <span class="persona-name">Michael Yamashita</span>
-                <span class="persona-desc">Visual, humanist. Finds the soul of a place through its people and light.</span>
+              <div class="persona-card" data-persona="Frame Reader">
+                <img class="persona-card-img" src="images/personas/frame-reader.png" alt="Frame Reader">
+                <div class="persona-card-info">
+                  <span class="persona-name">Frame Reader</span>
+                  <span class="persona-desc">Visual · Humanist · Observant</span>
+                </div>
               </div>
 
-              <div class="persona-card" data-persona="Phil Rosenthal">
-                <span class="persona-name">Phil Rosenthal</span>
-                <span class="persona-desc">Joyful, warm, enthusiastic. Finds genuine delight in every meal and encounter.</span>
+              <div class="persona-card" data-persona="Convivialist">
+                <img class="persona-card-img" src="images/personas/convivialist.png" alt="Convivialist">
+                <div class="persona-card-info">
+                  <span class="persona-name">Convivialist</span>
+                  <span class="persona-desc">Warm · Open · Magnetic</span>
+                </div>
               </div>
 
-              <div class="persona-card" data-persona="Condé Nast">
-                <span class="persona-name">Condé Nast</span>
-                <span class="persona-desc">Aspirational, polished. Best hotels, best tables, most considered experience.</span>
+              <div class="persona-card" data-persona="Luxury Curator">
+                <img class="persona-card-img" src="images/personas/luxury-curator.png" alt="Luxury Curator">
+                <div class="persona-card-info">
+                  <span class="persona-name">Luxury Curator</span>
+                  <span class="persona-desc">Refined · Considered · Discerning</span>
+                </div>
               </div>
 
             </div>
@@ -440,14 +464,14 @@
     }
 
     const PERSONA_DESCRIPTIONS = {
-      'Anthony Bourdain':  'Raw, local, off the tourist trail. Street food over white tablecloths. Real neighborhoods, real people, no filters. Writes with honesty and a sharp eye for what makes a place authentic versus performed.',
-      'Andrew Zimmern':    'Adventurous and fearless. Seeks unusual ingredients, forgotten culinary traditions, and experiences most travelers walk past. Approaches every culture with genuine curiosity and deep respect.',
-      'Paul Theroux':      'Literary and uncompromising. Prefers trains, slow travel, and the places between destinations. Unsentimental, observational, deeply read. Suspicious of comfort but not ascetic.',
-      'Rolf Potts':        'Philosophical and unhurried. Believes travel is not an escape from life but a deepening of it. Itineraries are loose, time is generous, and the point is absorption not accumulation.',
-      'Pico Iyer':         'Contemplative and interior. Writes about displacement, the in-between, and what movement reveals about stillness. Finds meaning in airports, transit hotels, and the margins of places. The journey is always also inward.',
-      'Michael Yamashita': 'Visual and humanist. Every recommendation is seen before it is experienced — the quality of light, the human face, the moment before and after the obvious shot. Follows ancient routes and finds the thread connecting past to present.',
-      'Phil Rosenthal':    'Joyful, warm, and genuinely enthusiastic. Finds something wonderful in every meal, every encounter, every city. Accessible without being bland. Makes the reader feel invited rather than instructed.',
-      'Condé Nast':        'Aspirational and polished. The best room, the best table, the most considered experience. Luxury without ostentation. Writes as though everything is a privilege worth honoring.',
+      'Street-Food Wanderer'`Local, unfiltered, street-level. Follows the charcoal smoke down the alley. Trusts the queue of locals over any review. Prioritizes the genuine over the comfortable — a three-dollar noodle stall over fifty-dollar chandeliers. Writes with a sharp eye for what is real versus performed.`,
+      'Fearless Eater'`Adventurous and all-in. Points at the untranslatable dish, orders the fruit that looks dangerous, says yes without flinching. Treats every unfamiliar bite as a cultural act of respect. The strangest plate on the table usually has the best story — and always gets ordered.`,
+      'Literary Observer'`Quiet, watchful, unsentimental. Takes the local train that stops everywhere. Spends an afternoon on a café bench reading the neighborhood. Notebook fills with overheard conversations and precise small details most travelers walk past. Prefers the truth of a place to the brochure version.`,
+      'Philosophical Drifter':'Unhurried and open. Leaves the schedule loose, trusts the road to decide. A missed bus becomes a village. A casual conversation becomes a three-day detour. Measures a trip by who you became, not what you saw. The winding aimless route is the entire point.',
+      'Self Discoverer'`Contemplative and inward. Drawn to stillness — the quiet temple courtyard, the early street before the crowds, the long pause by the water. Treats travel as meditation: a way to step far enough outside routine to see your own life clearly. One afternoon of real reflection outweighs a dozen monuments.`,
+      'Frame Reader'`Visual and humanist. Sees composition in everything — light, gesture, the afternoon sun on a face. Sets an alarm for the blue hour because that light tells the truth. Finds the soul of a place in its people: weathered hands, a mid-laugh kid, the small human moment that says more than any landmark.`,
+      'Convivialist'`Warm, open, magnetic. The meal is just the excuse — the people around the table are the point. Can't sit next to a stranger long before they're a friend. Best travel stories feature a name and a shared bottle, not a landmark. Treats every shared plate as the opening line of a conversation.`,
+      'Luxury Curator'`Refined, considered, discerning. Wants the table that took some knowing to book, the room with a view that earns it, the experience so seamless the craft behind it is invisible. Not excess — discernment. One perfectly judged day over a week of forgettable ones. Settles only for the version truly worth having.`,
     };
 
     async function generateItinerary(e) {
@@ -490,7 +514,7 @@
       planLoading.classList.add('visible');
       planSubmitBtn.disabled = true;
 
-      const prompt = `You are writing a travel itinerary primarily in the voice and style of ${primaryPersona}.
+      const prompt = `You are writing a travel itinerary in the voice of the ${primaryPersona} travel archetype.
 
 ${personaSection}
 
@@ -543,8 +567,8 @@ Continue for all days. Be specific with real restaurant names, neighborhoods, an
       const days = text.split(/(?=##\s*Day\s*\d)/i).filter(s => s.trim());
 
       const personaTag = secondary.length > 0
-        ? `Written in the style of ${primary} · with ${secondary.join(' & ')}`
-        : `Written in the style of ${primary}`;
+        ? `${primary} · with ${secondary.join(' & ')} influence${secondary.length > 1 ? 's' : ''}`
+        : `${primary} · primary archetype`;
 
       document.getElementById('itinLabel').textContent   = destination;
       document.getElementById('itinHeading').textContent = `Your ${duration} Itinerary`;

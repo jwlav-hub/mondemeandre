@@ -1,0 +1,84 @@
+{
+  "version": 2,
+  "description": "Travel persona definitions for the Monde Méandre itinerary engine selector. Replaces the previous named-figure personas. Each persona is an original archetype. Selector mechanic: user picks one PRIMARY persona plus up to two INFLUENCES (secondary). 'order' is the default display order, left-to-right / top-to-bottom in the grid.",
+  "selector": {
+    "mode": "primary_plus_influences",
+    "primary": 1,
+    "max_influences": 2,
+    "ui_note": "Card anatomy: image -> name -> descriptor (small caps, '·' separated) -> tagline (italic) -> body (revealed on tap/click) -> 'USE THIS PERSONA' action."
+  },
+  "personas": [
+    {
+      "id": "street-food-wanderer",
+      "order": 1,
+      "name": "Street-Food Wanderer",
+      "descriptor": ["Local", "Unfiltered", "Street-Level"],
+      "tagline": "The best table in town rarely has a tablecloth.",
+      "body": "You travel on the assumption that the real city never makes it into the guidebook. While everyone else queues for the famous view, you're following the smell of charcoal down an alley to a stall with no name and a line of locals out the door — because that line is the only review you trust. You'd rather eat brilliantly for three dollars at a plastic table than adequately for fifty under chandeliers. Comfort doesn't move you; the genuine article does. You come home not with souvenirs but with the address of a noodle cart you'd fly back for, and the quiet satisfaction of having seen a place the way the people who live there actually do.",
+      "image": "images/personas/street-food-wanderer.png"
+    },
+    {
+      "id": "fearless-eater",
+      "order": 2,
+      "name": "Fearless Eater",
+      "descriptor": ["Adventurous", "Curious", "All-In"],
+      "tagline": "If I can't name it, I'm ordering it.",
+      "body": "The unfamiliar isn't something you tolerate — it's the whole reason you came. Where others scan a menu for something safe, you point at the dish nobody can translate and the fruit that looks faintly dangerous, because you've learned the strangest plate on the table is usually the one with the best story behind it. This isn't about shock value; it's about respect — you believe the fastest way to understand a culture is to eat what it loves, the way it loves it, without flinching. You ask questions, you say yes, and you let people show you their world one improbable bite at a time. You leave braver than you arrived.",
+      "image": "images/personas/fearless-eater.png"
+    },
+    {
+      "id": "literary-observer",
+      "order": 3,
+      "name": "Literary Observer",
+      "descriptor": ["Literary", "Unsentimental", "Watchful"],
+      "tagline": "I take the slow train on purpose.",
+      "body": "You travel the way a good writer reads a room — quietly, attentively, missing nothing. The express holds no appeal; you want the local that stops everywhere, the long way around, the unglamorous places between the postcards where a country actually reveals itself. You're not collecting experiences so much as gathering moments to understand, and you'll happily spend an afternoon on a single café bench watching a neighborhood go about its day. Your notebook fills with overheard conversations and small precise details most travelers walk straight past. You're unsentimental but never cold — you simply prefer the truth of a place to the brochure version, and you always arrive with your eyes open.",
+      "image": "images/personas/literary-observer.png"
+    },
+    {
+      "id": "philosophical-drifter",
+      "order": 4,
+      "name": "Philosophical Drifter",
+      "descriptor": ["Unhurried", "Open", "Free"],
+      "tagline": "The point was never the destination.",
+      "body": "You don't travel to escape your life — you travel to deepen it. Fixed itineraries make you restless; you'd rather leave the schedule loose and let the road decide, trusting that the best days are the ones you couldn't have planned. A missed bus becomes a village you'd never have found, a casual conversation becomes a three-day detour, and somehow it always works out richer than the plan would have. You measure a trip less by what you saw than by who you became while seeing it. For you, the long, winding, slightly aimless route isn't wasted time — it's the entire point, and you come back a little different every time.",
+      "image": "images/personas/philosophical-drifter.png"
+    },
+    {
+      "id": "self-discoverer",
+      "order": 5,
+      "name": "Self Discoverer",
+      "descriptor": ["Contemplative", "Still", "Inward"],
+      "tagline": "The most important miles are the ones traveled inward.",
+      "body": "For you, a journey outward is always also a journey inward. While others rush to tick off sights, you're drawn to stillness — the quiet temple courtyard, the early street before the crowds, the long pause by the water where your own thoughts finally catch up with you. Travel, in your hands, becomes a kind of meditation: a way to step far enough outside your routine to actually see your own life clearly. You don't need a packed schedule to feel a trip was worthwhile; a single afternoon of real reflection outweighs a dozen monuments. You come home not just rested but changed — quieter, clearer, and a little more yourself.",
+      "image": "images/personas/self-discoverer.png"
+    },
+    {
+      "id": "frame-reader",
+      "order": 6,
+      "name": "Frame Reader",
+      "descriptor": ["Visual", "Humanist", "Observant"],
+      "tagline": "You don't just see a place. You frame it.",
+      "body": "You experience the world through composition — light, gesture, the way a face catches the afternoon sun. Where others see a busy market, you see a hundred photographs waiting to happen, and you'll set an alarm for the blue hour without a second thought, because the light most people sleep through is the light that tells the truth. But this was never really about the camera. You're after the soul of a place, and you find it in its people: the vendor's weathered hands, the kid mid-laugh, the small human moment that says more about a city than any landmark. You don't just visit somewhere — you read it, frame by frame, and bring its real face home.",
+      "image": "images/personas/frame-reader.png"
+    },
+    {
+      "id": "convivialist",
+      "order": 7,
+      "name": "Convivialist",
+      "descriptor": ["Warm", "Open", "Magnetic"],
+      "tagline": "I always leave with more friends than photos.",
+      "body": "For you, the meal is just the excuse — the people around the table are the real reason you came. You can't sit next to a stranger for long before they're a friend, and your best travel stories almost never feature a landmark; they feature a name, a shared bottle, an invitation you said yes to. You believe the fastest way into the heart of a place is through its kitchens and its dinner tables, and you treat every shared plate as the opening line of a conversation. You give a destination your full, warm, open attention, and it gives you people in return. You come home with a phone full of new contacts and a standing invitation in three new cities.",
+      "image": "images/personas/convivialist.png"
+    },
+    {
+      "id": "luxury-curator",
+      "order": 8,
+      "name": "Luxury Curator",
+      "descriptor": ["Refined", "Considered", "Discerning"],
+      "tagline": "Not flashy. Considered. Every detail earns its place.",
+      "body": "You travel with a connoisseur's eye and zero interest in excess for its own sake. What you want is the considered version of everything — the table that took some knowing to book, the room with a view that's actually worth it, the experience that unfolds so seamlessly it feels effortless even though you know exactly how much craft sits behind it. This isn't about status; it's about discernment. You'd rather have one perfect, beautifully judged day than a week of forgettable ones, and you have a quiet gift for finding the detail that turns a good trip into an exceptional one. You move through the world with taste, calm, and the confidence of someone who knows the difference — and settles only for the version truly worth it.",
+      "image": "images/personas/luxury-curator.png"
+    }
+  ]
+}
