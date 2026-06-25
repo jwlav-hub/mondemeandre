@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=6">
+  <link rel="stylesheet" href="css/styles.css?v=7">
 </head>
 <body>
 
@@ -18,7 +18,7 @@
     <a href="index.html" class="logo">
       <img src="images/mm-logo2.png" alt="Monde Méandre logo" class="logo-img" width="48" height="48">
       <span class="logo-text">
-        <span class="logo-name">Monde Méandre</span>
+        <span class="logo-name">Monde <span class="logo-accent">Méandre</span></span>
         <span class="logo-tagline">Asia Travel & Dining Platform</span>
       </span>
     </a>
@@ -50,7 +50,7 @@
       <a href="index.html" class="logo">
         <img src="images/mm-logo2.png" alt="Monde Méandre logo" class="logo-img" width="48" height="48">
         <span class="logo-text">
-          <span class="logo-name">Monde Méandre</span>
+          <span class="logo-name">Monde <span class="logo-accent">Méandre</span></span>
           <span class="logo-tagline">Asia Travel & Dining Platform</span>
         </span>
       </a>
@@ -80,14 +80,8 @@
     <!-- Stars background -->
     <canvas id="stars-canvas"></canvas>
 
-    <!-- Globe dome (bottom half below fold) -->
-    <div class="hero-globe-dome">
-      <canvas id="globe-canvas"></canvas>
-    </div>
-
-    <!-- Floating figures -->
-    <img src="images/mm-traveler.png" alt="Traveler" class="hero-figure hero-figure--left">
-    <img src="images/mm-explorer.png" alt="Explorer" class="hero-figure hero-figure--right">
+    <!-- Globe canvas — full viewport -->
+    <canvas id="globe-canvas"></canvas>
 
     <!-- Centered text overlay -->
     <div class="hero-overlay">
@@ -95,6 +89,7 @@
       <h1 class="hero-title">Don't be a Tourist —<br>Curate Your Immersive<br>Travel Experience</h1>
       <div class="hero-cta">
         <a href="plan.html" class="btn-hero-new">Let's Go!</a>
+        <a href="guides.html" class="btn-hero-secondary">Browse Guides</a>
       </div>
     </div>
 
@@ -235,7 +230,7 @@
     </div>
 
     <div class="view-all-wrap">
-      <a href="journal.html" class="btn-outline">View All Journal Posts</a>
+      <a href="journal.html" class="btn-outline">View All Blog Posts</a>
     </div>
   </section>
 
@@ -271,7 +266,7 @@
     <a href="index.html" class="footer-logo logo">
       <img src="images/mm-logo2.png" alt="Monde Méandre logo" class="logo-img" width="48" height="48">
       <span class="logo-text">
-        <span class="logo-name">Monde Méandre</span>
+        <span class="logo-name">Monde <span class="logo-accent">Méandre</span></span>
         <span class="logo-tagline">Asia Travel & Dining Platform</span>
       </span>
     </a>
@@ -409,7 +404,8 @@
         const w = gc.clientWidth, h = gc.clientHeight;
         gc.width = Math.round(w * dpr); gc.height = Math.round(h * dpr);
         ctx.setTransform(dpr,0,0,dpr,0,0);
-        proj.translate([w/2,h/2]).scale(Math.min(w,h)/2 - 8);
+        // Globe center positioned lower in viewport, scale fills most of the height
+        proj.translate([w/2, h*0.66]).scale(Math.min(w,h)*0.52);
         css = {w,h};
         if (!sc) return;
         sc.width = Math.round(sc.clientWidth*dpr); sc.height = Math.round(sc.clientHeight*dpr);
@@ -482,13 +478,22 @@
       function draw() {
         const {w,h} = css;
         const path = d3.geoPath(proj,ctx);
+        const [cx,cy] = proj.translate(); const r = proj.scale();
         ctx.clearRect(0,0,w,h);
-        ctx.beginPath(); path({type:'Sphere'}); ctx.fillStyle='#6282A3'; ctx.fill();
-        ctx.beginPath(); path(land); ctx.fillStyle='#8AC879'; ctx.fill();
+        // Atmosphere glow
+        const atm = ctx.createRadialGradient(cx, cy, r*0.88, cx, cy, r*1.28);
+        atm.addColorStop(0,'rgba(20,50,110,0.55)'); atm.addColorStop(1,'rgba(0,0,0,0)');
+        ctx.fillStyle=atm; ctx.beginPath(); ctx.arc(cx,cy,r*1.28,0,Math.PI*2); ctx.fill();
+        // Ocean (dark navy)
+        ctx.beginPath(); path({type:'Sphere'}); ctx.fillStyle='#19325c'; ctx.fill();
+        // Land (slightly lighter navy)
+        ctx.beginPath(); path(land); ctx.fillStyle='#2c4a78'; ctx.fill();
+        // Graticule (gold, subtle)
         ctx.beginPath(); path(grat);
-        ctx.lineWidth=.7; ctx.strokeStyle='#d8e2ec'; ctx.globalAlpha=.8; ctx.stroke(); ctx.globalAlpha=1;
+        ctx.lineWidth=.55; ctx.strokeStyle='#d8c078'; ctx.globalAlpha=.22; ctx.stroke(); ctx.globalAlpha=1;
+        // Globe edge (gold)
         ctx.beginPath(); path({type:'Sphere'});
-        ctx.lineWidth=1; ctx.strokeStyle='#cdd8e2'; ctx.globalAlpha=.7; ctx.stroke(); ctx.globalAlpha=1;
+        ctx.lineWidth=1; ctx.strokeStyle='rgba(216,192,120,0.55)'; ctx.globalAlpha=.9; ctx.stroke(); ctx.globalAlpha=1;
         drawGloss(); drawCities();
       }
 

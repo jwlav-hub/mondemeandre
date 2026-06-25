@@ -56,12 +56,13 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
 }
 
 .logo-img {
-  width: 48px;
-  height: 48px;
-  max-width: 48px;
+  width: 34px;
+  height: 34px;
+  max-width: 34px;
   object-fit: contain;
   display: block !important;
   flex-shrink: 0;
+  opacity: 0.88;
 }
 
 .logo-text {
@@ -70,14 +71,17 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
 }
 
 .logo-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.25rem;
-  font-weight: 600;
-  color: #fff;
-  letter-spacing: 0.01em;
+  font-family: 'Lato', 'Helvetica Neue', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #F3ECDD;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
 }
+
+.logo-name .logo-accent { color: #D8C078; }
 
 .logo-tagline {
   display: none;
@@ -94,7 +98,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
 }
 
 .hero--home {
-  background: #0e1a2c;
+  background: radial-gradient(150% 120% at 50% 8%, #13284a 0%, #0c1a33 45%, #070f20 100%);
   height: 100vh;
   overflow: hidden;
   display: block;
@@ -112,23 +116,14 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
   pointer-events: none;
 }
 
-/* Globe dome — large circle, bottom half below fold */
-.hero-globe-dome {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: calc((100svh - 100px) * 2);
-  width: calc((100vh - 100px) * 2); /* fallback for older browsers */
-  aspect-ratio: 1 / 1;
-  transform: translate(-50%, 50%);
-  z-index: 1;
-  overflow: hidden;
-  border-radius: 50%;
-}
+/* Globe — full viewport, center positioned lower */
 #globe-canvas {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   display: block;
+  z-index: 1;
 }
 
 /* Floating figures */
@@ -157,15 +152,15 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
 .hero-overlay {
   position: absolute;
   left: 50%;
-  top: 39%;
-  transform: translate(-50%, -50%);
+  top: 20%;
+  transform: translateX(-50%);
   z-index: 3;
   text-align: center;
   pointer-events: none;
   width: max-content;
   max-width: 92vw;
 }
-.hero-overlay .hero-label  { color: rgba(255,255,255,0.7); margin-bottom: 1.2rem; }
+.hero-overlay .hero-label  { color: var(--gold-light); margin-bottom: 1.5rem; }
 .hero-overlay .hero-title  {
   font-family: 'Playfair Display', serif;
   font-size: clamp(34px, 4.2vw, 58px);
@@ -178,31 +173,49 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
 }
 .hero-overlay .hero-cta    { margin-top: 1.8rem; pointer-events: auto; justify-content: center; }
 
-/* Hero CTA button (new design) */
+/* Hero CTA buttons */
 .btn-hero-new {
   display: inline-block;
   font-family: 'Lato', 'Helvetica Neue', sans-serif;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #ffffff;
-  background-color: #1f2e46;
-  border: none;
-  border-radius: 3px;
-  padding: 14px 32px;
+  color: #D8C078;
+  background: transparent;
+  border: 1px solid #D8C078;
+  border-radius: 2px;
+  padding: 17px 42px;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(177,135,59,0.32);
-  transition: background 0.2s, transform 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
-.btn-hero-new:hover { background: #9c7531; transform: translateY(-1px); }
+.btn-hero-new:hover { background: #D8C078; color: #0c1a33; }
+
+.btn-hero-secondary {
+  display: inline-block;
+  font-family: 'Lato', 'Helvetica Neue', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(243, 236, 221, 0.88);
+  background: transparent;
+  border: 1px solid rgba(243, 236, 221, 0.32);
+  border-radius: 2px;
+  padding: 17px 38px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-hero-secondary:hover { background: rgba(243, 236, 221, 0.12); }
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
   .hero-figure { display: none; }
-  .hero-globe-dome { width: 180vw; }
   .hero-overlay .hero-title { white-space: normal; font-size: clamp(28px, 8vw, 40px); }
+  .hero-overlay { top: 16%; }
+  .hero-cta { flex-direction: column; align-items: center; gap: 1rem; }
 }
 
 .hero--journal {
