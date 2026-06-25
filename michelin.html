@@ -25,14 +25,13 @@
 
     <nav class="page-nav" aria-label="Primary navigation">
       <a href="index.html">Home</a>
-      <a href="journal.html">Journal</a>
+      <a href="journal.html">Blog</a>
       <a href="guides.html">Guides</a>
       <div class="nav-has-dropdown">
         <a href="index.html#ai-engines" class="nav-dropdown-toggle active">AI Engines</a>
         <div class="nav-dropdown-menu">
           <a href="plan.html">Unplanned Itinerary</a>
           <a href="michelin.html" class="active">Budget Michelin</a>
-          <a href="trend-finder.html">Trend Finder</a>
         </div>
       </div>
       <a href="about.html">About</a>
@@ -50,11 +49,10 @@
   <div class="mobile-nav" id="mobileNav">
     <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
     <a href="index.html" onclick="toggleMobileNav()">Home</a>
-    <a href="journal.html" onclick="toggleMobileNav()">Journal</a>
+    <a href="journal.html" onclick="toggleMobileNav()">Blog</a>
     <a href="guides.html" onclick="toggleMobileNav()">Guides</a>
     <a href="plan.html" onclick="toggleMobileNav()">Unplanned Itinerary</a>
     <a href="michelin.html" class="active" onclick="toggleMobileNav()">Budget Michelin</a>
-    <a href="trend-finder.html" onclick="toggleMobileNav()">Trend Finder</a>
     <a href="about.html" onclick="toggleMobileNav()">About</a>
     <a href="personas.html" onclick="toggleMobileNav()">Personas</a>
     <a href="contributors.html" onclick="toggleMobileNav()">Contributors</a>
@@ -64,18 +62,21 @@
   <main>
     <div class="tool-page">
 
-      <div class="page-intro">
-        <span class="section-label">AI-Powered Dining Tool</span>
-        <h1>Budget Michelin Finder</h1>
-        <p class="page-intro-tagline">Michelin-recognized restaurants — without the Michelin prices</p>
-        <p><strong>精致穷 — The Art of Pure Indulgence with Next to Nothing</strong></p>
-        <p>The Chinese have a phrase for it: 精致穷 (<em>jīng zhì qióng</em>). Exquisitely poor. The refined art of living beautifully without the budget to match.</p>
-        <p>It's a Gen Z concept — the person who saves all week to sit at the right café, who knows exactly which experiences are worth the splurge and which ones aren't. Not poverty. Curation.</p>
-        <p>Michelin figured this out long before the algorithm did. Hidden inside their guide — past the tasting menus and the expense accounts — is a category built entirely around this idea. Restaurants where the kitchen is serious, the ingredients are exceptional, and lunch costs less than a cocktail at the hotel bar.</p>
-        <p>You don't need to be wealthy to eat extraordinarily well. You need to know where to look. Enter a city below — the AI will return Michelin-recognized restaurants at budget price points: Bib Gourmand picks and affordable starred restaurants.</p>
-      </div>
+      <div class="michelin-intro-form">
 
-      <div class="tool-form-wrap">
+        <div class="page-intro michelin-intro-text">
+          <span class="section-label">AI-Powered Dining Tool</span>
+          <h1>Budget Michelin Finder</h1>
+          <p class="page-intro-tagline">Michelin-recognized restaurants — without the Michelin prices</p>
+          <p><strong>精致穷 — The Art of Pure Indulgence with Next to Nothing</strong></p>
+          <p>The Chinese have a phrase for it: 精致穷 (<em>jīng zhì qióng</em>). Exquisitely poor. The refined art of living beautifully without the budget to match.</p>
+          <p>It's a Gen Z concept — the person who saves all week to sit at the right café, who knows exactly which experiences are worth the splurge and which ones aren't. Not poverty. Curation.</p>
+          <p>Michelin figured this out long before the algorithm did. Hidden inside their guide — past the tasting menus and the expense accounts — is a category built entirely around this idea. Restaurants where the kitchen is serious, the ingredients are exceptional, and lunch costs less than a cocktail at the hotel bar.</p>
+          <p>You don't need to be wealthy to eat extraordinarily well. You need to know where to look. Enter a city below — the AI will return Michelin-recognized restaurants at budget price points: Bib Gourmand picks and affordable starred restaurants.</p>
+        </div>
+
+        <div class="michelin-form-col">
+        <div class="tool-form-wrap">
         <form class="tool-form" id="michelinForm" onsubmit="searchMichelin(event)">
 
           <div class="form-row-group">
@@ -132,7 +133,10 @@
             Find Restaurants
           </button>
         </form>
-      </div>
+        </div><!-- /tool-form-wrap -->
+        </div><!-- /michelin-form-col -->
+
+      </div><!-- /michelin-intro-form -->
 
       <!-- Loading -->
       <div class="tool-loading" id="loadingState" aria-live="polite">
@@ -172,6 +176,12 @@
       </div>
 
     </div>
+
+    <!-- Full-bleed feature image -->
+    <div class="page-feature-img-wrap">
+      <img src="images/Michelin v3.png" alt="Budget Michelin dining experience" class="page-feature-img">
+    </div>
+
   </main>
 
   <!-- Footer -->
@@ -186,11 +196,10 @@
 
     <nav class="footer-nav" aria-label="Footer navigation">
       <a href="index.html">Home</a>
-      <a href="journal.html">Journal</a>
+      <a href="journal.html">Blog</a>
       <a href="guides.html">Guides</a>
       <a href="plan.html">Unplanned Itinerary</a>
       <a href="michelin.html">Budget Michelin</a>
-      <a href="trend-finder.html">Trend Finder</a>
       <a href="about.html">About</a>
       <a href="personas.html">Personas</a>
       <a href="contributors.html">Contributors</a>

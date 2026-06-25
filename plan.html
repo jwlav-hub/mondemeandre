@@ -25,14 +25,13 @@
 
     <nav class="page-nav" aria-label="Primary navigation">
       <a href="index.html">Home</a>
-      <a href="journal.html">Journal</a>
+      <a href="journal.html">Blog</a>
       <a href="guides.html">Guides</a>
       <div class="nav-has-dropdown">
         <a href="index.html#ai-engines" class="nav-dropdown-toggle active">AI Engines</a>
         <div class="nav-dropdown-menu">
           <a href="plan.html" class="active">Unplanned Itinerary</a>
           <a href="michelin.html">Budget Michelin</a>
-          <a href="trend-finder.html">Trend Finder</a>
         </div>
       </div>
       <a href="about.html">About</a>
@@ -50,11 +49,10 @@
   <div class="mobile-nav" id="mobileNav">
     <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
     <a href="index.html" onclick="toggleMobileNav()">Home</a>
-    <a href="journal.html" onclick="toggleMobileNav()">Journal</a>
+    <a href="journal.html" onclick="toggleMobileNav()">Blog</a>
     <a href="guides.html" onclick="toggleMobileNav()">Guides</a>
     <a href="plan.html" class="active" onclick="toggleMobileNav()">Unplanned Itinerary</a>
     <a href="michelin.html" onclick="toggleMobileNav()">Budget Michelin</a>
-    <a href="trend-finder.html" onclick="toggleMobileNav()">Trend Finder</a>
     <a href="about.html" onclick="toggleMobileNav()">About</a>
     <a href="personas.html" onclick="toggleMobileNav()">Personas</a>
     <a href="contributors.html" onclick="toggleMobileNav()">Contributors</a>
@@ -66,9 +64,7 @@
 
       <div class="page-intro">
         <span class="section-label">AI-Powered Itinerary Engine</span>
-        <h1>Plan My Trip</h1>
-        <p>Your destination. Your budget. Your voice. A real itinerary.</p>
-        <p>Fill in your trip details below and choose a travel persona. Select one as your <strong>primary</strong> voice — the AI writes your itinerary in that style, day by day. Add up to two more as <strong>influences</strong> to weave in subtly.</p>
+        <h1>Curate My Travel Experience</h1>
       </div>
 
       <!-- Plan form -->
@@ -158,7 +154,9 @@
 
           <!-- Persona selector -->
           <div class="form-row">
-            <label class="form-label">Travel Persona <span class="form-label-note">(1st pick = primary voice · 2nd &amp; 3rd = influences)</span></label>
+            <label class="form-label">Travel Persona <span class="form-label-note">(1st pick = primary voice · 2nd &amp; 3rd = influences · click any card to read full profile)</span></label>
+
+            <!-- Grid of portrait cards -->
             <div class="persona-grid" id="personaGrid">
 
               <div class="persona-card" data-persona="Street-Food Wanderer">
@@ -226,6 +224,22 @@
               </div>
 
             </div>
+
+            <!-- Landscape detail panel — shown when a card is clicked -->
+            <div class="persona-detail" id="personaDetail" hidden>
+              <button type="button" class="persona-detail-back" id="pdBack">← Back to all personas</button>
+              <div class="persona-detail-layout">
+                <img class="persona-detail-img" id="pdImg" src="" alt="">
+                <div class="persona-detail-content">
+                  <p class="persona-detail-descriptor" id="pdDescriptor"></p>
+                  <h3 class="persona-detail-name" id="pdName"></h3>
+                  <p class="persona-detail-tagline" id="pdTagline"></p>
+                  <p class="persona-detail-body" id="pdBody"></p>
+                  <button type="button" class="btn-outline persona-detail-select" id="pdSelectBtn"></button>
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <!-- Bespoke Preferences -->
@@ -324,11 +338,10 @@
 
     <nav class="footer-nav" aria-label="Footer navigation">
       <a href="index.html">Home</a>
-      <a href="journal.html">Journal</a>
+      <a href="journal.html">Blog</a>
       <a href="guides.html">Guides</a>
       <a href="plan.html">Unplanned Itinerary</a>
       <a href="michelin.html">Budget Michelin</a>
-      <a href="trend-finder.html">Trend Finder</a>
       <a href="about.html">About</a>
       <a href="personas.html">Personas</a>
       <a href="contributors.html">Contributors</a>
@@ -421,13 +434,38 @@
       }
     });
 
-    // ── Persona toggle (ordered, max 3) ──
-    document.getElementById('personaGrid').addEventListener('click', e => {
+    // ── Persona taglines ──
+    const PERSONA_TAGLINES = {
+      'Street-Food Wanderer':  'The best table in town rarely has a tablecloth.',
+      'Fearless Eater':        `If I can't name it, I'm ordering it.`,
+      'Literary Observer':     'I take the slow train on purpose.',
+      'Philosophical Drifter': 'The point was never the destination.',
+      'Self Discoverer':       'The most important miles are the ones traveled inward.',
+      'Frame Reader':          `You don't just see a place. You frame it.`,
+      'Convivialist':          'I always leave with more friends than photos.',
+      'Luxury Curator':        'Not flashy. Considered. Every detail earns its place.',
+    };
+
+    // ── Persona detail panel ──
+    let personaDetailName = null;
+    const personaGrid   = document.getElementById('personaGrid');
+    const personaDetail = document.getElementById('personaDetail');
+
+    personaGrid.addEventListener('click', e => {
       const card = e.target.closest('.persona-card');
       if (!card) return;
-      const persona = card.dataset.persona;
-      const idx = personaOrder.indexOf(persona);
+      openPersonaDetail(card);
+    });
+
+    document.getElementById('pdBack').addEventListener('click', closePersonaDetail);
+
+    document.getElementById('pdSelectBtn').addEventListener('click', () => {
+      const name = personaDetailName;
+      const card = document.querySelector(`.persona-card[data-persona="${name}"]`);
+      const idx  = personaOrder.indexOf(name);
+
       if (idx > -1) {
+        // Deselect
         personaOrder.splice(idx, 1);
         card.classList.remove('selected');
         card.querySelector('.order-badge')?.remove();
@@ -439,11 +477,58 @@
         });
       } else {
         if (personaOrder.length >= MAX_PERSONAS) return;
-        personaOrder.push(persona);
+        personaOrder.push(name);
         card.classList.add('selected');
         addBadge(card, personaOrder.length);
       }
+      updateDetailSelectBtn(name);
     });
+
+    function openPersonaDetail(card) {
+      const name = card.dataset.persona;
+      personaDetailName = name;
+
+      document.getElementById('pdImg').src = card.querySelector('.persona-card-img').src;
+      document.getElementById('pdImg').alt = name;
+      document.getElementById('pdDescriptor').textContent = card.querySelector('.persona-desc').textContent;
+      document.getElementById('pdName').textContent       = name;
+      document.getElementById('pdTagline').textContent    = PERSONA_TAGLINES[name] || '';
+      document.getElementById('pdBody').textContent       = PERSONA_DESCRIPTIONS[name] || '';
+
+      updateDetailSelectBtn(name);
+
+      personaGrid.style.display   = 'none';
+      personaDetail.hidden        = false;
+      personaDetail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function closePersonaDetail() {
+      personaDetail.hidden      = true;
+      personaGrid.style.display = '';
+      personaDetailName         = null;
+    }
+
+    function updateDetailSelectBtn(name) {
+      const btn = document.getElementById('pdSelectBtn');
+      const idx = personaOrder.indexOf(name);
+      btn.disabled = false;
+      btn.classList.remove('is-selected');
+
+      if (idx === 0) {
+        btn.textContent = '✓ Primary Voice — Deselect';
+        btn.classList.add('is-selected');
+      } else if (idx > 0) {
+        btn.textContent = `✓ Influence ${idx} — Deselect`;
+        btn.classList.add('is-selected');
+      } else if (personaOrder.length >= MAX_PERSONAS) {
+        btn.textContent = 'Maximum 3 personas selected';
+        btn.disabled    = true;
+      } else if (personaOrder.length === 0) {
+        btn.textContent = 'Select as Primary Voice';
+      } else {
+        btn.textContent = 'Add as Influence';
+      }
+    }
 
     // ── State refs ──
     const planLoading    = document.getElementById('planLoading');
@@ -464,14 +549,14 @@
     }
 
     const PERSONA_DESCRIPTIONS = {
-      'Street-Food Wanderer'`Local, unfiltered, street-level. Follows the charcoal smoke down the alley. Trusts the queue of locals over any review. Prioritizes the genuine over the comfortable — a three-dollar noodle stall over fifty-dollar chandeliers. Writes with a sharp eye for what is real versus performed.`,
-      'Fearless Eater'`Adventurous and all-in. Points at the untranslatable dish, orders the fruit that looks dangerous, says yes without flinching. Treats every unfamiliar bite as a cultural act of respect. The strangest plate on the table usually has the best story — and always gets ordered.`,
-      'Literary Observer'`Quiet, watchful, unsentimental. Takes the local train that stops everywhere. Spends an afternoon on a café bench reading the neighborhood. Notebook fills with overheard conversations and precise small details most travelers walk past. Prefers the truth of a place to the brochure version.`,
-      'Philosophical Drifter':'Unhurried and open. Leaves the schedule loose, trusts the road to decide. A missed bus becomes a village. A casual conversation becomes a three-day detour. Measures a trip by who you became, not what you saw. The winding aimless route is the entire point.',
-      'Self Discoverer'`Contemplative and inward. Drawn to stillness — the quiet temple courtyard, the early street before the crowds, the long pause by the water. Treats travel as meditation: a way to step far enough outside routine to see your own life clearly. One afternoon of real reflection outweighs a dozen monuments.`,
-      'Frame Reader'`Visual and humanist. Sees composition in everything — light, gesture, the afternoon sun on a face. Sets an alarm for the blue hour because that light tells the truth. Finds the soul of a place in its people: weathered hands, a mid-laugh kid, the small human moment that says more than any landmark.`,
-      'Convivialist'`Warm, open, magnetic. The meal is just the excuse — the people around the table are the point. Can't sit next to a stranger long before they're a friend. Best travel stories feature a name and a shared bottle, not a landmark. Treats every shared plate as the opening line of a conversation.`,
-      'Luxury Curator'`Refined, considered, discerning. Wants the table that took some knowing to book, the room with a view that earns it, the experience so seamless the craft behind it is invisible. Not excess — discernment. One perfectly judged day over a week of forgettable ones. Settles only for the version truly worth having.`,
+      'Street-Food Wanderer': `Local, unfiltered, street-level. Follows the charcoal smoke down the alley. Trusts the queue of locals over any review. Prioritizes the genuine over the comfortable — a three-dollar noodle stall over fifty-dollar chandeliers. Writes with a sharp eye for what is real versus performed.`,
+      'Fearless Eater': `Adventurous and all-in. Points at the untranslatable dish, orders the fruit that looks dangerous, says yes without flinching. Treats every unfamiliar bite as a cultural act of respect. The strangest plate on the table usually has the best story — and always gets ordered.`,
+      'Literary Observer': `Quiet, watchful, unsentimental. Takes the local train that stops everywhere. Spends an afternoon on a café bench reading the neighborhood. Notebook fills with overheard conversations and precise small details most travelers walk past. Prefers the truth of a place to the brochure version.`,
+      'Philosophical Drifter': `Unhurried and open. Leaves the schedule loose, trusts the road to decide. A missed bus becomes a village. A casual conversation becomes a three-day detour. Measures a trip by who you became, not what you saw. The winding aimless route is the entire point.`,
+      'Self Discoverer': `Contemplative and inward. Drawn to stillness — the quiet temple courtyard, the early street before the crowds, the long pause by the water. Treats travel as meditation: a way to step far enough outside routine to see your own life clearly. One afternoon of real reflection outweighs a dozen monuments.`,
+      'Frame Reader': `Visual and humanist. Sees composition in everything — light, gesture, the afternoon sun on a face. Sets an alarm for the blue hour because that light tells the truth. Finds the soul of a place in its people: weathered hands, a mid-laugh kid, the small human moment that says more than any landmark.`,
+      'Convivialist': `Warm, open, magnetic. The meal is just the excuse — the people around the table are the point. Can't sit next to a stranger long before they're a friend. Best travel stories feature a name and a shared bottle, not a landmark. Treats every shared plate as the opening line of a conversation.`,
+      'Luxury Curator': `Refined, considered, discerning. Wants the table that took some knowing to book, the room with a view that earns it, the experience so seamless the craft behind it is invisible. Not excess — discernment. One perfectly judged day over a week of forgettable ones. Settles only for the version truly worth having.`,
     };
 
     async function generateItinerary(e) {
