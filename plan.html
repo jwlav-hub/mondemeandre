@@ -4,22 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Plan My Trip – Monde Méandre</title>
-  <meta name="description" content="AI-powered itinerary engine. Choose your destination, budget, travel style, and persona — get a day-by-day Asia itinerary written just for you.">
+  <meta name="description" content="AI-powered itinerary engine. Choose your travel persona, interests, and destination — get a full day-by-day Asia itinerary written in your voice.">
   <link rel="canonical" href="https://mondemeandre.com/plan.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=7">
+  <link rel="stylesheet" href="css/styles.css?v=8">
 </head>
 <body class="page-plan">
 
   <!-- Page Header -->
   <header class="page-header">
     <a href="index.html" class="logo">
-      <img src="images/mm-logo2.png" alt="Monde Méandre logo" class="logo-img" width="48" height="48">
+      <img src="images/mm-logo2.png" alt="Monde Méandre logo" class="logo-img" width="34" height="34">
       <span class="logo-text">
         <span class="logo-name">Monde <span class="logo-accent">Méandre</span></span>
-        <span class="logo-tagline">Asia Travel & Dining Platform</span>
       </span>
     </a>
 
@@ -60,311 +59,377 @@
   </div>
 
   <main>
-    <div class="tool-page">
 
-      <div class="page-intro">
-        <span class="section-label">AI-Powered Itinerary Engine</span>
-        <h1>Curate My Travel Experience</h1>
+    <!-- ── Progress stepper ── -->
+    <div class="planner-stepper" id="plannerStepper" aria-label="Planner progress">
+      <div class="stepper-step active" id="stepNode1" onclick="returnToStep(1)">
+        <div class="stepper-dot" id="stepDot1">1</div>
+        <span class="stepper-label">Travel Profile</span>
       </div>
-
-      <!-- Plan form -->
-      <div class="tool-form-wrap">
-        <form class="tool-form plan-form" id="planForm" onsubmit="generateItinerary(event)">
-
-          <div class="form-row form-row--main">
-            <label class="form-label" for="destination">Destination</label>
-            <input
-              class="form-input"
-              type="text"
-              id="destination"
-              placeholder="e.g. Tokyo, Chiang Mai, Bali, Vietnam…"
-              autocomplete="off"
-              required
-            >
-          </div>
-
-          <div class="form-row-group">
-            <div class="form-row">
-              <label class="form-label" for="duration">Duration</label>
-              <select class="form-select" id="duration">
-                <option value="Weekend">Weekend (2–3 days)</option>
-                <option value="1 Week" selected>1 Week</option>
-                <option value="2 Weeks+">2 Weeks+</option>
-              </select>
-            </div>
-
-            <div class="form-row">
-              <label class="form-label" for="partyType">Traveling as</label>
-              <select class="form-select" id="partyType">
-                <option value="Solo" selected>Solo</option>
-                <option value="Couple">Couple</option>
-                <option value="Family">Family</option>
-                <option value="Group">Group</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row-group">
-            <div class="form-row">
-              <label class="form-label" for="budgetTier">Budget tier</label>
-              <select class="form-select" id="budgetTier">
-                <option value="Shoestring">Shoestring</option>
-                <option value="Value" selected>Value</option>
-                <option value="Mid-Range">Mid-Range</option>
-                <option value="Luxury">Luxury</option>
-              </select>
-            </div>
-
-            <div class="form-row">
-              <label class="form-label" for="pace">Travel pace</label>
-              <select class="form-select" id="pace">
-                <option value="Packed">Packed</option>
-                <option value="Balanced" selected>Balanced</option>
-                <option value="Slow">Slow</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Interests multi-select -->
-          <div class="form-row">
-            <label class="form-label">Interests <span class="form-label-note">(select up to 8 · prioritized by order of selection)</span></label>
-            <div class="interest-grid" id="interestGrid">
-              <button type="button" class="interest-btn" data-interest="Local Cuisine">Local Cuisine</button>
-              <button type="button" class="interest-btn" data-interest="Health Food">Health Food</button>
-              <button type="button" class="interest-btn" data-interest="Microbrews">Microbrews</button>
-              <button type="button" class="interest-btn" data-interest="Cocktails">Cocktails</button>
-              <button type="button" class="interest-btn" data-interest="Historic">Historic</button>
-              <button type="button" class="interest-btn" data-interest="Art">Art</button>
-              <button type="button" class="interest-btn" data-interest="Adventure">Adventure</button>
-              <button type="button" class="interest-btn" data-interest="Hiking">Hiking</button>
-              <button type="button" class="interest-btn" data-interest="Water Sports">Water Sports</button>
-              <button type="button" class="interest-btn" data-interest="Wildlife">Wildlife</button>
-              <button type="button" class="interest-btn" data-interest="Photography">Photography</button>
-              <button type="button" class="interest-btn" data-interest="Street Scene">Street Scene</button>
-              <button type="button" class="interest-btn" data-interest="Nightlife">Nightlife</button>
-              <button type="button" class="interest-btn" data-interest="Nature">Nature</button>
-              <button type="button" class="interest-btn" data-interest="Shopping">Shopping</button>
-              <button type="button" class="interest-btn" data-interest="Local Markets">Local Markets</button>
-              <button type="button" class="interest-btn" data-interest="Relax">Relax</button>
-              <button type="button" class="interest-btn" data-interest="Active">Active</button>
-              <button type="button" class="interest-btn" data-interest="Social Scene">Social Scene</button>
-              <button type="button" class="interest-btn" data-interest="Local Shops">Local Shops</button>
-            </div>
-          </div>
-
-          <!-- Persona selector -->
-          <div class="form-row">
-            <label class="form-label">Travel Persona <span class="form-label-note">(1st pick = primary voice · 2nd &amp; 3rd = influences · click any card to read full profile)</span></label>
-
-            <!-- Grid of portrait cards -->
-            <div class="persona-grid" id="personaGrid">
-
-              <div class="persona-card" data-persona="Street-Food Wanderer">
-                <img class="persona-card-img" src="images/personas/street-food-wanderer.png" alt="Street-Food Wanderer">
-                <div class="persona-card-info">
-                  <span class="persona-name">Street-Food Wanderer</span>
-                  <span class="persona-desc">Local · Unfiltered · Street-Level</span>
-                </div>
-              </div>
-
-              <div class="persona-card" data-persona="Fearless Eater">
-                <img class="persona-card-img" src="images/personas/fearless-eater.png" alt="Fearless Eater">
-                <div class="persona-card-info">
-                  <span class="persona-name">Fearless Eater</span>
-                  <span class="persona-desc">Adventurous · Curious · All-In</span>
-                </div>
-              </div>
-
-              <div class="persona-card" data-persona="Literary Observer">
-                <img class="persona-card-img" src="images/personas/literary-observer.png" alt="Literary Observer">
-                <div class="persona-card-info">
-                  <span class="persona-name">Literary Observer</span>
-                  <span class="persona-desc">Literary · Unsentimental · Watchful</span>
-                </div>
-              </div>
-
-              <div class="persona-card" data-persona="Philosophical Drifter">
-                <img class="persona-card-img" src="images/personas/philosophical-drifter.png" alt="Philosophical Drifter">
-                <div class="persona-card-info">
-                  <span class="persona-name">Philosophical Drifter</span>
-                  <span class="persona-desc">Unhurried · Open · Free</span>
-                </div>
-              </div>
-
-              <div class="persona-card" data-persona="Self Discoverer">
-                <img class="persona-card-img" src="images/personas/self-discoverer.png" alt="Self Discoverer">
-                <div class="persona-card-info">
-                  <span class="persona-name">Self Discoverer</span>
-                  <span class="persona-desc">Contemplative · Still · Inward</span>
-                </div>
-              </div>
-
-              <div class="persona-card" data-persona="Camera Eye">
-                <img class="persona-card-img" src="images/personas/camera-eye.png" alt="Camera Eye">
-                <div class="persona-card-info">
-                  <span class="persona-name">Camera Eye</span>
-                  <span class="persona-desc">Visual · Candid · Humanist</span>
-                </div>
-              </div>
-
-              <div class="persona-card" data-persona="Fast Friend">
-                <img class="persona-card-img" src="images/personas/fast-friend.png" alt="Fast Friend">
-                <div class="persona-card-info">
-                  <span class="persona-name">Fast Friend</span>
-                  <span class="persona-desc">Charming · Magnetic · Effortless</span>
-                </div>
-              </div>
-
-              <div class="persona-card" data-persona="Luxury Curator">
-                <img class="persona-card-img" src="images/personas/luxury-curator.png" alt="Luxury Curator">
-                <div class="persona-card-info">
-                  <span class="persona-name">Luxury Curator</span>
-                  <span class="persona-desc">Refined · Considered · Discerning</span>
-                </div>
-              </div>
-
-              <div class="persona-card" data-persona="Adventurer">
-                <img class="persona-card-img" src="images/personas/adventurer.png" alt="Adventurer">
-                <div class="persona-card-info">
-                  <span class="persona-name">Adventurer</span>
-                  <span class="persona-desc">Active · Outdoor · Bold</span>
-                </div>
-              </div>
-
-              <div class="persona-card" data-persona="Restorative">
-                <img class="persona-card-img" src="images/personas/restorative.png" alt="Restorative">
-                <div class="persona-card-info">
-                  <span class="persona-name">Restorative</span>
-                  <span class="persona-desc">Restful · Replenishing · Calm</span>
-                </div>
-              </div>
-
-              <div class="persona-card" data-persona="Culture Driven">
-                <img class="persona-card-img" src="images/personas/culture-driven.png" alt="Culture Driven">
-                <div class="persona-card-info">
-                  <span class="persona-name">Culture Driven</span>
-                  <span class="persona-desc">Engaged · Curious · Immersive</span>
-                </div>
-              </div>
-
-              <div class="persona-card" data-persona="Nightlifer">
-                <img class="persona-card-img" src="images/personas/nightlifer.png" alt="Nightlifer">
-                <div class="persona-card-info">
-                  <span class="persona-name">Nightlifer</span>
-                  <span class="persona-desc">High-Energy · Social · After-Dark</span>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- Landscape detail panel — shown when a card is clicked -->
-            <div class="persona-detail" id="personaDetail" hidden>
-              <button type="button" class="persona-detail-back" id="pdBack">← Back to all personas</button>
-              <div class="persona-detail-layout">
-                <img class="persona-detail-img" id="pdImg" src="" alt="">
-                <div class="persona-detail-content">
-                  <p class="persona-detail-descriptor" id="pdDescriptor"></p>
-                  <h3 class="persona-detail-name" id="pdName"></h3>
-                  <p class="persona-detail-tagline" id="pdTagline"></p>
-                  <p class="persona-detail-body" id="pdBody"></p>
-                  <button type="button" class="btn-outline persona-detail-select" id="pdSelectBtn"></button>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Bespoke Preferences -->
-          <div class="form-row">
-            <label class="form-label" for="bespokePrefs">Bespoke Preferences <span class="form-label-note">(optional · up to 250 words)</span></label>
-            <textarea
-              class="form-input"
-              id="bespokePrefs"
-              rows="4"
-              placeholder="Specific requests, must-see spots, dietary restrictions, mobility considerations, or anything else that should shape your itinerary…"
-            ></textarea>
-          </div>
-
-          <button type="submit" class="tool-submit" id="planSubmitBtn">
-            Generate My Itinerary
-          </button>
-        </form>
+      <div class="stepper-connector" id="conn1"></div>
+      <div class="stepper-step" id="stepNode2" onclick="returnToStep(2)">
+        <div class="stepper-dot" id="stepDot2">2</div>
+        <span class="stepper-label">Trip Details</span>
       </div>
-
-      <!-- Loading -->
-      <div class="tool-loading" id="planLoading" aria-live="polite">
-        <div class="loading-spinner" aria-hidden="true"></div>
-        <p>Writing your itinerary…</p>
+      <div class="stepper-connector" id="conn2"></div>
+      <div class="stepper-step" id="stepNode3">
+        <div class="stepper-dot" id="stepDot3">3</div>
+        <span class="stepper-label">Your Itinerary</span>
       </div>
-
-      <!-- Error -->
-      <div class="tool-error" id="planError" role="alert">
-        <p id="planErrorMsg"></p>
-      </div>
-
-      <!-- Output -->
-      <div class="itinerary-output" id="itineraryOutput">
-        <div class="itinerary-header">
-          <span class="section-label" id="itinLabel"></span>
-          <h2 id="itinHeading"></h2>
-          <p class="itinerary-persona-tag" id="itinPersona"></p>
-        </div>
-
-        <!-- Day 1 teaser (always shown) -->
-        <div id="itinDay1"></div>
-
-        <!-- Email gate -->
-        <div class="email-gate" id="emailGate">
-          <div class="email-gate-inner">
-            <h3>Your full itinerary is ready.</h3>
-            <p>Enter your email to unlock the complete day-by-day itinerary — free, no spam.</p>
-            <form class="email-gate-form" id="emailGateForm" onsubmit="unlockItinerary(event)">
-              <input
-                type="email"
-                class="form-input"
-                id="gateEmail"
-                placeholder="your@email.com"
-                required
-              >
-              <button type="submit" class="tool-submit">Unlock Full Itinerary</button>
-            </form>
-            <p class="email-gate-note">Your itinerary will display instantly below.</p>
-          </div>
-        </div>
-
-        <!-- Full itinerary (shown after email) -->
-        <div id="itinFull"></div>
-
-        <!-- Affiliate hooks -->
-        <div class="tool-affiliates" id="itinAffiliates">
-          <div class="affiliate-card">
-            <p class="affiliate-label">Find your hotel</p>
-            <p>Compare and book accommodation for this trip on Booking.com.</p>
-            <a href="https://www.booking.com/" target="_blank" rel="noopener" class="btn-outline">Search Hotels</a>
-          </div>
-          <div class="affiliate-card">
-            <p class="affiliate-label">Book your activities</p>
-            <p>Tours, day trips, and experiences from GetYourGuide.</p>
-            <a href="https://www.getyourguide.com/" target="_blank" rel="noopener" class="btn-outline">Browse Activities</a>
-          </div>
-          <div class="affiliate-card">
-            <p class="affiliate-label">Travel insurance</p>
-            <p>SafetyWing covers medical emergencies, trip delays, and more.</p>
-            <a href="https://safetywing.com/" target="_blank" rel="noopener" class="btn-outline">Get SafetyWing</a>
-          </div>
-        </div>
-      </div>
-
     </div>
+
+    <!-- ══════════════════════════════
+         STEP 1 — Travel Profile
+    ══════════════════════════════ -->
+    <div class="planner-page active" id="planStep1">
+      <div class="planner-page-inner">
+
+        <div class="planner-page-header">
+          <span class="section-label">Step 1 of 3</span>
+          <h1>Create Your Travel Profile</h1>
+          <p>Choose your travel persona, interests, and pace. This shapes every recommendation you'll receive.</p>
+        </div>
+
+        <!-- Persona selector -->
+        <div class="planner-field">
+          <label class="form-label">Travel Persona <span class="form-label-note">(1 primary · up to 2 influences · click any card to read the full profile)</span></label>
+
+          <div class="persona-grid" id="personaGrid">
+
+            <div class="persona-card" data-persona="Street-Food Wanderer">
+              <img class="persona-card-img" src="images/personas/street-food-wanderer.png" alt="Street-Food Wanderer">
+              <div class="persona-card-info">
+                <span class="persona-name">Street-Food Wanderer</span>
+                <span class="persona-desc">Local · Unfiltered · Street-Level</span>
+              </div>
+            </div>
+
+            <div class="persona-card" data-persona="Fearless Eater">
+              <img class="persona-card-img" src="images/personas/fearless-eater.png" alt="Fearless Eater">
+              <div class="persona-card-info">
+                <span class="persona-name">Fearless Eater</span>
+                <span class="persona-desc">Adventurous · Curious · All-In</span>
+              </div>
+            </div>
+
+            <div class="persona-card" data-persona="Literary Observer">
+              <img class="persona-card-img" src="images/personas/literary-observer.png" alt="Literary Observer">
+              <div class="persona-card-info">
+                <span class="persona-name">Literary Observer</span>
+                <span class="persona-desc">Literary · Unsentimental · Watchful</span>
+              </div>
+            </div>
+
+            <div class="persona-card" data-persona="Philosophical Drifter">
+              <img class="persona-card-img" src="images/personas/philosophical-drifter.png" alt="Philosophical Drifter">
+              <div class="persona-card-info">
+                <span class="persona-name">Philosophical Drifter</span>
+                <span class="persona-desc">Unhurried · Open · Free</span>
+              </div>
+            </div>
+
+            <div class="persona-card" data-persona="Self Discoverer">
+              <img class="persona-card-img" src="images/personas/self-discoverer.png" alt="Self Discoverer">
+              <div class="persona-card-info">
+                <span class="persona-name">Self Discoverer</span>
+                <span class="persona-desc">Contemplative · Still · Inward</span>
+              </div>
+            </div>
+
+            <div class="persona-card" data-persona="Camera Eye">
+              <img class="persona-card-img" src="images/personas/camera-eye.png" alt="Camera Eye">
+              <div class="persona-card-info">
+                <span class="persona-name">Camera Eye</span>
+                <span class="persona-desc">Visual · Candid · Humanist</span>
+              </div>
+            </div>
+
+            <div class="persona-card" data-persona="Fast Friend">
+              <img class="persona-card-img" src="images/personas/fast-friend.png" alt="Fast Friend">
+              <div class="persona-card-info">
+                <span class="persona-name">Fast Friend</span>
+                <span class="persona-desc">Charming · Magnetic · Effortless</span>
+              </div>
+            </div>
+
+            <div class="persona-card" data-persona="Luxury Curator">
+              <img class="persona-card-img" src="images/personas/luxury-curator.png" alt="Luxury Curator">
+              <div class="persona-card-info">
+                <span class="persona-name">Luxury Curator</span>
+                <span class="persona-desc">Refined · Considered · Discerning</span>
+              </div>
+            </div>
+
+            <div class="persona-card" data-persona="Adventurer">
+              <img class="persona-card-img" src="images/personas/adventurer.png" alt="Adventurer">
+              <div class="persona-card-info">
+                <span class="persona-name">Adventurer</span>
+                <span class="persona-desc">Active · Outdoor · Bold</span>
+              </div>
+            </div>
+
+            <div class="persona-card" data-persona="Restorative">
+              <img class="persona-card-img" src="images/personas/restorative.png" alt="Restorative">
+              <div class="persona-card-info">
+                <span class="persona-name">Restorative</span>
+                <span class="persona-desc">Restful · Replenishing · Calm</span>
+              </div>
+            </div>
+
+            <div class="persona-card" data-persona="Culture Driven">
+              <img class="persona-card-img" src="images/personas/culture-driven.png" alt="Culture Driven">
+              <div class="persona-card-info">
+                <span class="persona-name">Culture Driven</span>
+                <span class="persona-desc">Engaged · Curious · Immersive</span>
+              </div>
+            </div>
+
+            <div class="persona-card" data-persona="Nightlifer">
+              <img class="persona-card-img" src="images/personas/nightlifer.png" alt="Nightlifer">
+              <div class="persona-card-info">
+                <span class="persona-name">Nightlifer</span>
+                <span class="persona-desc">High-Energy · Social · After-Dark</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Landscape detail panel -->
+          <div class="persona-detail" id="personaDetail" hidden>
+            <button type="button" class="persona-detail-back" id="pdBack">← Back to all personas</button>
+            <div class="persona-detail-layout">
+              <img class="persona-detail-img" id="pdImg" src="" alt="">
+              <div class="persona-detail-content">
+                <p class="persona-detail-descriptor" id="pdDescriptor"></p>
+                <h3 class="persona-detail-name" id="pdName"></h3>
+                <p class="persona-detail-tagline" id="pdTagline"></p>
+                <p class="persona-detail-body" id="pdBody"></p>
+                <button type="button" class="btn-outline persona-detail-select" id="pdSelectBtn"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interests -->
+        <div class="planner-field">
+          <label class="form-label">Interests <span class="form-label-note">(select any that apply)</span></label>
+          <div class="chip-grid" id="interestGrid">
+            <button type="button" class="chip-btn" data-interest="Food &amp; Dining">Food &amp; Dining</button>
+            <button type="button" class="chip-btn" data-interest="History &amp; Heritage">History &amp; Heritage</button>
+            <button type="button" class="chip-btn" data-interest="Nature &amp; Outdoors">Nature &amp; Outdoors</button>
+            <button type="button" class="chip-btn" data-interest="Art &amp; Architecture">Art &amp; Architecture</button>
+            <button type="button" class="chip-btn" data-interest="Markets &amp; Shopping">Markets &amp; Shopping</button>
+            <button type="button" class="chip-btn" data-interest="Nightlife">Nightlife</button>
+            <button type="button" class="chip-btn" data-interest="Wellness &amp; Relaxation">Wellness &amp; Relaxation</button>
+            <button type="button" class="chip-btn" data-interest="Adventure &amp; Activity">Adventure &amp; Activity</button>
+            <button type="button" class="chip-btn" data-interest="Beaches &amp; Coast">Beaches &amp; Coast</button>
+            <button type="button" class="chip-btn" data-interest="Local Life &amp; People">Local Life &amp; People</button>
+          </div>
+        </div>
+
+        <!-- Pace -->
+        <div class="planner-field">
+          <label class="form-label">Travel Pace</label>
+          <div class="pace-grid chip-grid" id="paceGrid">
+            <button type="button" class="chip-btn" data-pace="Relaxed">Relaxed</button>
+            <button type="button" class="chip-btn active" data-pace="Balanced">Balanced</button>
+            <button type="button" class="chip-btn" data-pace="Packed">Packed</button>
+          </div>
+        </div>
+
+        <!-- Dietary -->
+        <div class="planner-field">
+          <label class="form-label">Dietary <span class="form-label-note">(optional)</span></label>
+          <div class="chip-grid" id="dietaryGrid">
+            <button type="button" class="chip-btn" data-dietary="Vegetarian">Vegetarian</button>
+            <button type="button" class="chip-btn" data-dietary="Vegan">Vegan</button>
+            <button type="button" class="chip-btn" data-dietary="Halal">Halal</button>
+            <button type="button" class="chip-btn" data-dietary="No Restriction">No Restriction</button>
+          </div>
+        </div>
+
+        <!-- Step 1 nav -->
+        <div class="planner-nav">
+          <span></span>
+          <button class="planner-cta" id="step1Next" onclick="goToStep(2)">Next: Trip Details →</button>
+        </div>
+
+        <!-- Step 1 validation message -->
+        <p class="tool-error" id="step1Error" role="alert" style="margin-top:1rem;"></p>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 2 — Trip Details
+    ══════════════════════════════ -->
+    <div class="planner-page" id="planStep2">
+      <div class="planner-page-inner">
+
+        <div class="planner-page-header">
+          <span class="section-label">Step 2 of 3</span>
+          <h2>Trip Details</h2>
+          <p>Where are you going, and when? We'll shape the itinerary around your exact window.</p>
+        </div>
+
+        <!-- Destination -->
+        <div class="planner-field">
+          <label class="form-label" for="destination">Destination</label>
+          <input class="form-input" type="text" id="destination" placeholder="e.g. Tokyo, Chiang Mai, Bali, Hanoi…" autocomplete="off">
+        </div>
+
+        <!-- Dates -->
+        <div class="planner-field-row">
+          <div class="planner-field" style="margin-bottom:0">
+            <label class="form-label" for="departDate">Departure Date</label>
+            <input class="form-input" type="date" id="departDate">
+            <label style="display:flex;align-items:center;gap:0.5rem;margin-top:0.6rem;font-size:0.8rem;color:var(--text-light);cursor:pointer;">
+              <input type="checkbox" id="flexDates" style="accent-color:var(--mm-falu-red);width:15px;height:15px;">
+              I'm flexible on dates
+            </label>
+          </div>
+
+          <!-- Nights slider -->
+          <div class="planner-field" style="margin-bottom:0">
+            <label class="form-label">Trip Length</label>
+            <div class="nights-wrap">
+              <div class="nights-display"><span id="nightsVal">7</span><span>nights</span></div>
+              <input type="range" class="nights-slider" id="nightsSlider" min="2" max="30" value="7">
+            </div>
+          </div>
+        </div>
+
+        <!-- Adults & Children -->
+        <div class="planner-field-row">
+          <div class="planner-field" style="margin-bottom:0">
+            <label class="form-label">Adults</label>
+            <div class="num-stepper">
+              <button type="button" class="num-stepper-btn" id="adultsDown" onclick="adjustAdults(-1)">−</button>
+              <span class="num-stepper-val" id="adultsVal">1</span>
+              <button type="button" class="num-stepper-btn" id="adultsUp" onclick="adjustAdults(1)">+</button>
+            </div>
+          </div>
+
+          <div class="planner-field" style="margin-bottom:0">
+            <label class="form-label">Traveling with Children?</label>
+            <label style="display:flex;align-items:center;gap:0.5rem;margin-top:0.5rem;font-size:0.85rem;color:var(--text-light);cursor:pointer;">
+              <input type="checkbox" id="hasChildren" onchange="toggleChildren()" style="accent-color:var(--mm-falu-red);width:15px;height:15px;">
+              Yes, with children
+            </label>
+            <div class="children-reveal" id="childrenReveal">
+              <input class="form-input" type="text" id="childAges" placeholder="Ages, e.g. 4, 7, 12" style="margin-top:0.6rem;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Budget (optional) -->
+        <div class="planner-field">
+          <label class="form-label">Budget <span class="form-label-note">(optional)</span></label>
+          <div class="chip-grid" id="budgetGrid">
+            <button type="button" class="chip-btn" data-budget="Budget">Budget</button>
+            <button type="button" class="chip-btn" data-budget="Comfortable">Comfortable</button>
+            <button type="button" class="chip-btn" data-budget="Premium">Premium</button>
+            <button type="button" class="chip-btn" data-budget="No Limit">No Limit</button>
+          </div>
+        </div>
+
+        <!-- Step 2 nav -->
+        <div class="planner-nav">
+          <button class="planner-nav-back" onclick="goToStep(1)">← Back</button>
+          <button class="planner-cta" id="step2Next" onclick="submitPlan()">Create My Itinerary →</button>
+        </div>
+
+        <p class="tool-error" id="step2Error" role="alert" style="margin-top:1rem;"></p>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 3 — Your Itinerary
+    ══════════════════════════════ -->
+    <div class="planner-page" id="planStep3">
+      <div class="planner-page-inner">
+
+        <div class="planner-page-header">
+          <span class="section-label">Step 3 of 3</span>
+          <h2>Your Itinerary</h2>
+        </div>
+
+        <!-- Loading -->
+        <div class="tool-loading" id="planLoading" aria-live="polite">
+          <div class="loading-spinner" aria-hidden="true"></div>
+          <p>Writing your itinerary…</p>
+        </div>
+
+        <!-- Error -->
+        <div class="tool-error" id="planError" role="alert">
+          <p id="planErrorMsg"></p>
+        </div>
+
+        <!-- Free overview (shown to everyone) -->
+        <div class="itinerary-free" id="itineraryFree" style="display:none;">
+          <p class="itinerary-free-label">Your trip overview</p>
+          <h2 id="itinHeading"></h2>
+          <p class="persona-tag" id="itinPersona"></p>
+          <div id="itinFreeContent"></div>
+        </div>
+
+        <!-- Unlock box -->
+        <div class="unlock-box" id="unlockBox" style="display:none;">
+          <h3>Unlock your detailed itinerary</h3>
+          <p>Create your free account to get the full day-by-day plan — and we'll save your travel profile so your next trip starts ready.</p>
+          <label class="unlock-bib-row">
+            <input type="checkbox" id="bibCheck" checked>
+            Include Bib Gourmand dining matched to your travel profile
+          </label>
+          <form class="unlock-form" id="unlockForm" onsubmit="unlockItinerary(event)">
+            <input class="unlock-input" type="email" id="unlockEmail" placeholder="your@email.com" required autocomplete="email">
+            <input class="unlock-input" type="password" id="unlockPassword" placeholder="Create a password" required autocomplete="new-password">
+            <button type="submit" class="unlock-submit">Create Account &amp; Unlock</button>
+          </form>
+          <p class="unlock-alt">Already have an account? <a href="#" onclick="openModal();return false;">Log in</a></p>
+        </div>
+
+        <!-- Detailed itinerary (post-unlock) -->
+        <div class="itinerary-detailed" id="itineraryDetailed">
+          <div id="itinDetailedContent"></div>
+
+          <!-- Affiliate cards -->
+          <div class="tool-affiliates" id="itinAffiliates">
+            <div class="affiliate-card">
+              <p class="affiliate-label">Find your hotel</p>
+              <p>Compare and book accommodation for this trip on Booking.com.</p>
+              <a href="https://www.booking.com/" target="_blank" rel="noopener" class="btn-outline">Search Hotels</a>
+            </div>
+            <div class="affiliate-card">
+              <p class="affiliate-label">Book your activities</p>
+              <p>Tours, day trips, and experiences from GetYourGuide.</p>
+              <a href="https://www.getyourguide.com/" target="_blank" rel="noopener" class="btn-outline">Browse Activities</a>
+            </div>
+            <div class="affiliate-card">
+              <p class="affiliate-label">Travel insurance</p>
+              <p>SafetyWing covers medical emergencies, trip delays, and more.</p>
+              <a href="https://safetywing.com/" target="_blank" rel="noopener" class="btn-outline">Get SafetyWing</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="planner-nav" style="margin-top:2rem;">
+          <button class="planner-nav-back" onclick="goToStep(2)">← Edit Trip Details</button>
+          <span></span>
+        </div>
+
+      </div>
+    </div>
+
   </main>
 
   <!-- Footer -->
   <footer>
     <a href="index.html" class="footer-logo logo">
-      <img src="images/mm-logo2.png" alt="Monde Méandre logo" class="logo-img" width="48" height="48">
+      <img src="images/mm-logo2.png" alt="Monde Méandre logo" class="logo-img" width="34" height="34">
       <span class="logo-text">
         <span class="logo-name">Monde <span class="logo-accent">Méandre</span></span>
-        <span class="logo-tagline">Asia Travel & Dining Platform</span>
       </span>
     </a>
 
@@ -385,7 +450,7 @@
       <a href="https://twitter.com/" target="_blank" rel="noopener">Twitter / X</a>
     </div>
 
-    <p class="footer-copy">© 2026 Joseph Laviolette · Monde Méandre</p>
+    <p class="footer-copy">&copy; 2026 Joseph Laviolette · Monde Méandre</p>
   </footer>
 
   <!-- Login Modal -->
@@ -415,58 +480,109 @@
   </div>
 
   <script>
+    // ── UI helpers ────────────────────────────────────────────────
     function toggleMobileNav() {
       const nav = document.getElementById('mobileNav');
       const burger = document.getElementById('hamburger');
-      const burgerSticky = document.getElementById('hamburgerSticky');
       nav.classList.toggle('open');
       if (burger) burger.classList.toggle('open');
-      if (burgerSticky) burgerSticky.classList.toggle('open');
       document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
     }
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && document.getElementById('mobileNav').classList.contains('open')) toggleMobileNav();
     });
 
-    // ── Order tracking state ──
-    let interestOrder = [];
-    let personaOrder  = [];
-    const MAX_INTERESTS = 8;
-    const MAX_PERSONAS  = 3;
+    function openModal()  { document.getElementById('loginModal').classList.add('open'); }
+    function closeModal() { document.getElementById('loginModal').classList.remove('open'); }
+    function switchTab(tab) {
+      document.querySelectorAll('.modal-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+      document.getElementById('modal-login').style.display  = tab === 'login'  ? 'flex' : 'none';
+      document.getElementById('modal-signup').style.display = tab === 'signup' ? 'flex' : 'none';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    // ── Badge helper ──
+    document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', e => {
+        e.preventDefault();
+        const parent = toggle.closest('.nav-has-dropdown');
+        const isOpen = parent.classList.contains('open');
+        document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));
+        if (!isOpen) parent.classList.add('open');
+      });
+    });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.nav-has-dropdown'))
+        document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));
+    });
+
+    // ── State ──────────────────────────────────────────────────────
+    let currentStep   = 1;
+    let personaOrder  = [];
+    let selectedInterests = [];
+    let selectedPace  = 'Balanced';
+    let selectedDietary = [];
+    let selectedBudget = null;
+    let adultsCount   = 1;
+
+    const MAX_PERSONAS = 3;
+
+    // ── Stepper navigation ─────────────────────────────────────────
+    function goToStep(n) {
+      if (n === 2) {
+        if (personaOrder.length === 0) {
+          document.getElementById('step1Error').textContent = 'Please select at least one Travel Persona before continuing.';
+          document.getElementById('step1Error').classList.add('visible');
+          return;
+        }
+        document.getElementById('step1Error').classList.remove('visible');
+      }
+
+      document.getElementById(`planStep${currentStep}`).classList.remove('active');
+      document.getElementById(`planStep${n}`).classList.add('active');
+
+      // Mark previous step completed
+      if (n > currentStep) {
+        const prev = currentStep;
+        document.getElementById(`stepNode${prev}`).classList.remove('active');
+        document.getElementById(`stepNode${prev}`).classList.add('completed');
+        document.getElementById(`stepDot${prev}`).textContent = '✓';
+        if (prev < 3) document.getElementById(`conn${prev}`).classList.add('completed');
+      }
+
+      document.getElementById(`stepNode${n}`).classList.add('active');
+      document.getElementById(`stepNode${n}`).classList.remove('completed');
+      document.getElementById(`stepDot${n}`).textContent = n;
+      currentStep = n;
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function returnToStep(n) {
+      if (n >= currentStep) return;
+      // Re-activate clicked step, de-complete it
+      document.getElementById(`planStep${currentStep}`).classList.remove('active');
+      document.getElementById(`stepNode${currentStep}`).classList.remove('active');
+
+      document.getElementById(`stepNode${n}`).classList.remove('completed');
+      document.getElementById(`stepNode${n}`).classList.add('active');
+      document.getElementById(`stepDot${n}`).textContent = n;
+      if (n < 3) document.getElementById(`conn${n}`).classList.remove('completed');
+
+      document.getElementById(`planStep${n}`).classList.add('active');
+      currentStep = n;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ── Badge helper ───────────────────────────────────────────────
     function addBadge(el, num) {
+      el.querySelector('.order-badge')?.remove();
       const badge = document.createElement('span');
       badge.className = 'order-badge';
       badge.textContent = num;
       el.appendChild(badge);
     }
 
-    // ── Interest toggle (ordered, max 8) ──
-    document.getElementById('interestGrid').addEventListener('click', e => {
-      const btn = e.target.closest('.interest-btn');
-      if (!btn) return;
-      const interest = btn.dataset.interest;
-      const idx = interestOrder.indexOf(interest);
-      if (idx > -1) {
-        interestOrder.splice(idx, 1);
-        btn.classList.remove('active');
-        btn.querySelector('.order-badge')?.remove();
-        // Re-number remaining
-        document.querySelectorAll('.interest-btn.active').forEach(b => {
-          b.querySelector('.order-badge')?.remove();
-          const i = interestOrder.indexOf(b.dataset.interest);
-          if (i > -1) addBadge(b, i + 1);
-        });
-      } else {
-        if (interestOrder.length >= MAX_INTERESTS) return;
-        interestOrder.push(interest);
-        btn.classList.add('active');
-        addBadge(btn, interestOrder.length);
-      }
-    });
-
-    // ── Persona taglines ──
+    // ── Persona data ───────────────────────────────────────────────
     const PERSONA_TAGLINES = {
       'Street-Food Wanderer':  'The best table in town rarely has a tablecloth.',
       'Fearless Eater':        `If I can't name it, I'm ordering it.`,
@@ -482,7 +598,22 @@
       'Nightlifer':            `The city doesn't really start until the sun goes down.`,
     };
 
-    // ── Persona detail panel ──
+    const PERSONA_DESCRIPTIONS = {
+      'Street-Food Wanderer': `Local, unfiltered, street-level. Follows the charcoal smoke down the alley. Trusts the queue of locals over any review. Prioritizes the genuine over the comfortable — a three-dollar noodle stall over fifty-dollar chandeliers.`,
+      'Fearless Eater': `Adventurous and all-in. Points at the untranslatable dish, orders the fruit that looks dangerous, says yes without flinching. Treats every unfamiliar bite as a cultural act of respect.`,
+      'Literary Observer': `Quiet, watchful, unsentimental. Takes the local train that stops everywhere. Notebook fills with overheard conversations and precise small details most travelers walk past. Prefers the truth of a place to the brochure version.`,
+      'Philosophical Drifter': `Unhurried and open. Leaves the schedule loose, trusts the road to decide. A missed bus becomes a village. Measures a trip by who you became, not what you saw.`,
+      'Self Discoverer': `Contemplative and inward. Drawn to stillness — the quiet temple courtyard, the early street before the crowds. Treats travel as meditation: a way to see your own life clearly.`,
+      'Camera Eye': `Visual and humanist. Shoots the street, not the skyline — the vendor's hands, the kid mid-laugh, the unguarded moment. Reads a city through its faces and small everyday scenes.`,
+      'Fast Friend': `Charming and magnetic. Drop them into any room and they walk out with three new friends and a dinner invitation. Every market and train carriage is a room full of people they haven't met yet.`,
+      'Luxury Curator': `Refined, considered, discerning. Wants the table that took some knowing to book, the experience so seamless the craft behind it is invisible. One perfectly judged day over a week of forgettable ones.`,
+      'Adventurer': `Active, outdoor, bold. Travels to do, not to rest. Trailhead at dawn, water to dive into, ridges reached on foot. Measures a trip in altitude gained and limits pushed.`,
+      'Restorative': `Restful and replenishing. Travels to be put back together. The long massage, the quiet hot spring, the slow morning with nowhere to be. Not laziness — maintenance.`,
+      'Culture Driven': `Engaged and immersive. Wants to understand a place, not just visit it. Learns the language basics before landing, tracks down the festival locals actually go to.`,
+      'Nightlifer': `High-energy, social, after-dark. Follows the music to the buzzing district. Reads a place through its nights as much as its daylight sights. Always knows where everyone should head next.`,
+    };
+
+    // ── Persona detail panel ───────────────────────────────────────
     let personaDetailName = null;
     const personaGrid   = document.getElementById('personaGrid');
     const personaDetail = document.getElementById('personaDetail');
@@ -501,11 +632,9 @@
       const idx  = personaOrder.indexOf(name);
 
       if (idx > -1) {
-        // Deselect
         personaOrder.splice(idx, 1);
         card.classList.remove('selected');
         card.querySelector('.order-badge')?.remove();
-        // Re-number remaining
         document.querySelectorAll('.persona-card.selected').forEach(c => {
           c.querySelector('.order-badge')?.remove();
           const i = personaOrder.indexOf(c.dataset.persona);
@@ -523,16 +652,13 @@
     function openPersonaDetail(card) {
       const name = card.dataset.persona;
       personaDetailName = name;
-
       document.getElementById('pdImg').src = card.querySelector('.persona-card-img').src;
       document.getElementById('pdImg').alt = name;
       document.getElementById('pdDescriptor').textContent = card.querySelector('.persona-desc').textContent;
       document.getElementById('pdName').textContent       = name;
       document.getElementById('pdTagline').textContent    = PERSONA_TAGLINES[name] || '';
       document.getElementById('pdBody').textContent       = PERSONA_DESCRIPTIONS[name] || '';
-
       updateDetailSelectBtn(name);
-
       personaGrid.style.display   = 'none';
       personaDetail.hidden        = false;
       personaDetail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -549,7 +675,6 @@
       const idx = personaOrder.indexOf(name);
       btn.disabled = false;
       btn.classList.remove('is-selected');
-
       if (idx === 0) {
         btn.textContent = '✓ Primary Voice — Deselect';
         btn.classList.add('is-selected');
@@ -566,98 +691,155 @@
       }
     }
 
-    // ── State refs ──
-    const planLoading    = document.getElementById('planLoading');
-    const planError      = document.getElementById('planError');
-    const planErrorMsg   = document.getElementById('planErrorMsg');
-    const itinOutput     = document.getElementById('itineraryOutput');
-    const emailGate      = document.getElementById('emailGate');
-    const itinFull       = document.getElementById('itinFull');
-    const itinAffiliates = document.getElementById('itinAffiliates');
-    const planSubmitBtn  = document.getElementById('planSubmitBtn');
+    // ── Interests ──────────────────────────────────────────────────
+    document.getElementById('interestGrid').addEventListener('click', e => {
+      const btn = e.target.closest('.chip-btn');
+      if (!btn) return;
+      const val = btn.dataset.interest;
+      if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        selectedInterests = selectedInterests.filter(i => i !== val);
+      } else {
+        btn.classList.add('active');
+        selectedInterests.push(val);
+      }
+    });
 
-    let _fullItinerary = '';
+    // ── Pace (single-select) ───────────────────────────────────────
+    document.getElementById('paceGrid').addEventListener('click', e => {
+      const btn = e.target.closest('.chip-btn');
+      if (!btn) return;
+      document.querySelectorAll('#paceGrid .chip-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedPace = btn.dataset.pace;
+    });
 
-    function hidePlanAll() {
-      planLoading.classList.remove('visible');
-      planError.classList.remove('visible');
-      itinOutput.classList.remove('visible');
+    // ── Dietary ────────────────────────────────────────────────────
+    document.getElementById('dietaryGrid').addEventListener('click', e => {
+      const btn = e.target.closest('.chip-btn');
+      if (!btn) return;
+      const val = btn.dataset.dietary;
+      if (val === 'No Restriction') {
+        document.querySelectorAll('#dietaryGrid .chip-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedDietary = ['No Restriction'];
+      } else {
+        document.querySelector('#dietaryGrid [data-dietary="No Restriction"]')?.classList.remove('active');
+        selectedDietary = selectedDietary.filter(d => d === 'No Restriction' ? false : true);
+        if (btn.classList.contains('active')) {
+          btn.classList.remove('active');
+          selectedDietary = selectedDietary.filter(d => d !== val);
+        } else {
+          btn.classList.add('active');
+          selectedDietary.push(val);
+        }
+      }
+    });
+
+    // ── Nights slider ──────────────────────────────────────────────
+    document.getElementById('nightsSlider').addEventListener('input', function() {
+      document.getElementById('nightsVal').textContent = this.value;
+    });
+
+    // ── Adults stepper ─────────────────────────────────────────────
+    function adjustAdults(delta) {
+      adultsCount = Math.max(1, Math.min(20, adultsCount + delta));
+      document.getElementById('adultsVal').textContent = adultsCount;
+      document.getElementById('adultsDown').disabled = adultsCount <= 1;
+    }
+    document.getElementById('adultsDown').disabled = true;
+
+    // ── Children toggle ────────────────────────────────────────────
+    function toggleChildren() {
+      const reveal = document.getElementById('childrenReveal');
+      reveal.classList.toggle('visible', document.getElementById('hasChildren').checked);
     }
 
-    const PERSONA_DESCRIPTIONS = {
-      'Street-Food Wanderer': `Local, unfiltered, street-level. Follows the charcoal smoke down the alley. Trusts the queue of locals over any review. Prioritizes the genuine over the comfortable — a three-dollar noodle stall over fifty-dollar chandeliers. Writes with a sharp eye for what is real versus performed.`,
-      'Fearless Eater': `Adventurous and all-in. Points at the untranslatable dish, orders the fruit that looks dangerous, says yes without flinching. Treats every unfamiliar bite as a cultural act of respect. The strangest plate on the table usually has the best story — and always gets ordered.`,
-      'Literary Observer': `Quiet, watchful, unsentimental. Takes the local train that stops everywhere. Spends an afternoon on a café bench reading the neighborhood. Notebook fills with overheard conversations and precise small details most travelers walk past. Prefers the truth of a place to the brochure version.`,
-      'Philosophical Drifter': `Unhurried and open. Leaves the schedule loose, trusts the road to decide. A missed bus becomes a village. A casual conversation becomes a three-day detour. Measures a trip by who you became, not what you saw. The winding aimless route is the entire point.`,
-      'Self Discoverer': `Contemplative and inward. Drawn to stillness — the quiet temple courtyard, the early street before the crowds, the long pause by the water. Treats travel as meditation: a way to step far enough outside routine to see your own life clearly. One afternoon of real reflection outweighs a dozen monuments.`,
-      'Camera Eye': `Visual and humanist. Shoots the street, not the skyline — the vendor's hands, the kid mid-laugh, the unguarded moment most people walk past. Sets an alarm for the early light without a second thought. Reads a city through its faces and small everyday scenes, framing as they go.`,
-      'Fast Friend': `Charming and magnetic. Drop them into any room and they walk out with three new friends and a dinner invitation. Collects people the way others collect souvenirs. Every bar, market, and train carriage is a room full of people they haven't met yet. Pride in the craft of connection.`,
-      'Luxury Curator': `Refined, considered, discerning. Wants the table that took some knowing to book, the room with a view that earns it, the experience so seamless the craft behind it is invisible. Not excess — discernment. One perfectly judged day over a week of forgettable ones. Settles only for the version truly worth having.`,
-      'Adventurer': `Active, outdoor, bold. Travels to do, not to rest. The itinerary has a trailhead at dawn, water to dive into, a ridge reached on foot. Measures a trip in altitude gained and limits pushed. A little discomfort, a little risk, a body pleasantly wrecked at the end of the day — that's the good stuff.`,
-      'Restorative': `Restful and replenishing. Travels to be put back together. The long massage, the quiet hot spring, the slow morning with nowhere to be. Measures a trip by how much lighter they feel stepping off the plane home. Not laziness — maintenance for a life that runs hard the rest of the year.`,
-      'Culture Driven': `Engaged and immersive. Wants to understand a place, not just visit it. Learns the language basics before landing, grills the guide, tracks down the festival locals actually go to. The meal matters when the dish has a region and a history. Travels to step inside another way of living, not photograph it from outside.`,
-      'Nightlifer': `High-energy, social, after-dark. Follows the music to the buzzing district, the rooftop with the view and the beat, the little bar locals fill at midnight. Reads a place through its nights as much as its daylight sights. Always knows where everyone should head next.`,
-    };
+    // ── Budget (single-select) ─────────────────────────────────────
+    document.getElementById('budgetGrid').addEventListener('click', e => {
+      const btn = e.target.closest('.chip-btn');
+      if (!btn) return;
+      const isActive = btn.classList.contains('active');
+      document.querySelectorAll('#budgetGrid .chip-btn').forEach(b => b.classList.remove('active'));
+      if (!isActive) {
+        btn.classList.add('active');
+        selectedBudget = btn.dataset.budget;
+      } else {
+        selectedBudget = null;
+      }
+    });
 
-    async function generateItinerary(e) {
-      e.preventDefault();
+    // ── Submit → Step 3 ────────────────────────────────────────────
+    async function submitPlan() {
+      const destination = document.getElementById('destination').value.trim();
+      const errEl = document.getElementById('step2Error');
 
-      if (personaOrder.length === 0) {
-        planErrorMsg.textContent = 'Please select at least one Travel Persona before generating your itinerary.';
-        planError.classList.add('visible');
+      if (!destination) {
+        errEl.textContent = 'Please enter a destination.';
+        errEl.classList.add('visible');
         return;
       }
+      errEl.classList.remove('visible');
 
-      const destination = document.getElementById('destination').value.trim();
-      const duration    = document.getElementById('duration').value;
-      const partyType   = document.getElementById('partyType').value;
-      const budgetTier  = document.getElementById('budgetTier').value;
-      const pace        = document.getElementById('pace').value;
-      const bespoke     = document.getElementById('bespokePrefs').value.trim();
+      goToStep(3);
+      generateItinerary(destination);
+    }
 
-      if (!destination) return;
+    async function generateItinerary(destination) {
+      const loadEl   = document.getElementById('planLoading');
+      const errEl    = document.getElementById('planError');
+      const errMsg   = document.getElementById('planErrorMsg');
+      const freeEl   = document.getElementById('itineraryFree');
+      const unlockEl = document.getElementById('unlockBox');
 
-      // Build interests string (ordered by selection priority)
-      const interestsList = interestOrder.length > 0
-        ? interestOrder.map((int, i) => `${i + 1}. ${int}`).join(', ')
-        : 'General exploration';
+      loadEl.classList.add('visible');
+      freeEl.style.display   = 'none';
+      unlockEl.style.display = 'none';
 
-      // Build persona context
-      const primaryPersona   = personaOrder[0];
+      const nights       = document.getElementById('nightsSlider').value;
+      const adults       = adultsCount;
+      const hasKids      = document.getElementById('hasChildren').checked;
+      const childAges    = hasKids ? document.getElementById('childAges').value.trim() : '';
+      const budget       = selectedBudget || 'Any';
+      const flexDates    = document.getElementById('flexDates').checked;
+
+      const primaryPersona    = personaOrder[0] || '';
       const secondaryPersonas = personaOrder.slice(1);
-      const primaryDesc      = PERSONA_DESCRIPTIONS[primaryPersona] || '';
+      const primaryDesc       = PERSONA_DESCRIPTIONS[primaryPersona] || '';
 
       let personaSection = `Primary voice: ${primaryPersona} — ${primaryDesc}`;
       if (secondaryPersonas.length > 0) {
-        const secondaryLines = secondaryPersonas
-          .map(p => `${p} (${PERSONA_DESCRIPTIONS[p] || ''})`)
-          .join('; ');
-        personaSection += `\nSecondary influences to weave in subtly: ${secondaryLines}`;
+        personaSection += `\nInfluences to weave in: ${secondaryPersonas.map(p => `${p} (${PERSONA_DESCRIPTIONS[p]})`).join('; ')}`;
       }
 
-      hidePlanAll();
-      planLoading.classList.add('visible');
-      planSubmitBtn.disabled = true;
+      const interestsList = selectedInterests.length > 0 ? selectedInterests.join(', ') : 'General exploration';
+      const dietaryNote   = selectedDietary.length > 0 ? selectedDietary.join(', ') : 'No restriction';
+      const partyNote     = hasKids ? `${adults} adults + children (${childAges || 'ages unspecified'})` : `${adults} adult${adults > 1 ? 's' : ''}`;
 
-      const prompt = `You are writing a travel itinerary in the voice of the ${primaryPersona} travel archetype.
+      const prompt = `You are writing a travel itinerary overview in the voice of the ${primaryPersona} travel archetype.
 
 ${personaSection}
 
-Write a day-by-day itinerary for:
+Write a trip overview (NOT a full day-by-day) for:
 - Destination: ${destination}
-- Duration: ${duration}
-- Party type: ${partyType}
-- Budget tier: ${budgetTier}
-- Travel pace: ${pace}
-- Interests (in priority order): ${interestsList}${bespoke ? `\n- Bespoke preferences: ${bespoke}` : ''}
+- Duration: ${nights} nights${flexDates ? ' (flexible dates)' : ''}
+- Party: ${partyNote}
+- Budget: ${budget}
+- Pace: ${selectedPace}
+- Interests: ${interestsList}
+- Dietary: ${dietaryNote}
 
-Format each day exactly as:
-## Day 1 — [Theme Title]
-**Morning:** ...
-**Afternoon:** ...
-**Evening:** ...
+Structure your response as:
+## Overview
+One paragraph describing the trip's shape and character in the persona's voice.
 
-Continue for all days. Be specific with real restaurant names, neighborhoods, and practical tips. Maintain the primary persona's voice throughout, with subtle traces of the secondary influences where they fit naturally.`;
+## The Shape of the Trip
+2–3 geographic clusters or phases (e.g. "City base → coastal escape → hill country"), each with 2–3 flagship recommendations. Name specific neighborhoods, dishes, or experiences — make it feel personal, not generic.
+
+## What to Expect
+One short paragraph on what this traveler will experience, written in the persona's voice.
+
+Keep it vivid, specific, and genuinely useful. This is the free preview — enticing but not the full day-by-day.`;
 
       try {
         const res = await fetch('/api/claude', {
@@ -665,100 +847,53 @@ Continue for all days. Be specific with real restaurant names, neighborhoods, an
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
-            max_tokens: 3000,
+            max_tokens: 1200,
             messages: [{ role: 'user', content: prompt }],
           }),
         });
 
         if (!res.ok) throw new Error(`API error ${res.status}`);
-
         const data = await res.json();
         const text = data.content[0].text.trim();
 
-        _fullItinerary = text;
+        loadEl.classList.remove('visible');
 
-        hidePlanAll();
-        renderItinerary(destination, duration, primaryPersona, secondaryPersonas, text);
+        const personaTag = secondaryPersonas.length > 0
+          ? `${primaryPersona} · with ${secondaryPersonas.join(' & ')} influence${secondaryPersonas.length > 1 ? 's' : ''}`
+          : primaryPersona;
+
+        document.getElementById('itinHeading').textContent = `${nights} nights in ${destination}`;
+        document.getElementById('itinPersona').textContent = personaTag;
+        document.getElementById('itinFreeContent').innerHTML = markdownToHtml(text);
+
+        freeEl.style.display   = 'block';
+        unlockEl.style.display = 'block';
+
       } catch (err) {
-        hidePlanAll();
-        planErrorMsg.textContent = `Something went wrong: ${err.message}. Please try again.`;
-        planError.classList.add('visible');
-      } finally {
-        planSubmitBtn.disabled = false;
+        loadEl.classList.remove('visible');
+        errMsg.textContent = `Something went wrong: ${err.message}. Please try again.`;
+        errEl.classList.add('visible');
       }
     }
 
-    function renderItinerary(destination, duration, primary, secondary, text) {
-      const days = text.split(/(?=##\s*Day\s*\d)/i).filter(s => s.trim());
-
-      const personaTag = secondary.length > 0
-        ? `${primary} · with ${secondary.join(' & ')} influence${secondary.length > 1 ? 's' : ''}`
-        : `${primary} · primary archetype`;
-
-      document.getElementById('itinLabel').textContent   = destination;
-      document.getElementById('itinHeading').textContent = `Your ${duration} Itinerary`;
-      document.getElementById('itinPersona').textContent = personaTag;
-
-      // Show Day 1 as teaser
-      const day1Html = markdownToHtml(days[0] || '');
-      document.getElementById('itinDay1').innerHTML = `<div class="day-block day-block--teaser">${day1Html}</div>`;
-
-      // Remaining days (behind email gate)
-      const remainingHtml = days.slice(1).map(d =>
-        `<div class="day-block">${markdownToHtml(d)}</div>`
-      ).join('');
-      itinFull.innerHTML = remainingHtml;
-
-      if (days.length > 1) {
-        emailGate.classList.add('visible');
-        itinFull.classList.remove('visible');
-      } else {
-        emailGate.classList.remove('visible');
-        itinFull.classList.add('visible');
-      }
-
-      itinAffiliates.classList.add('visible');
-      itinOutput.classList.add('visible');
-    }
-
+    // ── Unlock (account creation placeholder) ─────────────────────
     function unlockItinerary(e) {
       e.preventDefault();
-      // In production: submit email to ConvertKit/Beehiiv here
-      emailGate.classList.remove('visible');
-      itinFull.classList.add('visible');
+      // TODO: wire to Supabase Auth — create account, save profile + trip
+      const email = document.getElementById('unlockEmail').value;
+      document.getElementById('unlockBox').style.display = 'none';
+      document.getElementById('itinDetailedContent').innerHTML =
+        `<p style="color:var(--text-light);padding:1rem 0;font-size:0.9rem;">Full itinerary for <strong>${email}</strong> — Supabase auth coming soon. Your trip details have been captured.</p>`;
+      document.getElementById('itineraryDetailed').classList.add('visible');
+      document.getElementById('itinAffiliates').classList.add('visible');
     }
 
-    function openModal()  { document.getElementById('loginModal').classList.add('open'); }
-    function closeModal() { document.getElementById('loginModal').classList.remove('open'); }
-    function switchTab(tab) {
-      document.querySelectorAll('.modal-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
-      document.getElementById('modal-login').style.display  = tab === 'login'  ? 'flex' : 'none';
-      document.getElementById('modal-signup').style.display = tab === 'signup' ? 'flex' : 'none';
-    }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-    // ── AI Engines dropdown click-toggle ─────────────────────────
-    document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
-      toggle.addEventListener('click', e => {
-        e.preventDefault();
-        const parent = toggle.closest('.nav-has-dropdown');
-        const isOpen = parent.classList.contains('open');
-        document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));
-        if (!isOpen) parent.classList.add('open');
-      });
-    });
-    document.addEventListener('click', e => {
-      if (!e.target.closest('.nav-has-dropdown')) {
-        document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));
-      }
-    });
-
+    // ── Markdown renderer ──────────────────────────────────────────
     function markdownToHtml(md) {
       return md
         .replace(/^##\s+(.+)$/gm, '<h3 class="day-title">$1</h3>')
-        .replace(/^\*\*([^*]+)\*\*/gm, '<strong>$1</strong>')
-        .replace(/^(\*\*[^*]+\*\*:?.*)$/gm, '<p class="day-segment">$1</p>')
-        .replace(/^(?!<[hp])(.*\S.*)$/gm, '<p>$1</p>')
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/^(?!<[h])(.*\S.*)$/gm, '<p>$1</p>')
         .replace(/\n{2,}/g, '');
     }
   </script>
