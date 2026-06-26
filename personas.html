@@ -65,7 +65,7 @@
       <div class="page-intro">
         <span class="section-label">Travel Personas</span>
         <h1>Which Traveler Are You?</h1>
-        <p>Eight original archetypes — each one a different way of being in the world. In the <a href="plan.html" style="color:var(--gold)">Itinerary Engine</a>, you select one as your <strong>primary</strong> voice and up to two as <strong>influences</strong>. The AI writes your itinerary in that primary voice, with traces of the others woven in. Tap any card to read the full profile.</p>
+        <p>Twelve original archetypes — each one a different way of being in the world. In the <a href="plan.html" style="color:var(--gold)">Itinerary Engine</a>, you select one as your <strong>primary</strong> voice and up to two as <strong>influences</strong>. The AI writes your itinerary in that primary voice, with traces of the others woven in. Tap any card to read the full profile.</p>
       </div>
 
       <!-- Archetype card grid — rendered by JS -->
@@ -210,20 +210,20 @@
         image: 'images/personas/self-discoverer.png',
       },
       {
-        id: 'frame-reader',
-        name: 'Frame Reader',
-        descriptor: ['Visual', 'Humanist', 'Observant'],
-        tagline: `You don't just see a place. You frame it.`,
-        body: `You experience the world through composition — light, gesture, the way a face catches the afternoon sun. Where others see a busy market, you see a hundred photographs waiting to happen, and you'll set an alarm for the blue hour without a second thought, because the light most people sleep through is the light that tells the truth. But this was never really about the camera. You're after the soul of a place, and you find it in its people: the vendor's weathered hands, the kid mid-laugh, the small human moment that says more about a city than any landmark. You don't just visit somewhere — you read it, frame by frame, and bring its real face home.`,
-        image: 'images/personas/frame-reader.png',
+        id: 'camera-eye',
+        name: 'Camera Eye',
+        descriptor: ['Visual', 'Candid', 'Humanist'],
+        tagline: 'I shoot the street, not the skyline.',
+        body: `You experience the world through a viewfinder — not the postcard skyline, but the street: the vendor's hands, the kid mid-laugh, the unguarded human moment most people walk right past. Where others see a busy market, you see a hundred photographs waiting to happen, and you'll set an alarm for the early light without a second thought. But this was never about gear or grand landscapes; it's about capturing a place the way you see it — real, unposed, alive. You read a city through its faces and its small everyday scenes, framing as you go. You don't just visit somewhere — you bring its real, living face home.`,
+        image: 'images/personas/camera-eye.png',
       },
       {
-        id: 'convivialist',
-        name: 'Convivialist',
-        descriptor: ['Warm', 'Open', 'Magnetic'],
-        tagline: 'I always leave with more friends than photos.',
-        body: `For you, the meal is just the excuse — the people around the table are the real reason you came. You can't sit next to a stranger for long before they're a friend, and your best travel stories almost never feature a landmark; they feature a name, a shared bottle, an invitation you said yes to. You believe the fastest way into the heart of a place is through its kitchens and its dinner tables, and you treat every shared plate as the opening line of a conversation. You give a destination your full, warm, open attention, and it gives you people in return. You come home with a phone full of new contacts and a standing invitation in three new cities.`,
-        image: 'images/personas/convivialist.png',
+        id: 'fast-friend',
+        name: 'Fast Friend',
+        descriptor: ['Charming', 'Magnetic', 'Effortless'],
+        tagline: `Nobody makes friends faster — and I know it.`,
+        body: `You have a gift and you know it: drop you into any room, any market, any train carriage, and you'll walk out with three new friends and a dinner invitation. Making people like you isn't an accident — it's a craft you've quietly mastered, and you take real pride in it. You collect people the way others collect fridge magnets — remembering names, working the table, turning the stranger beside you into the best part of the trip. The food, the bar, the tour are all just rooms full of people you haven't charmed yet. You come home with a phone full of new contacts, a few standing invitations, and the quiet satisfaction of knowing nobody does it better.`,
+        image: 'images/personas/fast-friend.png',
       },
       {
         id: 'luxury-curator',
@@ -232,6 +232,38 @@
         tagline: 'Not flashy. Considered. Every detail earns its place.',
         body: `You travel with a connoisseur's eye and zero interest in excess for its own sake. What you want is the considered version of everything — the table that took some knowing to book, the room with a view that's actually worth it, the experience that unfolds so seamlessly it feels effortless even though you know exactly how much craft sits behind it. This isn't about status; it's about discernment. You'd rather have one perfect, beautifully judged day than a week of forgettable ones, and you have a quiet gift for finding the detail that turns a good trip into an exceptional one. You move through the world with taste, calm, and the confidence of someone who knows the difference — and settles only for the version truly worth it.`,
         image: 'images/personas/luxury-curator.png',
+      },
+      {
+        id: 'adventurer',
+        name: 'Adventurer',
+        descriptor: ['Active', 'Outdoor', 'Bold'],
+        tagline: 'The view is better when you earn it.',
+        body: `You don't travel to rest — you travel to do. The itinerary that excites you has a trailhead at dawn, water you can dive into, a ridge you reach on foot instead of by cable car. The story you bring home is never the postcard; it's the thing you weren't sure you could pull off until you did. A little discomfort, a little risk, a body pleasantly wrecked at the end of the day — that's the good stuff. You measure a trip in altitude gained and limits pushed, and you come home with scraped knuckles, a great story, and an itch to go further next time.`,
+        image: 'images/personas/adventurer.png',
+      },
+      {
+        id: 'restorative',
+        name: 'Restorative',
+        descriptor: ['Restful', 'Replenishing', 'Calm'],
+        tagline: 'I travel to come home whole.',
+        body: `You travel to be put back together. While others race to fill every hour, you're after the opposite — the long massage, the quiet hot spring, the slow morning with nowhere to be. A great trip isn't measured in sights ticked off; it's measured in how much lighter you feel stepping off the plane home. You want to be cared for, unwound, gently restored — the bath, the tea, the afternoon that dissolves into nothing in the best possible way. This isn't laziness; it's maintenance for a life that runs hard the rest of the year. You come back softer, slower, and genuinely well — not more tired than when you left.`,
+        image: 'images/personas/restorative.png',
+      },
+      {
+        id: 'culture-driven',
+        name: 'Culture Driven',
+        descriptor: ['Engaged', 'Curious', 'Immersive'],
+        tagline: 'I want to understand a place, not just visit it.',
+        body: `You're not satisfied with seeing a place — you want to understand it. You're the one who learns thirty words of the language before the plane lands, who grills the guide instead of trailing the group, who tracks down the festival locals actually go to. The meal matters most when the dish means something — a recipe with a region and a history behind it — and an afternoon is well spent when a stranger explains how their corner of the world really works. You travel to step inside another way of living, not photograph it from outside. You come home with the souvenir most travelers miss: you actually get the place now.`,
+        image: 'images/personas/culture-driven.png',
+      },
+      {
+        id: 'nightlifer',
+        name: 'Nightlifer',
+        descriptor: ['High-Energy', 'Social', 'After-Dark'],
+        tagline: 'The city doesn\'t really start until the sun goes down.',
+        body: `For you, a destination shows its real personality after dark. While the early-to-bed crowd misses it, you're following the music to the buzzing district, the rooftop with the view and the beat, the little bar the locals fill at midnight. You travel toward energy — the crowd, the scene, the night that takes an unplanned turn and becomes the best one of the trip. It's not about excess; it's about being where it's all happening, among people, while the city is most alive. You read a place through its nights as much as its daylight sights, and you're the friend who always knows where everyone should head next.`,
+        image: 'images/personas/nightlifer.png',
       },
     ];
 
