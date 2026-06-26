@@ -1684,7 +1684,7 @@ img.contributor-photo {
 
 .persona-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 0.75rem;
 }
 
@@ -1817,13 +1817,12 @@ img.contributor-photo {
    RESPONSIVE – new components
 ══════════════════════════════ */
 @media (max-width: 1200px) {
-  .persona-grid { grid-template-columns: repeat(4, 1fr); }
+  .persona-grid { grid-template-columns: repeat(6, 1fr); }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
   .persona-grid { grid-template-columns: repeat(4, 1fr); }
 }
-
 
 @media (max-width: 768px) {
   .tools-grid          { grid-template-columns: 1fr; }
@@ -1834,6 +1833,7 @@ img.contributor-photo {
   .email-gate-form     { flex-direction: column; }
   .tools-section       { padding-left: 1.5rem; padding-right: 1.5rem; }
   .tool-page           { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .planner-page-inner  { padding-left: 1.5rem; padding-right: 1.5rem; }
 }
 
 @media (max-width: 600px) {
@@ -2748,9 +2748,9 @@ img.contributor-photo {
 .planner-page.active { display: block; }
 
 .planner-page-inner {
-  max-width: 720px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 3rem 2rem 5rem;
+  padding: 3rem 3rem 5rem;
 }
 
 .planner-page-header {
