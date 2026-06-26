@@ -9,14 +9,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=8">
+  <link rel="stylesheet" href="css/styles.css?v=9">
 </head>
 <body class="page-plan">
 
   <!-- Page Header -->
   <header class="page-header">
     <a href="index.html" class="logo">
-      <img src="images/mm-logo2.png" alt="Monde Méandre logo" class="logo-img" width="34" height="34">
+      <img src="images/mm-logo-v4.png" alt="Monde Méandre logo" class="logo-img" width="34" height="34">
       <span class="logo-text">
         <span class="logo-name">Monde <span class="logo-accent">Méandre</span></span>
       </span>
@@ -248,6 +248,49 @@
           </div>
         </div>
 
+        <!-- Rewards -->
+        <div class="planner-field">
+          <label class="form-label">Rewards Programs <span class="form-label-note">(optional)</span></label>
+          <div class="chip-grid" id="rewardsUsageGrid">
+            <button type="button" class="chip-btn" data-rewards-usage="Only">Only use rewards</button>
+            <button type="button" class="chip-btn" data-rewards-usage="When it makes sense">Use rewards when it makes sense</button>
+          </div>
+          <div class="rewards-reveal" id="rewardsReveal">
+            <div class="rewards-sub-section">
+              <p class="rewards-sub-label">Flights</p>
+              <div class="chip-grid" id="flightRewardsGrid">
+                <button type="button" class="chip-btn" data-flight-reward="United MileagePlus">United MileagePlus</button>
+                <button type="button" class="chip-btn" data-flight-reward="Delta SkyMiles">Delta SkyMiles</button>
+                <button type="button" class="chip-btn" data-flight-reward="American AAdvantage">American AAdvantage</button>
+                <button type="button" class="chip-btn" data-flight-reward="Air Canada Aeroplan">Air Canada Aeroplan</button>
+                <button type="button" class="chip-btn" data-flight-reward="British Airways Avios">British Airways Avios</button>
+                <button type="button" class="chip-btn" data-flight-reward="Singapore KrisFlyer">Singapore KrisFlyer</button>
+                <button type="button" class="chip-btn" data-flight-reward="Emirates Skywards">Emirates Skywards</button>
+                <button type="button" class="chip-btn" data-flight-reward="Alaska Mileage Plan">Alaska Mileage Plan</button>
+                <button type="button" class="chip-btn" data-flight-reward="Flying Blue">Air France / KLM Flying Blue</button>
+                <button type="button" class="chip-btn" data-flight-reward="Southwest Rapid Rewards">Southwest Rapid Rewards</button>
+                <button type="button" class="chip-btn" data-flight-reward="Cathay Asia Miles">Cathay Pacific Asia Miles</button>
+                <button type="button" class="chip-btn" data-flight-reward="Qantas Frequent Flyer">Qantas Frequent Flyer</button>
+                <button type="button" class="chip-btn" data-flight-reward="Turkish Miles&amp;Smiles">Turkish Miles &amp; Smiles</button>
+                <button type="button" class="chip-btn" data-flight-reward="Lufthansa Miles &amp; More">Lufthansa Miles &amp; More</button>
+              </div>
+            </div>
+            <div class="rewards-sub-section">
+              <p class="rewards-sub-label">Hotels</p>
+              <div class="chip-grid" id="hotelRewardsGrid">
+                <button type="button" class="chip-btn" data-hotel-reward="Marriott Bonvoy">Marriott Bonvoy</button>
+                <button type="button" class="chip-btn" data-hotel-reward="Hilton Honors">Hilton Honors</button>
+                <button type="button" class="chip-btn" data-hotel-reward="World of Hyatt">World of Hyatt</button>
+                <button type="button" class="chip-btn" data-hotel-reward="IHG One Rewards">IHG One Rewards</button>
+                <button type="button" class="chip-btn" data-hotel-reward="Wyndham Rewards">Wyndham Rewards</button>
+                <button type="button" class="chip-btn" data-hotel-reward="Accor Live Limitless">Accor Live Limitless</button>
+                <button type="button" class="chip-btn" data-hotel-reward="Radisson Rewards">Radisson Rewards</button>
+                <button type="button" class="chip-btn" data-hotel-reward="Choice Privileges">Choice Privileges</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Step 1 nav -->
         <div class="planner-nav">
           <span></span>
@@ -427,7 +470,7 @@
   <!-- Footer -->
   <footer>
     <a href="index.html" class="footer-logo logo">
-      <img src="images/mm-logo2.png" alt="Monde Méandre logo" class="logo-img" width="34" height="34">
+      <img src="images/mm-logo-v4.png" alt="Monde Méandre logo" class="logo-img" width="34" height="34">
       <span class="logo-text">
         <span class="logo-name">Monde <span class="logo-accent">Méandre</span></span>
       </span>
@@ -523,6 +566,9 @@
     let selectedDietary = [];
     let selectedBudget = null;
     let adultsCount   = 1;
+    let selectedRewardsUsage = null;
+    let selectedFlightRewards = [];
+    let selectedHotelRewards  = [];
 
     const MAX_PERSONAS = 3;
 
@@ -733,6 +779,52 @@
           btn.classList.add('active');
           selectedDietary.push(val);
         }
+      }
+    });
+
+    // ── Rewards usage (radio-style single-select) ──────────────────
+    document.getElementById('rewardsUsageGrid').addEventListener('click', e => {
+      const btn = e.target.closest('.chip-btn');
+      if (!btn) return;
+      const val = btn.dataset.rewardsUsage;
+      const isActive = btn.classList.contains('active');
+      document.querySelectorAll('#rewardsUsageGrid .chip-btn').forEach(b => b.classList.remove('active'));
+      const reveal = document.getElementById('rewardsReveal');
+      if (isActive) {
+        selectedRewardsUsage = null;
+        reveal.classList.remove('visible');
+      } else {
+        btn.classList.add('active');
+        selectedRewardsUsage = val;
+        reveal.classList.add('visible');
+      }
+    });
+
+    // ── Flight rewards (multi-select) ──────────────────────────────
+    document.getElementById('flightRewardsGrid').addEventListener('click', e => {
+      const btn = e.target.closest('.chip-btn');
+      if (!btn) return;
+      const val = btn.dataset.flightReward;
+      if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        selectedFlightRewards = selectedFlightRewards.filter(v => v !== val);
+      } else {
+        btn.classList.add('active');
+        selectedFlightRewards.push(val);
+      }
+    });
+
+    // ── Hotel rewards (multi-select) ───────────────────────────────
+    document.getElementById('hotelRewardsGrid').addEventListener('click', e => {
+      const btn = e.target.closest('.chip-btn');
+      if (!btn) return;
+      const val = btn.dataset.hotelReward;
+      if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        selectedHotelRewards = selectedHotelRewards.filter(v => v !== val);
+      } else {
+        btn.classList.add('active');
+        selectedHotelRewards.push(val);
       }
     });
 

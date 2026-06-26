@@ -56,6 +56,11 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
   flex-shrink: 0;
 }
 
+@keyframes logo-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
 .logo-img {
   width: 34px;
   height: 34px;
@@ -64,6 +69,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
   display: block !important;
   flex-shrink: 0;
   opacity: 0.88;
+  animation: logo-spin 60s linear infinite;
 }
 
 .logo-text {
@@ -2917,6 +2923,25 @@ input[type="range"].nights-slider::-moz-range-thumb {
 }
 
 .children-reveal.visible { display: block; }
+
+/* Rewards reveal */
+.rewards-reveal {
+  display: none;
+  margin-top: 1.25rem;
+}
+.rewards-reveal.visible { display: block; }
+
+.rewards-sub-section { margin-bottom: 1.25rem; }
+.rewards-sub-section:last-child { margin-bottom: 0; }
+
+.rewards-sub-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 0.6rem;
+}
 
 /* Planner nav (Prev / Next buttons) */
 .planner-nav {

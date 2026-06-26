@@ -1,11 +1,24 @@
 {
-  "version": 2,
-  "description": "Travel persona definitions for the Monde Méandre itinerary engine selector. Replaces the previous named-figure personas. Each persona is an original archetype. Selector mechanic: user picks one PRIMARY persona plus up to two INFLUENCES (secondary). 'order' is the default display order, left-to-right / top-to-bottom in the grid.",
+  "version": 3,
+  "description": "Travel persona definitions for the Monde Méandre itinerary engine. Twelve original archetypes covering the full two-axis map. Replaces all previous personas. Two layers: short fields drive the selector cards; matrix/extended/foodWeighting fields drive the profile page and the itinerary/food engine.",
   "selector": {
     "mode": "primary_plus_influences",
     "primary": 1,
     "max_influences": 2,
     "ui_note": "Card anatomy: image -> name -> descriptor (small caps, '·' separated) -> tagline (italic) -> body (revealed on tap/click) -> 'USE THIS PERSONA' action."
+  },
+  "matrix": {
+    "note": "Coordinate space for the profile-page plot. x: -100 = Mind/meaning, +100 = Body/senses. y: -100 = Inward/solitary, +100 = Outward/social.",
+    "axes": {
+      "x": { "negative": "Mind · meaning · reflection", "positive": "Body · senses · doing" },
+      "y": { "negative": "Inward · low-energy · solitary", "positive": "Outward · high-energy · social" }
+    },
+    "quadrants": {
+      "outward_mind": "Engaged · Cultural",
+      "outward_body": "Social · Sensory",
+      "inward_body": "Restful · Sensory",
+      "inward_mind": "Contemplative"
+    }
   },
   "personas": [
     {
@@ -15,6 +28,9 @@
       "descriptor": ["Local", "Unfiltered", "Street-Level"],
       "tagline": "The best table in town rarely has a tablecloth.",
       "body": "You travel on the assumption that the real city never makes it into the guidebook. While everyone else queues for the famous view, you're following the smell of charcoal down an alley to a stall with no name and a line of locals out the door — because that line is the only review you trust. You'd rather eat brilliantly for three dollars at a plastic table than adequately for fifty under chandeliers. Comfort doesn't move you; the genuine article does. You come home not with souvenirs but with the address of a noodle cart you'd fly back for, and the quiet satisfaction of having seen a place the way the people who live there actually do.",
+      "extended": "",
+      "matrix": { "energy": "outward", "orientation": "body", "quadrant": "outward_body", "x": 55, "y": 45 },
+      "foodWeighting": "Cheapest and most alive — hawker stalls, street carts, hole-in-the-wall locals' favorites. Bib Gourmand reads as 'authentic and unpretentious'.",
       "image": "images/personas/street-food-wanderer.png"
     },
     {
@@ -24,6 +40,9 @@
       "descriptor": ["Adventurous", "Curious", "All-In"],
       "tagline": "If I can't name it, I'm ordering it.",
       "body": "The unfamiliar isn't something you tolerate — it's the whole reason you came. Where others scan a menu for something safe, you point at the dish nobody can translate and the fruit that looks faintly dangerous, because you've learned the strangest plate on the table is usually the one with the best story behind it. This isn't about shock value; it's about respect — you believe the fastest way to understand a culture is to eat what it loves, the way it loves it, without flinching. You ask questions, you say yes, and you let people show you their world one improbable bite at a time. You leave braver than you arrived.",
+      "extended": "",
+      "matrix": { "energy": "outward", "orientation": "body", "quadrant": "outward_body", "x": 65, "y": 40 },
+      "foodWeighting": "Boldest and most unusual — regional extremes, novelty dishes, anything most travelers skip. Rewards the adventurous end of the menu.",
       "image": "images/personas/fearless-eater.png"
     },
     {
@@ -33,6 +52,9 @@
       "descriptor": ["Literary", "Unsentimental", "Watchful"],
       "tagline": "I take the slow train on purpose.",
       "body": "You travel the way a good writer reads a room — quietly, attentively, missing nothing. The express holds no appeal; you want the local that stops everywhere, the long way around, the unglamorous places between the postcards where a country actually reveals itself. You're not collecting experiences so much as gathering moments to understand, and you'll happily spend an afternoon on a single café bench watching a neighborhood go about its day. Your notebook fills with overheard conversations and small precise details most travelers walk straight past. You're unsentimental but never cold — you simply prefer the truth of a place to the brochure version, and you always arrive with your eyes open.",
+      "extended": "",
+      "matrix": { "energy": "inward", "orientation": "mind", "quadrant": "inward_mind", "x": -60, "y": -45 },
+      "foodWeighting": "Quiet cafés and enduring local institutions — atmospheric, characterful, unhurried. Place over plate.",
       "image": "images/personas/literary-observer.png"
     },
     {
@@ -42,6 +64,9 @@
       "descriptor": ["Unhurried", "Open", "Free"],
       "tagline": "The point was never the destination.",
       "body": "You don't travel to escape your life — you travel to deepen it. Fixed itineraries make you restless; you'd rather leave the schedule loose and let the road decide, trusting that the best days are the ones you couldn't have planned. A missed bus becomes a village you'd never have found, a casual conversation becomes a three-day detour, and somehow it always works out richer than the plan would have. You measure a trip less by what you saw than by who you became while seeing it. For you, the long, winding, slightly aimless route isn't wasted time — it's the entire point, and you come back a little different every time.",
+      "extended": "",
+      "matrix": { "energy": "inward", "orientation": "mind", "quadrant": "inward_mind", "x": -45, "y": -55 },
+      "foodWeighting": "Wherever the road leads — unfussy, spontaneous, local. No fixed preference; follows the moment.",
       "image": "images/personas/philosophical-drifter.png"
     },
     {
@@ -51,25 +76,34 @@
       "descriptor": ["Contemplative", "Still", "Inward"],
       "tagline": "The most important miles are the ones traveled inward.",
       "body": "For you, a journey outward is always also a journey inward. While others rush to tick off sights, you're drawn to stillness — the quiet temple courtyard, the early street before the crowds, the long pause by the water where your own thoughts finally catch up with you. Travel, in your hands, becomes a kind of meditation: a way to step far enough outside your routine to actually see your own life clearly. You don't need a packed schedule to feel a trip was worthwhile; a single afternoon of real reflection outweighs a dozen monuments. You come home not just rested but changed — quieter, clearer, and a little more yourself.",
+      "extended": "",
+      "matrix": { "energy": "inward", "orientation": "mind", "quadrant": "inward_mind", "x": -55, "y": -65 },
+      "foodWeighting": "Simple, mindful, calm — vegetarian-friendly, healthful, quiet settings over buzz.",
       "image": "images/personas/self-discoverer.png"
     },
     {
-      "id": "frame-reader",
+      "id": "camera-eye",
       "order": 6,
-      "name": "Frame Reader",
-      "descriptor": ["Visual", "Humanist", "Observant"],
-      "tagline": "You don't just see a place. You frame it.",
-      "body": "You experience the world through composition — light, gesture, the way a face catches the afternoon sun. Where others see a busy market, you see a hundred photographs waiting to happen, and you'll set an alarm for the blue hour without a second thought, because the light most people sleep through is the light that tells the truth. But this was never really about the camera. You're after the soul of a place, and you find it in its people: the vendor's weathered hands, the kid mid-laugh, the small human moment that says more about a city than any landmark. You don't just visit somewhere — you read it, frame by frame, and bring its real face home.",
-      "image": "images/personas/frame-reader.png"
+      "name": "Camera Eye",
+      "descriptor": ["Visual", "Candid", "Humanist"],
+      "tagline": "I shoot the street, not the skyline.",
+      "body": "You experience the world through a viewfinder — not the postcard skyline, but the street: the vendor's hands, the kid mid-laugh, the unguarded human moment most people walk right past. Where others see a busy market, you see a hundred photographs waiting to happen, and you'll set an alarm for the early light without a second thought. But this was never about gear or grand landscapes; it's about capturing a place the way you see it — real, unposed, alive. You read a city through its faces and its small everyday scenes, framing as you go. You don't just visit somewhere — you bring its real, living face home.",
+      "extended": "",
+      "matrix": { "energy": "inward", "orientation": "mind", "quadrant": "inward_mind", "x": -50, "y": -30 },
+      "foodWeighting": "Photogenic and atmospheric — characterful spots, great light, visual texture. The scene matters as much as the dish.",
+      "image": "images/personas/camera-eye.png"
     },
     {
-      "id": "convivialist",
+      "id": "fast-friend",
       "order": 7,
-      "name": "Convivialist",
-      "descriptor": ["Warm", "Open", "Magnetic"],
-      "tagline": "I always leave with more friends than photos.",
-      "body": "For you, the meal is just the excuse — the people around the table are the real reason you came. You can't sit next to a stranger for long before they're a friend, and your best travel stories almost never feature a landmark; they feature a name, a shared bottle, an invitation you said yes to. You believe the fastest way into the heart of a place is through its kitchens and its dinner tables, and you treat every shared plate as the opening line of a conversation. You give a destination your full, warm, open attention, and it gives you people in return. You come home with a phone full of new contacts and a standing invitation in three new cities.",
-      "image": "images/personas/convivialist.png"
+      "name": "Fast Friend",
+      "descriptor": ["Charming", "Magnetic", "Effortless"],
+      "tagline": "Nobody makes friends faster — and I know it.",
+      "body": "You have a gift and you know it: drop you into any room, any market, any train carriage, and you'll walk out with three new friends and a dinner invitation. Making people like you isn't an accident — it's a craft you've quietly mastered, and you take real pride in it. You collect people the way others collect fridge magnets — remembering names, working the table, turning the stranger beside you into the best part of the trip. The food, the bar, the tour are all just rooms full of people you haven't charmed yet. You come home with a phone full of new contacts, a few standing invitations, and the quiet satisfaction of knowing nobody does it better.",
+      "extended": "",
+      "matrix": { "energy": "outward", "orientation": "body", "quadrant": "outward_body", "x": 45, "y": 60 },
+      "foodWeighting": "Most communal and lively — shareable tables, group-friendly, sociable rooms. The table as a place to meet people.",
+      "image": "images/personas/fast-friend.png"
     },
     {
       "id": "luxury-curator",
@@ -78,7 +112,58 @@
       "descriptor": ["Refined", "Considered", "Discerning"],
       "tagline": "Not flashy. Considered. Every detail earns its place.",
       "body": "You travel with a connoisseur's eye and zero interest in excess for its own sake. What you want is the considered version of everything — the table that took some knowing to book, the room with a view that's actually worth it, the experience that unfolds so seamlessly it feels effortless even though you know exactly how much craft sits behind it. This isn't about status; it's about discernment. You'd rather have one perfect, beautifully judged day than a week of forgettable ones, and you have a quiet gift for finding the detail that turns a good trip into an exceptional one. You move through the world with taste, calm, and the confidence of someone who knows the difference — and settles only for the version truly worth it.",
+      "extended": "",
+      "matrix": { "energy": "outward", "orientation": "body", "quadrant": "outward_body", "x": 70, "y": 5 },
+      "foodWeighting": "Top-end and refined — the best table, the standout room, impeccable craft. Quality over value.",
       "image": "images/personas/luxury-curator.png"
+    },
+    {
+      "id": "adventurer",
+      "order": 9,
+      "name": "Adventurer",
+      "descriptor": ["Active", "Outdoor", "Bold"],
+      "tagline": "The view is better when you earn it.",
+      "body": "You don't travel to rest — you travel to do. The itinerary that excites you has a trailhead at dawn, water you can dive into, a ridge you reach on foot instead of by cable car. The story you bring home is never the postcard; it's the thing you weren't sure you could pull off until you did. A little discomfort, a little risk, a body pleasantly wrecked at the end of the day — that's the good stuff. You measure a trip in altitude gained and limits pushed, and you come home with scraped knuckles, a great story, and an itch to go further next time.",
+      "extended": "",
+      "matrix": { "energy": "outward", "orientation": "body", "quadrant": "outward_body", "x": 55, "y": 65 },
+      "foodWeighting": "Hearty and casual — quick, satisfying refuels near the trail or the water. Fuel for the next thing.",
+      "image": "images/personas/adventurer.png"
+    },
+    {
+      "id": "restorative",
+      "order": 10,
+      "name": "Restorative",
+      "descriptor": ["Restful", "Replenishing", "Calm"],
+      "tagline": "I travel to come home whole.",
+      "body": "You travel to be put back together. While others race to fill every hour, you're after the opposite — the long massage, the quiet hot spring, the slow morning with nowhere to be. A great trip isn't measured in sights ticked off; it's measured in how much lighter you feel stepping off the plane home. You want to be cared for, unwound, gently restored — the bath, the tea, the afternoon that dissolves into nothing in the best possible way. This isn't laziness; it's maintenance for a life that runs hard the rest of the year. You come back softer, slower, and genuinely well — not more tired than when you left.",
+      "extended": "",
+      "matrix": { "energy": "inward", "orientation": "body", "quadrant": "inward_body", "x": 45, "y": -55 },
+      "foodWeighting": "Light, healthful, calm — wellness-minded, nourishing, unhurried settings. Restoration over indulgence.",
+      "image": "images/personas/restorative.png"
+    },
+    {
+      "id": "culture-driven",
+      "order": 11,
+      "name": "Culture Driven",
+      "descriptor": ["Engaged", "Curious", "Immersive"],
+      "tagline": "I want to understand a place, not just visit it.",
+      "body": "You're not satisfied with seeing a place — you want to understand it. You're the one who learns thirty words of the language before the plane lands, who grills the guide instead of trailing the group, who tracks down the festival locals actually go to. The meal matters most when the dish means something — a recipe with a region and a history behind it — and an afternoon is well spent when a stranger explains how their corner of the world really works. You travel to step inside another way of living, not photograph it from outside. You come home with the souvenir most travelers miss: you actually get the place now.",
+      "extended": "",
+      "matrix": { "energy": "outward", "orientation": "mind", "quadrant": "outward_mind", "x": -55, "y": 55 },
+      "foodWeighting": "Regional and heritage — locally significant, traditional dishes with a story. Bib Gourmand reads as 'authentic local value'.",
+      "image": "images/personas/culture-driven.png"
+    },
+    {
+      "id": "nightlifer",
+      "order": 12,
+      "name": "Nightlifer",
+      "descriptor": ["High-Energy", "Social", "After-Dark"],
+      "tagline": "The city doesn't really start until the sun goes down.",
+      "body": "For you, a destination shows its real personality after dark. While the early-to-bed crowd misses it, you're following the music to the buzzing district, the rooftop with the view and the beat, the little bar the locals fill at midnight. You travel toward energy — the crowd, the scene, the night that takes an unplanned turn and becomes the best one of the trip. It's not about excess; it's about being where it's all happening, among people, while the city is most alive. You read a place through its nights as much as its daylight sights, and you're the friend who always knows where everyone should head next.",
+      "extended": "",
+      "matrix": { "energy": "outward", "orientation": "body", "quadrant": "outward_body", "x": 40, "y": 75 },
+      "foodWeighting": "Late-night and lively — supper spots, night markets, after-dark eats near the action.",
+      "image": "images/personas/nightlifer.png"
     }
   ]
 }
