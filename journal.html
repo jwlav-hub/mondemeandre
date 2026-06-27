@@ -106,10 +106,32 @@
   <!-- JOURNAL GRID -->
   <main>
     <section class="blog-section">
+
+      <!-- Country filter -->
+      <div class="blog-filters" id="blogFilters">
+        <button class="blog-filter-btn active" data-filter="all">All</button>
+        <button class="blog-filter-btn" data-filter="China">China</button>
+        <button class="blog-filter-btn" data-filter="Cambodia">Cambodia</button>
+      </div>
+
       <div class="posts-grid">
 
+        <!-- Post 0: Walk to Where the Water Ends (China) -->
+        <article class="post-card" data-country="China">
+          <div class="post-card-img">
+            <img src="images/blog/walk-to-where-the-water-ends.png" alt="Walk to Where the Water Ends – China" loading="lazy">
+            <span class="post-tag post-tag--china">China</span>
+          </div>
+          <div class="post-card-body">
+            <p class="post-meta">June 26, 2026</p>
+            <h3><a href="posts/walk-to-where-the-water-ends.html">Walk to Where the Water Ends</a></h3>
+            <p class="post-excerpt">Understanding China through the idioms that shape how its people move, rest, and eat — from Laozi's wuwei to the Confucian case for a perfect meal.</p>
+            <a href="posts/walk-to-where-the-water-ends.html" class="read-more">Read More</a>
+          </div>
+        </article>
+
         <!-- Post 1: Banteay Kdei -->
-        <article class="post-card">
+        <article class="post-card" data-country="Cambodia">
           <div class="post-card-img">
             <img src="images/bantaey-kdei-1577.jpg" alt="Banteay Kdei temple carvings, Cambodia" loading="lazy">
             <span class="post-tag">Cambodia</span>
@@ -123,7 +145,7 @@
         </article>
 
         <!-- Post 2: Walking in Phnom Penh -->
-        <article class="post-card">
+        <article class="post-card" data-country="Cambodia">
           <div class="post-card-img">
             <img src="images/phnom-penh-9-of-10-scaled.jpg" alt="Walking the streets of Phnom Penh, Cambodia" loading="lazy">
             <span class="post-tag">Cambodia</span>
@@ -137,7 +159,7 @@
         </article>
 
         <!-- Post 3: Koh Rong -->
-        <article class="post-card">
+        <article class="post-card" data-country="Cambodia">
           <div class="post-card-img">
             <img src="images/koh-rong-2-of-15-scaled.jpg" alt="Turquoise waters of Koh Rong island, Cambodia" loading="lazy">
             <span class="post-tag">Cambodia</span>
@@ -151,7 +173,7 @@
         </article>
 
         <!-- Post 4: Chinese House -->
-        <article class="post-card">
+        <article class="post-card" data-country="Cambodia">
           <div class="post-card-img">
             <img src="images/Chinese-House-Girl-1-of-1-scaled.jpg" alt="Chinese House interior, Phnom Penh" loading="lazy">
             <span class="post-tag">Cambodia</span>
@@ -165,7 +187,7 @@
         </article>
 
         <!-- Post 5: Gates of Angkor Thom -->
-        <article class="post-card">
+        <article class="post-card" data-country="Cambodia">
           <div class="post-card-img">
             <img src="images/Angkor-Thom-1-of-1.jpg" alt="The South Gate of Angkor Thom, Cambodia" loading="lazy">
             <span class="post-tag">Cambodia</span>
@@ -179,7 +201,7 @@
         </article>
 
         <!-- Post 6: Bayon Temple -->
-        <article class="post-card">
+        <article class="post-card" data-country="Cambodia">
           <div class="post-card-img">
             <img src="images/Bayon-4-of-2-scaled.jpg" alt="The enigmatic faces of Bayon Temple, Angkor" loading="lazy">
             <span class="post-tag">Cambodia</span>
@@ -193,7 +215,7 @@
         </article>
 
         <!-- Post 7: Buddhist Temple -->
-        <article class="post-card">
+        <article class="post-card" data-country="Cambodia">
           <div class="post-card-img">
             <img src="images/w-spider-1-of-1.jpg" alt="Ornate Buddhist temple in the Angkor Park, Cambodia" loading="lazy">
             <span class="post-tag">Cambodia</span>
@@ -303,6 +325,18 @@
       if (!e.target.closest('.nav-has-dropdown')) {
         document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));
       }
+    });
+
+    // ── Blog country filter ───────────────────────────────────────
+    document.querySelectorAll('.blog-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.blog-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.post-card').forEach(card => {
+          card.style.display = (filter === 'all' || card.dataset.country === filter) ? '' : 'none';
+        });
+      });
     });
 
     const stickyNav = document.getElementById('stickyNav');
