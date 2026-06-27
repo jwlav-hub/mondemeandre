@@ -1089,7 +1089,7 @@ img.contributor-photo {
 }
 
 .post-header {
-  max-width: 780px;
+  max-width: 960px;
   margin: 3rem auto 0;
   padding: 0 2rem;
   text-align: center;
@@ -1126,7 +1126,7 @@ img.contributor-photo {
 }
 
 .post-body {
-  max-width: 700px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 0 2rem 6rem;
 }
@@ -1143,7 +1143,7 @@ img.contributor-photo {
 /* Post navigation (prev/next) */
 .post-nav {
   border-top: 1px solid var(--border);
-  max-width: 780px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 2.5rem 2rem 5rem;
   display: grid;
