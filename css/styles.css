@@ -544,6 +544,10 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
   background: #c0392b;
 }
 
+.post-tag--vietnam {
+  background: #1a6b3a;
+}
+
 /* Blog country filter buttons */
 .blog-filters {
   display: flex;
