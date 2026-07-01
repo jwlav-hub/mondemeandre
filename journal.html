@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog – Monde Méandre</title>
-  <meta name="description" content="Travel stories and photography from Cambodia, China, and across Asia — the Monde Méandre Journal.">
+  <meta name="description" content="Travel stories and photography from Cambodia, China, Vietnam, and across Asia — the Monde Méandre Journal.">
   <link rel="canonical" href="https://mondemeandre.com/journal.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,15 +94,30 @@
   <main>
     <section class="blog-section">
 
-      <!-- Country filter -->
+      <!-- Country / category filter -->
       <div class="blog-filters" id="blogFilters">
         <button class="blog-filter-btn active" data-filter="all">All</button>
         <button class="blog-filter-btn" data-filter="China">China</button>
         <button class="blog-filter-btn" data-filter="Cambodia">Cambodia</button>
         <button class="blog-filter-btn" data-filter="Vietnam">Vietnam</button>
+        <button class="blog-filter-btn" data-filter="macro">Macro View</button>
       </div>
 
       <div class="posts-grid">
+
+        <!-- Post: Vietnam Economy – Macro View -->
+        <article class="post-card" data-country="Vietnam" data-category="macro">
+          <div class="post-card-img">
+            <img src="images/Vietnam - Macro View.jpg" alt="Fugu izakaya on a Saigon street at night" loading="lazy">
+            <span class="post-tag post-tag--macro">Macro View</span>
+          </div>
+          <div class="post-card-body">
+            <p class="post-meta">June 30, 2026</p>
+            <h3><a href="posts/vietnam-economy-street-vs-stats.html">Vietnam's S-Curve — The Numbers vs. The Street</a></h3>
+            <p class="post-excerpt">Official inflation says 5.6%, the noodle vendor says otherwise. A ground-truth read of Vietnam's economy in 2026 — currency, prices, the dual economy, the US tariff, and what the data misses from the street.</p>
+            <a href="posts/vietnam-economy-street-vs-stats.html" class="read-more">Read More</a>
+          </div>
+        </article>
 
         <!-- Post: Kitesurfing Mui Né (Vietnam) -->
         <article class="post-card" data-country="Vietnam">
@@ -335,7 +350,10 @@
         btn.classList.add('active');
         const filter = btn.dataset.filter;
         document.querySelectorAll('.post-card').forEach(card => {
-          card.style.display = (filter === 'all' || card.dataset.country === filter) ? '' : 'none';
+          const matchAll = filter === 'all';
+          const matchCountry = card.dataset.country === filter;
+          const matchCategory = filter === 'macro' && card.dataset.category === 'macro';
+          card.style.display = (matchAll || matchCountry || matchCategory) ? '' : 'none';
         });
       });
     });

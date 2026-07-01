@@ -548,6 +548,10 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-
   background: #1a6b3a;
 }
 
+.post-tag--macro {
+  background: #2B4A6F;
+}
+
 /* Blog country filter buttons */
 .blog-filters {
   display: flex;
