@@ -16,9 +16,9 @@
     .macro-table td { padding: 0.5rem 0.85rem; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); }
     .macro-table tr:last-child td { border-bottom: none; }
     .macro-table tr:nth-child(even) td { background: rgba(0,0,0,0.03); }
-    .street-view { background: #fdf5f5; border-left: 3px solid #8B2332; padding: 0.9rem 1.2rem; margin: 1.25rem 0 1.75rem; border-radius: 0 2px 2px 0; }
+    .street-view { background: #E8E8E5; border-left: 3px solid #8B2332; padding: 0.9rem 1.2rem; margin: 1.25rem 0 1.75rem; border-radius: 0 2px 2px 0; }
     .street-view-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #8B2332; margin-bottom: 0.45rem; }
-    .street-view p { font-size: 1rem; line-height: 1.8; color: #5a2020; margin: 0; }
+    .street-view p { font-size: 1rem; line-height: 1.8; color: var(--text); margin: 0; }
     .macro-label { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; background: #2B4A6F; color: #fff; padding: 0.2rem 0.55rem; border-radius: 2px; margin-bottom: 0.6rem; }
     .sources-list { font-size: 0.82rem; line-height: 1.8; }
     .sources-list a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
@@ -37,7 +37,8 @@
     </a>
     <nav class="page-nav" aria-label="Primary navigation">
       <a href="../index.html">Home</a>
-      <a href="../journal.html" class="active">Blog</a>
+      <a href="../journal.html">Blog</a>
+      <a href="../macro.html" class="active">Macro View</a>
       <a href="../guides.html">Guides</a>
       <a href="../plan.html">Create Trip</a>
       <a href="../about.html">About</a>
@@ -46,12 +47,6 @@
   </header>
 
   <main>
-    <img
-      class="post-cover"
-      src="../images/Vietnam - Macro View.jpg"
-      alt="Fugu izakaya on a Saigon street at night — the cosmopolitan and the local in one frame"
-    >
-
     <div class="post-header">
       <span class="post-category">Macro View &middot; Vietnam</span>
       <h1 class="post-title">Vietnam's S-Curve — The Numbers vs. The Street</h1>
@@ -252,19 +247,8 @@
     </div>
 
     <div class="post-back">
-      <a href="../journal.html">← Back to Journal</a>
+      <a href="../macro.html">← Back to Macro View</a>
     </div>
-
-    <nav class="post-nav" aria-label="Post navigation">
-      <div class="post-nav-item">
-        <span class="post-nav-label">Previous Post</span>
-        <a class="post-nav-title" href="kitesurfing-mui-ne.html">Kitesurfing Mui Né</a>
-      </div>
-      <div class="post-nav-item next">
-        <span class="post-nav-label">&nbsp;</span>
-        <span class="post-nav-title" style="color:var(--text-muted)">You're all caught up</span>
-      </div>
-    </nav>
   </main>
 
   <footer>
@@ -278,6 +262,7 @@
     <nav class="footer-nav" aria-label="Footer navigation">
       <a href="../index.html">Home</a>
       <a href="../journal.html">Blog</a>
+      <a href="../macro.html">Macro View</a>
       <a href="../guides.html">Guides</a>
       <a href="../plan.html">Create Trip</a>
       <a href="../about.html">About</a>

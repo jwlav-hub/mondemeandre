@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guides – Monde Méandre</title>
-  <meta name="description" content="Practical Asia travel guides — budget Michelin dining by city, visa logistics, eSIM recommendations, and trip budget breakdowns.">
-  <link rel="canonical" href="https://mondemeandre.com/guides.html">
+  <title>Macro View – Monde Méandre</title>
+  <meta name="description" content="Ground-level economic analysis from across Asia — currency, prices, growth, and what the street says the data misses.">
+  <link rel="canonical" href="https://mondemeandre.com/macro.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css?v=8">
 </head>
-<body class="page-white">
+<body>
 
-  <!-- Page Header -->
-  <header class="page-header">
+  <!-- Sticky nav (appears on scroll) -->
+  <nav class="sticky-nav" id="stickyNav" aria-label="Primary navigation">
     <a href="index.html" class="logo">
       <img src="images/mm-logo-v4.png" alt="Monde Méandre logo" class="logo-img" width="48" height="48">
       <span class="logo-text">
@@ -22,22 +22,61 @@
         <span class="logo-tagline">Asia Travel & Dining Platform</span>
       </span>
     </a>
-
-    <nav class="page-nav" aria-label="Primary navigation">
+    <div class="hero-nav">
       <a href="index.html">Home</a>
       <a href="journal.html">Blog</a>
-      <a href="macro.html">Macro View</a>
-      <a href="guides.html" class="active">Guides</a>
+      <a href="macro.html" class="active">Macro View</a>
+      <a href="guides.html">Guides</a>
       <a href="plan.html">Create Trip</a>
       <a href="about.html">About</a>
-    </nav>
-
+    </div>
     <div class="nav-login">
       <button class="btn-login" onclick="openModal()">Log In</button>
-      <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
+      <button class="hamburger" id="hamburgerSticky" aria-label="Open menu" onclick="toggleMobileNav()">
         <span></span><span></span><span></span>
       </button>
     </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero hero--journal">
+
+    <div class="hero-header">
+      <a href="index.html" class="logo">
+        <img src="images/mm-logo-v4.png" alt="Monde Méandre logo" class="logo-img" width="48" height="48">
+        <span class="logo-text">
+          <span class="logo-name">Monde <span class="logo-accent">Méandre</span></span>
+          <span class="logo-tagline">Asia Travel & Dining Platform</span>
+        </span>
+      </a>
+
+      <nav class="hero-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="journal.html">Blog</a>
+        <a href="macro.html" class="active">Macro View</a>
+        <a href="guides.html">Guides</a>
+        <a href="plan.html">Create Trip</a>
+        <a href="about.html">About</a>
+      </nav>
+
+      <div class="nav-login">
+        <button class="btn-login" onclick="openModal()">Log In</button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-body">
+      <div>
+        <p class="hero-label">Economic Analysis</p>
+        <h1 class="hero-title">The Numbers vs. The Street</h1>
+        <p class="hero-desc">Ground-level reads of Asia's economies — what the data says, and what you only learn by being there.</p>
+      </div>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true">Scroll</div>
+
   </header>
 
   <!-- Mobile Nav -->
@@ -45,8 +84,8 @@
     <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
     <a href="index.html" onclick="toggleMobileNav()">Home</a>
     <a href="journal.html" onclick="toggleMobileNav()">Blog</a>
-      <a href="macro.html">Macro View</a>
-    <a href="guides.html" class="active" onclick="toggleMobileNav()">Guides</a>
+    <a href="macro.html" class="active" onclick="toggleMobileNav()">Macro View</a>
+    <a href="guides.html" onclick="toggleMobileNav()">Guides</a>
     <a href="plan.html" onclick="toggleMobileNav()">Create Trip</a>
     <a href="about.html" onclick="toggleMobileNav()">About</a>
     <a href="personas.html" onclick="toggleMobileNav()">Personas</a>
@@ -54,67 +93,24 @@
     <button class="mobile-nav-login" onclick="toggleMobileNav();openModal()">Log In</button>
   </div>
 
+  <!-- MACRO GRID -->
   <main>
-    <div class="blog-listing">
+    <section class="blog-section">
+      <div class="posts-grid">
 
-      <div class="page-intro">
-        <span class="section-label">Practical Travel Intelligence</span>
-        <h1>Guides</h1>
-        <p>Actionable, researched guides for traveling smarter in Asia</p>
-      </div>
-
-      <!-- Coming Soon -->
-      <div class="guides-coming-soon">
-        <span class="section-label">Coming Soon</span>
-        <h2>Guides Launching Shortly</h2>
-        <div class="divider"></div>
-        <p>
-          Practical, skimmable travel guides are in production. First topics include budget Michelin dining by city, eSIM recommendations by country, visa logistics for Americans in Southeast Asia, and per-day budget breakdowns for Japan, Thailand, and Vietnam.
-        </p>
-        <p>In the meantime, try the <a href="michelin.html">Budget Michelin Finder</a> or <a href="plan.html">Itinerary Engine</a> — both live now.</p>
-      </div>
-
-      <!-- Placeholder cards -->
-      <div class="posts-grid guides-placeholder-grid">
-
-        <article class="post-card guide-card">
-          <div class="post-card-body guide-card-body">
-            <span class="post-tag guide-tag-inline">Japan</span>
-            <p class="post-meta">Coming Soon</p>
-            <h3>Budget Michelin Dining in Tokyo & Osaka</h3>
-            <p class="post-excerpt">Two Michelin-star meals in Osaka for under $15 each — this guide shows you exactly how to find those deals in Japan's biggest food cities.</p>
-          </div>
-        </article>
-
-        <article class="post-card guide-card">
-          <div class="post-card-body guide-card-body">
-            <span class="post-tag guide-tag-inline">Southeast Asia</span>
-            <p class="post-meta">Coming Soon</p>
-            <h3>Visa Logistics for Americans in Southeast Asia</h3>
-            <p class="post-excerpt">Visa-on-arrival, e-visa, and visa-exempt rules for Thailand, Vietnam, Cambodia, Indonesia, and more — current as of 2025.</p>
-          </div>
-        </article>
-
-        <article class="post-card guide-card">
-          <div class="post-card-body guide-card-body">
-            <span class="post-tag guide-tag-inline">Tech</span>
-            <p class="post-meta">Coming Soon</p>
-            <h3>Best eSIMs for Asia Travel (Country by Country)</h3>
-            <p class="post-excerpt">Airalo, Holafly, and local SIM options compared for Japan, Thailand, Singapore, Hong Kong, and the Philippines.</p>
-          </div>
-        </article>
-
-        <article class="post-card guide-card">
-          <div class="post-card-body guide-card-body">
-            <span class="post-tag guide-tag-inline">Budget</span>
-            <p class="post-meta">Coming Soon</p>
-            <h3>1 Week in Thailand: Full Budget Breakdown</h3>
-            <p class="post-excerpt">Flights, accommodation, food, transport, and activities — real numbers for shoestring, mid-range, and luxury budgets.</p>
+        <!-- Post: Vietnam Economy -->
+        <article class="post-card">
+          <div class="post-card-body" style="padding-top: 1.5rem;">
+            <span class="post-tag post-tag--macro" style="display:inline-block; margin-bottom:0.75rem;">Vietnam</span>
+            <p class="post-meta">June 30, 2026</p>
+            <h3><a href="posts/vietnam-economy-street-vs-stats.html">Vietnam's S-Curve — The Numbers vs. The Street</a></h3>
+            <p class="post-excerpt">Official inflation says 5.6%, the noodle vendor says otherwise. A ground-truth read of Vietnam's economy in 2026 — currency, prices, the dual economy, the US tariff, and what the data misses from the street.</p>
+            <a href="posts/vietnam-economy-street-vs-stats.html" class="read-more">Read More</a>
           </div>
         </article>
 
       </div>
-    </div>
+    </section>
   </main>
 
   <!-- Footer -->
@@ -196,21 +192,12 @@
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    // ── AI Engines dropdown click-toggle ─────────────────────────
-    document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
-      toggle.addEventListener('click', e => {
-        e.preventDefault();
-        const parent = toggle.closest('.nav-has-dropdown');
-        const isOpen = parent.classList.contains('open');
-        document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));
-        if (!isOpen) parent.classList.add('open');
-      });
-    });
-    document.addEventListener('click', e => {
-      if (!e.target.closest('.nav-has-dropdown')) {
-        document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));
-      }
-    });
+    const stickyNav = document.getElementById('stickyNav');
+    const heroEl = document.querySelector('.hero');
+    window.addEventListener('scroll', () => {
+      const threshold = heroEl.offsetHeight * 0.65;
+      stickyNav.classList.toggle('visible', window.scrollY > threshold);
+    }, { passive: true });
   </script>
 
 </body>
