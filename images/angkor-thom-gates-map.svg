@@ -1,0 +1,145 @@
+<svg viewBox="0 0 860 900" xmlns="http://www.w3.org/2000/svg" font-family="Georgia, 'Times New Roman', serif">
+  <!-- background: transparent, so it adopts the page color -->
+  <rect x="0" y="0" width="860" height="900" fill="none"/>
+
+  <!-- title -->
+  <text x="430" y="52" text-anchor="middle" font-size="34" letter-spacing="7" fill="#3A2E25" font-weight="600">ANGKOR THOM</text>
+  <text x="430" y="78" text-anchor="middle" font-size="13" letter-spacing="6" fill="#7F1D1A">THE FIVE GATES · c. 1181</text>
+
+  <!-- compass -->
+  <g stroke="#3A2E25" fill="#3A2E25">
+    <line x1="790" y1="98" x2="790" y2="58" stroke-width="1.4"/>
+    <path d="M790 52 L785 64 L790 60 L795 64 Z"/>
+  </g>
+  <text x="790" y="46" text-anchor="middle" font-size="13" fill="#3A2E25">N</text>
+
+  <!-- moat: drawn as a true ring (evenodd) so the interior stays transparent -->
+  <path d="M120,160 H740 V780 H120 Z M150,190 H710 V750 H150 Z" fill-rule="evenodd" fill="#C2D6D4"/>
+  <rect x="120" y="160" width="620" height="620" fill="none" stroke="#9CB6B4" stroke-width="1.2"/>
+  <!-- laterite wall -->
+  <rect x="150" y="190" width="560" height="560" fill="none" stroke="#6E5847" stroke-width="3"/>
+
+  <!-- faint interior note -->
+  <text x="250" y="690" font-size="12" font-style="italic" fill="#A89A86">the city within —</text>
+  <text x="250" y="706" font-size="12" font-style="italic" fill="#A89A86">now jungle</text>
+
+  <!-- corner shrines (Prasat Chrung) -->
+  <g fill="#6E5847">
+    <rect x="173" y="213" width="7" height="7" transform="rotate(45 176.5 216.5)"/>
+    <rect x="680" y="213" width="7" height="7" transform="rotate(45 683.5 216.5)"/>
+    <rect x="173" y="720" width="7" height="7" transform="rotate(45 176.5 723.5)"/>
+    <rect x="680" y="720" width="7" height="7" transform="rotate(45 683.5 723.5)"/>
+  </g>
+
+  <!-- cardinal roads to Bayon -->
+  <g stroke="#C7B299" stroke-width="3">
+    <line x1="430" y1="750" x2="430" y2="470"/>
+    <line x1="430" y1="190" x2="430" y2="470"/>
+    <line x1="150" y1="470" x2="430" y2="470"/>
+    <line x1="710" y1="470" x2="430" y2="470"/>
+  </g>
+  <!-- Victory Way -->
+  <line x1="710" y1="377" x2="404" y2="377" stroke="#C7B299" stroke-width="3"/>
+  <text x="558" y="369" text-anchor="middle" font-size="10" font-style="italic" fill="#9A8B74">Victory Way</text>
+
+  <!-- Royal Palace / Terrace of Elephants -->
+  <rect x="372" y="362" width="30" height="30" fill="none" stroke="#6E5847" stroke-width="1.4"/>
+  <text x="387" y="350" text-anchor="middle" font-size="10.5" fill="#3A2E25">Royal Palace ·</text>
+  <text x="387" y="338" text-anchor="middle" font-size="10.5" fill="#3A2E25">Terrace of Elephants</text>
+
+  <!-- Bayon at exact centre -->
+  <g>
+    <rect x="412" y="452" width="36" height="36" transform="rotate(45 430 470)" fill="none" stroke="#3A2E25" stroke-width="1.6"/>
+    <rect x="420" y="460" width="20" height="20" transform="rotate(45 430 470)" fill="none" stroke="#3A2E25" stroke-width="1"/>
+    <rect x="424" y="464" width="12" height="12" transform="rotate(45 430 470)" fill="#7F1D1A"/>
+  </g>
+  <text x="458" y="468" font-size="13" fill="#3A2E25" font-weight="600">BAYON</text>
+  <text x="458" y="483" font-size="10.5" font-style="italic" fill="#6E5847">Mount Meru</text>
+
+  <!-- ===== GATES ===== -->
+  <!-- helper: gate = rounded falu-red square on the wall; causeway crosses moat with giant-ticks -->
+
+  <!-- SOUTH GATE -->
+  <g stroke="#6E5847" stroke-width="1">
+    <line x1="424" y1="750" x2="424" y2="780"/>
+    <line x1="436" y1="750" x2="436" y2="780"/>
+    <line x1="424" y1="756" x2="418" y2="756"/><line x1="436" y1="756" x2="442" y2="756"/>
+    <line x1="424" y1="764" x2="418" y2="764"/><line x1="436" y1="764" x2="442" y2="764"/>
+    <line x1="424" y1="772" x2="418" y2="772"/><line x1="436" y1="772" x2="442" y2="772"/>
+  </g>
+  <rect x="421" y="741" width="18" height="18" rx="3" fill="#7F1D1A"/>
+  <text x="430" y="800" text-anchor="middle" font-size="13" fill="#7F1D1A" font-weight="600">SOUTH GATE</text>
+  <text x="430" y="814" text-anchor="middle" font-size="10" font-style="italic" fill="#6E5847">Tonle Om · most visited</text>
+
+  <!-- NORTH GATE -->
+  <g stroke="#6E5847" stroke-width="1">
+    <line x1="424" y1="160" x2="424" y2="190"/>
+    <line x1="436" y1="160" x2="436" y2="190"/>
+    <line x1="424" y1="166" x2="418" y2="166"/><line x1="436" y1="166" x2="442" y2="166"/>
+    <line x1="424" y1="174" x2="418" y2="174"/><line x1="436" y1="174" x2="442" y2="174"/>
+    <line x1="424" y1="182" x2="418" y2="182"/><line x1="436" y1="182" x2="442" y2="182"/>
+  </g>
+  <rect x="421" y="181" width="18" height="18" rx="3" fill="#7F1D1A"/>
+  <text x="430" y="146" text-anchor="middle" font-size="13" fill="#7F1D1A" font-weight="600">NORTH GATE</text>
+  <text x="430" y="132" text-anchor="middle" font-size="10" font-style="italic" fill="#6E5847">Dei Chhnang</text>
+
+  <!-- WEST GATE -->
+  <g stroke="#6E5847" stroke-width="1">
+    <line x1="120" y1="464" x2="150" y2="464"/>
+    <line x1="120" y1="476" x2="150" y2="476"/>
+    <line x1="126" y1="464" x2="126" y2="458"/><line x1="126" y1="476" x2="126" y2="482"/>
+    <line x1="134" y1="464" x2="134" y2="458"/><line x1="134" y1="476" x2="134" y2="482"/>
+    <line x1="142" y1="464" x2="142" y2="458"/><line x1="142" y1="476" x2="142" y2="482"/>
+  </g>
+  <rect x="141" y="461" width="18" height="18" rx="3" fill="#7F1D1A"/>
+  <text x="112" y="466" text-anchor="end" font-size="13" fill="#7F1D1A" font-weight="600">WEST GATE</text>
+  <text x="112" y="481" text-anchor="end" font-size="10" font-style="italic" fill="#6E5847">Ta Kev · sunset</text>
+
+  <!-- EAST GATE (Gate of the Dead) -->
+  <g stroke="#6E5847" stroke-width="1">
+    <line x1="710" y1="464" x2="740" y2="464"/>
+    <line x1="710" y1="476" x2="740" y2="476"/>
+    <line x1="716" y1="464" x2="716" y2="458"/><line x1="716" y1="476" x2="716" y2="482"/>
+    <line x1="724" y1="464" x2="724" y2="458"/><line x1="724" y1="476" x2="724" y2="482"/>
+    <line x1="732" y1="464" x2="732" y2="458"/><line x1="732" y1="476" x2="732" y2="482"/>
+  </g>
+  <rect x="701" y="461" width="18" height="18" rx="3" fill="#7F1D1A"/>
+  <text x="748" y="462" text-anchor="start" font-size="13" fill="#7F1D1A" font-weight="600">EAST GATE</text>
+  <text x="748" y="477" text-anchor="start" font-size="10" font-style="italic" fill="#6E5847">Gate of the Dead</text>
+  <text x="748" y="490" text-anchor="start" font-size="10" font-style="italic" fill="#6E5847">Thvear Khnoch</text>
+
+  <!-- VICTORY GATE -->
+  <g stroke="#6E5847" stroke-width="1">
+    <line x1="710" y1="371" x2="740" y2="371"/>
+    <line x1="710" y1="383" x2="740" y2="383"/>
+    <line x1="716" y1="371" x2="716" y2="365"/><line x1="716" y1="383" x2="716" y2="389"/>
+    <line x1="724" y1="371" x2="724" y2="365"/><line x1="724" y1="383" x2="724" y2="389"/>
+    <line x1="732" y1="371" x2="732" y2="365"/><line x1="732" y1="383" x2="732" y2="389"/>
+  </g>
+  <rect x="701" y="368" width="18" height="18" rx="3" fill="#7F1D1A"/>
+  <text x="748" y="372" text-anchor="start" font-size="13" fill="#7F1D1A" font-weight="600">VICTORY GATE</text>
+  <text x="748" y="387" text-anchor="start" font-size="10" font-style="italic" fill="#6E5847">Thvear Chey</text>
+
+  <!-- to Angkor Wat -->
+  <g stroke="#7F1D1A" fill="#7F1D1A">
+    <line x1="430" y1="828" x2="430" y2="862" stroke-width="1.6"/>
+    <path d="M430 868 L425 856 L430 860 L435 856 Z"/>
+  </g>
+  <text x="446" y="850" text-anchor="start" font-size="11" fill="#7F1D1A">to ANGKOR WAT</text>
+  <text x="446" y="864" text-anchor="start" font-size="10" font-style="italic" fill="#6E5847">1.7 km south</text>
+
+  <!-- legend -->
+  <g font-size="11" fill="#3A2E25">
+    <rect x="120" y="828" width="22" height="11" fill="#C2D6D4" stroke="#9CB6B4" stroke-width="1"/>
+    <text x="150" y="838">Moat — 100 m wide</text>
+    <line x1="120" y1="855" x2="142" y2="855" stroke="#6E5847" stroke-width="3"/>
+    <text x="150" y="859">Laterite wall — 8 m high, 3 km per side</text>
+    <rect x="124" y="869" width="13" height="13" rx="2" fill="#7F1D1A"/>
+    <text x="150" y="879">City gate — 23 m face-tower</text>
+  </g>
+
+  <!-- churning note -->
+  <text x="740" y="846" text-anchor="end" font-size="10.5" font-style="italic" fill="#6E5847">Each causeway: 54 gods + 54 demons,</text>
+  <text x="740" y="860" text-anchor="end" font-size="10.5" font-style="italic" fill="#6E5847">churning the Sea of Milk</text>
+  <text x="740" y="879" text-anchor="end" font-size="11" fill="#3A2E25">Enclosing ≈ 9 km²</text>
+</svg>
