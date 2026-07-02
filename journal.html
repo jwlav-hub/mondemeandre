@@ -315,17 +315,7 @@
       document.getElementById('modal-signup').style.display = tab === 'signup' ? 'flex' : 'none';
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-    // ── AI Engines dropdown click-toggle ─────────────────────────
-    document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
-      toggle.addEventListener('click', e => {
-        e.preventDefault();
-        const parent = toggle.closest('.nav-has-dropdown');
-        const isOpen = parent.classList.contains('open');
-        document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));
-        if (!isOpen) parent.classList.add('open');
-      });
-    });
+});
     document.addEventListener('click', e => {
       if (!e.target.closest('.nav-has-dropdown')) {
         document.querySelectorAll('.nav-has-dropdown').forEach(d => d.classList.remove('open'));

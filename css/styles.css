@@ -2656,13 +2656,13 @@ img.contributor-photo {
   display: none;
   flex-direction: column;
   position: absolute;
-  top: calc(100% + 1rem);
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   background: #0a1520;
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 3px;
-  padding: 0.4rem 0;
+  padding: 0.75rem 0 0.4rem;
   min-width: 200px;
   z-index: 300;
   box-shadow: 0 12px 40px rgba(0,0,0,0.5);
